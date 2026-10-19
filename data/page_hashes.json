@@ -2,7 +2,7 @@
   "_readme": "Content hash and lastmod per sitemap URL. A lastmod moves only when that page’s hash changes. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "99b87c58287b5d0d",
+      "hash": "e51bf0a20b941430",
       "lastmod": "2026-10-19"
     }
   }
