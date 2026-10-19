@@ -1,0 +1,114 @@
+/* NBA Real Standings. Tokens, type and the table.lb pattern are the NBA
+   Polymarket tracker design system (reporter-rankings/rr-styles.css,
+   salary-season-finder/css/polymarket.css), written mobile-first here.
+   Fonts are the same DM Sans and JetBrains Mono, inlined by the build. */
+
+:root{
+  --bg:#f5f5f7;--surface:#fff;--surface-hover:#f0f0f2;--border:#d1d1d6;
+  --text:#1d1d1f;--text-secondary:#6e6e73;--accent:#3b82f6;--accent-dim:rgba(59,130,246,.15);
+  --green:#1d8a40;--red:#d12c2c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:115%}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);
+  color:var(--text);min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased}
+.container{max-width:1400px;margin:0 auto;padding:1rem 16px 3rem}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:'JetBrains Mono',monospace}
+
+.hdr h1{font-size:1.15rem;font-weight:700;letter-spacing:-.03em;margin-bottom:.35rem}
+.subtitle{color:var(--text-secondary);font-size:.82rem;margin-bottom:1rem;max-width:60rem}
+.subtitle .stamp{font-family:'JetBrains Mono',monospace;font-size:.74rem;white-space:nowrap}
+
+.block{margin-bottom:1.4rem}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
+.block-head h2{font-size:.95rem;font-weight:700;letter-spacing:-.01em}
+.block-head .sub{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--text-secondary);
+  text-transform:uppercase;letter-spacing:.05em}
+
+/* leader lines */
+.leaders{display:grid;grid-template-columns:1fr;gap:.5rem}
+.lead{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.65rem .8rem}
+.lead dl{display:grid;gap:.45rem}
+.lead dt{font-size:.6rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.lead dd{font-size:.84rem;line-height:1.4}
+.lead dd.none{color:var(--text-secondary)}
+
+/* movers strip */
+.movers{display:flex;gap:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.2rem}
+.mover{flex:0 0 auto;display:flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:.45rem .7rem;font-size:.78rem}
+.mover img{width:28px;height:28px;flex-shrink:0}
+.mover .nm{font-weight:600;display:block;line-height:1.2}
+.mover .det{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text-secondary);display:block}
+.mover .d{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.74rem}
+.note{font-size:.8rem;color:var(--text-secondary);background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:.65rem .8rem}
+
+/* tables: one horizontal scroller per conference, Rank and Team frozen on
+   the left. No max-height, so the page is the only vertical scroller. */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.lb{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem}
+table.lb thead th{background:var(--surface-hover);color:var(--text-secondary);text-transform:uppercase;
+  letter-spacing:.04em;font-size:.6rem;font-weight:600;padding:.6rem .5rem;text-align:center;
+  border-bottom:1px solid var(--border);white-space:nowrap;user-select:none;cursor:pointer}
+table.lb thead th:hover{color:var(--accent)}
+table.lb thead th[aria-sort]:not([aria-sort="none"]){background:#e2ebfb;color:var(--accent);font-weight:700}
+table.lb thead th .arr{font-size:.55rem;opacity:.7;margin-left:.15rem}
+table.lb thead th button{all:inherit;cursor:pointer;padding:0;background:none;border:0}
+table.lb td{padding:.5rem .5rem;text-align:center;font-family:'JetBrains Mono',monospace;font-weight:500;
+  white-space:nowrap;border-bottom:1px solid var(--border);background:var(--surface)}
+table.lb tbody tr:last-child td{border-bottom:none}
+table.lb tbody tr:hover td{background:var(--surface-hover)}
+table.lb .c-rank{position:sticky;left:0;z-index:2;width:3rem;min-width:3rem;max-width:3rem;padding-left:.3rem;padding-right:.3rem;
+  color:var(--text-secondary);font-size:.74rem}
+table.lb .c-team{position:sticky;left:3rem;z-index:2;text-align:left;min-width:7.6rem;padding-left:.3rem;
+  font-family:'DM Sans',sans-serif;box-shadow:inset -1px 0 0 var(--border)}
+table.lb thead .c-rank,table.lb thead .c-team{z-index:3;background:var(--surface-hover)}
+table.lb thead th.c-team{text-align:left}
+.tm{display:flex;align-items:center;gap:.45rem;font-weight:600;color:var(--text)}
+.tm img{width:22px;height:22px;flex-shrink:0}
+a.tm:hover{color:var(--accent);text-decoration:none}
+.pos{color:var(--green)}.neg{color:var(--red)}.dash{color:var(--text-secondary)}
+td.pct{font-weight:600;color:var(--text)}
+
+/* charts */
+.charts{display:grid;grid-template-columns:1fr;gap:.8rem}
+.chart{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.7rem .6rem .5rem}
+.chart h3{font-size:.84rem;font-weight:700;margin:0 0 .3rem .2rem}
+.chart svg{display:block;width:100%;height:auto}
+.chart .ax{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--text-secondary)}
+.chart .grid{stroke:var(--border);stroke-width:1}
+.chart .ref{stroke:var(--text-secondary);stroke-width:1.2;stroke-dasharray:5 4}
+.chart .reflbl{font-family:'JetBrains Mono',monospace;font-size:11px;fill:var(--text-secondary)}
+.chart .empty{font-family:'DM Sans',sans-serif;font-size:13px;fill:var(--text-secondary)}
+
+/* methodology */
+.method{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;
+  font-size:.82rem;color:var(--text)}
+.method h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-secondary);
+  font-weight:600;margin-bottom:.6rem}
+.method p{margin-bottom:.6rem}
+.method dl{margin-bottom:.6rem}
+.method dt{font-weight:700;margin-top:.5rem}
+.method dd{color:var(--text-secondary)}
+
+.foot{text-align:center;font-size:.72rem;color:var(--text-secondary);margin-top:1.6rem;
+  font-family:'JetBrains Mono',monospace;line-height:1.7}
+
+@media(min-width:700px){
+  .leaders{grid-template-columns:1fr 1fr}
+}
+@media(min-width:860px){
+  .container{padding:1.5rem 1.5rem 4rem}
+  .hdr h1{font-size:1.4rem}
+  .subtitle{font-size:.9rem;margin-bottom:1.25rem}
+  table.lb{font-size:.86rem}
+  table.lb thead th{font-size:.66rem;padding:.7rem .6rem}
+  table.lb td{padding:.55rem .6rem}
+  .charts{grid-template-columns:1fr 1fr}
+}
+@media(min-width:1200px){
+  .leaders{grid-template-columns:repeat(4,1fr)}
+}
