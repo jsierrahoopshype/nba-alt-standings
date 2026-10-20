@@ -2,7 +2,7 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "659307943c5509fa",
+      "hash": "9efd96aa5cb18e29",
       "lastmod": "2026-10-20"
     },
     "https://hoopsmatic.com/standings/hawks": {
@@ -10,7 +10,7 @@
       "lastmod": "2026-10-20"
     },
     "https://hoopsmatic.com/standings/celtics": {
-      "hash": "334b6b8903ce354f",
+      "hash": "4f2cdd7766978c1f",
       "lastmod": "2026-10-20"
     },
     "https://hoopsmatic.com/standings/nets": {
@@ -30,7 +30,7 @@
       "lastmod": "2026-10-20"
     },
     "https://hoopsmatic.com/standings/pistons": {
-      "hash": "334b6b8903ce354f",
+      "hash": "13caa3ae2a7bcd48",
       "lastmod": "2026-10-20"
     },
     "https://hoopsmatic.com/standings/pacers": {

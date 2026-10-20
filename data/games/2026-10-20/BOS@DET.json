@@ -1,0 +1,16 @@
+{
+  "key": "2026-10-20_BOS@DET",
+  "game_id": "401909088",
+  "id_source": "espn",
+  "date": "2026-10-20",
+  "away": {
+    "abbr": "BOS",
+    "score": 113
+  },
+  "home": {
+    "abbr": "DET",
+    "score": 121
+  },
+  "final_at": "2026-10-20T22:53:16.566Z",
+  "correction": false
+}

@@ -2,8 +2,8 @@
   "season": "2026-27",
   "source": "espn",
   "updated_on": "2026-10-20",
-  "updated_at": "2026-10-20T13:12:58Z",
-  "game_date": null,
+  "updated_at": "2026-10-20T22:53:16.566Z",
+  "game_date": "2026-10-20",
   "teams": {
     "ATL": {
       "w": 0,
@@ -18,14 +18,14 @@
     },
     "BOS": {
       "w": 0,
-      "l": 0,
-      "gp": 0,
-      "pf": 0,
-      "pa": 0,
+      "l": 1,
+      "gp": 1,
+      "pf": 113,
+      "pa": 121,
       "home_w": 0,
       "home_l": 0,
       "road_w": 0,
-      "road_l": 0
+      "road_l": 1
     },
     "BKN": {
       "w": 0,
@@ -72,12 +72,12 @@
       "road_l": 0
     },
     "DET": {
-      "w": 0,
+      "w": 1,
       "l": 0,
-      "gp": 0,
-      "pf": 0,
-      "pa": 0,
-      "home_w": 0,
+      "gp": 1,
+      "pf": 121,
+      "pa": 113,
+      "home_w": 1,
       "home_l": 0,
       "road_w": 0,
       "road_l": 0
