@@ -186,8 +186,8 @@ for (const [name, full] of [['committed page', page], ['mid-season sample', samp
   ok(name + ': every image is an nba-headshots logo', fetched.length > 0 && fetched.every((u) => u.startsWith(LOGO_BASE) && /\/16106127\d\d\.svg$/.test(u)), fetched.filter((u) => !u.startsWith(LOGO_BASE)));
   ok(name + ': every link is hoopsmatic.com or mailto', srcs.filter((u) => !u.startsWith(LOGO_BASE)).every((u) => u.startsWith('https://hoopsmatic.com/')), srcs.filter((u) => !u.startsWith(LOGO_BASE) && !u.startsWith('https://hoopsmatic.com/')));
   const teamLinks = [...html.matchAll(/<a class="tm" href="([^"]+)"/g)].map((m) => m[1]);
-  ok(name + ': 30 team links, each a Salary Season Finder team page', teamLinks.length === 30 && new Set(teamLinks).size === 30 && teamLinks.every((u) => /^https:\/\/hoopsmatic\.com\/salary-season-finder\/team\/[a-z0-9-]+\/$/.test(u)));
-  ok(name + ': Lakers link -> /salary-season-finder/team/lakers/, Blazers -> trail-blazers', teamLinks.includes(SSF_TEAM_BASE + 'lakers/') && teamLinks.includes(SSF_TEAM_BASE + 'trail-blazers/'));
+  ok(name + ': 30 team links, each the team\'s standings page', teamLinks.length === 30 && new Set(teamLinks).size === 30 && teamLinks.every((u) => /^https:\/\/hoopsmatic\.com\/standings\/[a-z0-9-]+$/.test(u)));
+  ok(name + ': Lakers link -> /standings/lakers, Blazers -> /standings/trail-blazers (Salary Season Finder slugs)', teamLinks.includes('https://hoopsmatic.com/standings/lakers') && teamLinks.includes('https://hoopsmatic.com/standings/trail-blazers'));
   const tables = [...html.matchAll(/<table class="lb"[\s\S]*?<\/table>/g)].map((m) => m[0]);
   ok(name + ': two tables, East then West', tables.length === 2 && tables[0].includes('Eastern Conference') && tables[1].includes('Western Conference') && html.indexOf('Eastern Conference</h2>') < html.indexOf('Western Conference</h2>'));
   const rowTeams = tables.flatMap((t) => [...t.matchAll(/<td class="c-team" data-v="([^"]+)"/g)].map((m) => m[1]));
@@ -197,7 +197,7 @@ for (const [name, full] of [['committed page', page], ['mid-season sample', samp
   ok(name + ': default sort is Pct descending', /data-k="pct"[^>]*aria-sort="descending"/.test(tables[0]) && tables.every((t) => (t.match(/aria-sort="descending"/g) || []).length === 1));
   ok(name + ': every column header is a button (tap to sort)', tables.every((t) => (t.match(/<th /g) || []).length === 12 && (t.match(/<button type="button">/g) || []).length === 12));
   ok(name + ': two scatter charts with .500 and league-average lines', (html.match(/<figure class="chart">/g) || []).length === 2 && (html.match(/>\.500</g) || []).length === 2 && (html.match(/>avg \$/g) || []).length === 2);
-  ok(name + ': methodology names the frozen Oct 17 lines and 1,237 vs 1,230', html.includes('Oct 17, 2026') && html.includes('1,237') && html.includes('1,230'));
+  ok(name + ': methodology names the frozen Oct. 17 lines and 1,237 vs 1,230', html.includes('Oct. 17, 2026') && html.includes('1,237') && html.includes('1,230'));
 }
 // Opening night: nobody has played. Built from a fixture, not the committed
 // data, so this keeps testing the 0-0 case all season.
@@ -222,8 +222,9 @@ ok('sitemap: same content next day keeps the date', s2.state.pages[PAGE_URL].las
 ok('sitemap: changed content moves the date', s3.state.pages[PAGE_URL].lastmod === '2026-10-21' && s3.xml.includes('<lastmod>2026-10-21</lastmod>'));
 const sm = await readFile(join(root, 'sitemap.xml'), 'utf8');
 const hashes = await J('data/page_hashes.json');
-ok('sitemap.xml: one URL, https://hoopsmatic.com/standings, lastmod from page_hashes.json', (sm.match(/<loc>/g) || []).length === 1
-  && sm.includes('<loc>https://hoopsmatic.com/standings</loc><lastmod>' + hashes.pages[PAGE_URL].lastmod + '</lastmod>'));
+ok('sitemap.xml: /standings and the 30 team pages, each with its lastmod from page_hashes.json', (sm.match(/<loc>/g) || []).length === 31
+  && Object.entries(hashes.pages).every(([u, p]) => sm.includes('<loc>' + u + '</loc><lastmod>' + p.lastmod + '</lastmod>'))
+  && teams.every((t) => sm.includes('<loc>https://hoopsmatic.com/standings/' + t.ssf_slug + '</loc>')));
 ok('page_hashes.json: hash matches the committed standings numbers', updateSitemap(hashes, [{ url: PAGE_URL, key: standingsKey(await J('data/standings.json')) }], '2099-01-01').state.pages[PAGE_URL].lastmod === hashes.pages[PAGE_URL].lastmod);
 ok('description is unique to this page and names the section', DESCRIPTION.includes('Vegas') && DESCRIPTION.length < 170);
 

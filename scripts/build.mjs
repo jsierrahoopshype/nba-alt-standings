@@ -1,14 +1,17 @@
-// Builds index.html and sitemap.xml from the committed data.
+// Builds the section from the committed data: index.html (/standings), one
+// page per team (<slug>/index.html, served at /standings/<slug>), the saved
+// nights for the date views (data/nights.json) and sitemap.xml.
 //
-// sitemap.xml lists every page of the section with a <lastmod> that moves
-// only when the standings numbers change: data/page_hashes.json keeps a hash
-// of them per URL, and a URL's date is bumped to today only when that hash
-// differs from the stored one. The page's "Updated" time is not part of it.
-// scripts/update.mjs calls build() only when the standings or payroll changed.
+// sitemap.xml lists every page with a <lastmod> that moves only when that
+// page's numbers change: /standings follows every team's, a team page only
+// its own. data/page_hashes.json keeps a hash of them per URL, and a URL's
+// date is bumped to today only when that hash differs from the stored one.
+// The "Updated" time is not part of it. scripts/update.mjs calls build()
+// only when some file was written.
 //
 // Run: node scripts/build.mjs [--today YYYY-MM-DD]
 
-import { readFile, writeFile, readdir } from 'node:fs/promises';
+import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,6 +19,8 @@ import { buildRows, byConference, movers } from '../lib/model.mjs';
 import { packTeams } from '../lib/timeframe.mjs';
 import { PAGE_URL } from '../lib/render.mjs';
 import { pageHtml } from '../lib/page.mjs';
+import { rankedRows, teamSeries, teamGames, nextGame, teamPageHtml, teamPageUrl } from '../lib/team.mjs';
+import { readGameLog } from './gamelog.mjs';
 import { etDate } from './fetch.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -84,7 +89,27 @@ export async function bundleLib(srcRoot = root) {
 // `<` written as <, so nothing in the data can close the script tag.
 const jsonForScript = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 
-export async function renderPage({ dataDir = DATA, srcRoot = root } = {}) {
+// The saved nights for the date views, in the page script's compact form.
+// Written to data/nights.json and fetched only when a reader picks As of,
+// Since or a preset; the page carries only its version (a hash of the
+// file), which the script adds to the URL so a new file is never served
+// from an old cache.
+export function nightsJson(snapshots, order) {
+  return JSON.stringify({ order, dates: snapshots.map((s) => s.date), snapshots: Object.fromEntries(snapshots.map((s) => [s.date, packTeams(s.teams, order)])) });
+}
+
+async function readPregames(dataDir) {
+  const root = join(dataDir, 'pregame');
+  const out = [];
+  let dates = [];
+  try { dates = (await readdir(root)).sort(); } catch { return out; }
+  for (const d of dates) for (const f of (await readdir(join(root, d))).sort()) if (f.endsWith('.json')) out.push(await readJson(join(root, d, f)));
+  return out;
+}
+
+// Everything the build writes, as strings: index.html, data/nights.json and
+// one page per team ({ slug, html, key }), plus the sitemap key of each URL.
+export async function renderAll({ dataDir = DATA, srcRoot = root } = {}) {
   const { teams } = await readJson(join(dataDir, 'teams.json'));
   const lines = await readJson(join(dataDir, 'vegas_lines_2026-27.json'));
   checkLines(lines, teams);
@@ -99,6 +124,9 @@ export async function renderPage({ dataDir = DATA, srcRoot = root } = {}) {
   const before = gameDate ? snapshots.filter((s) => s.date < gameDate) : [];
   const prev = before.length ? before[before.length - 1] : null;
   const order = teams.map((t) => t.abbr);
+  const nights = nightsJson(snapshots, order);
+  const styles = await readFile(join(srcRoot, 'src/styles.css'), 'utf8');
+  const fonts = await fontsCss();
   const data = {
     pageUrl: PAGE_URL,
     gameDate,
@@ -106,36 +134,60 @@ export async function renderPage({ dataDir = DATA, srcRoot = root } = {}) {
     lines: { teams: lines.teams },
     payroll: payroll ? { payroll: payroll.payroll } : null,
     current: packTeams(standings.teams, order),
-    dates: snapshots.map((s) => s.date),
-    snapshots: Object.fromEntries(snapshots.map((s) => [s.date, packTeams(s.teams, order)])),
+    nightsPath: 'data/nights.json',
+    nightsVersion: hash(nights),
   };
-  return pageHtml({
+  const index = pageHtml({
     rows, conferences, lines,
     movers: movers(rows, prev),
     prevDate: prev ? prev.date : null,
     gameDate,
     updatedOn: standings.updated_on,
     updatedAt: standings.updated_at || null,
-    dates: data.dates,
+    dates: snapshots.map((s) => s.date),
     dataJson: jsonForScript(data),
     bundleJs: await bundleLib(srcRoot),
     viewsJs: await readFile(join(srcRoot, 'src/views.js'), 'utf8'),
-    styles: await readFile(join(srcRoot, 'src/styles.css'), 'utf8'),
-    fontsCss: await fontsCss(),
+    styles, fontsCss: fonts,
     sortJs: await readFile(join(srcRoot, 'src/sort.js'), 'utf8'),
   });
+
+  // ── Team pages ──
+  const pay = payroll ? { payroll: payroll.payroll } : null;
+  const now = rankedRows(teams, standings.teams, lines, pay);
+  const base = prev ? rankedRows(teams, prev.teams, lines, pay) : null;
+  const nightRows = snapshots.map((sn) => ({ date: sn.date, rows: rankedRows(teams, sn.teams, lines, pay) }));
+  const log = await readGameLog(dataDir);
+  const pregames = await readPregames(dataDir);
+  const byAbbr = Object.fromEntries(teams.map((t) => [t.abbr, t]));
+  const teamPages = teams.map((t) => ({
+    slug: t.ssf_slug,
+    url: teamPageUrl(t),
+    key: JSON.stringify(standings.teams[t.abbr]),
+    html: teamPageHtml({
+      team: t, row: now[t.abbr], base: base ? base[t.abbr] : null, baseDate: prev ? prev.date : null,
+      series: teamSeries(t.abbr, nightRows), games: teamGames(t.abbr, log), next: nextGame(t.abbr, pregames, log, gameDate),
+      peers: teams.filter((p) => p.conf === t.conf && p.abbr !== t.abbr), byAbbr,
+      line: lines.teams[t.abbr].line, last: lines.teams[t.abbr].last_season_wins, styles, fontsCss: fonts,
+    }),
+  }));
+  return { index, nights, teamPages, standings };
+}
+
+export async function renderPage(opts = {}) {
+  return (await renderAll(opts)).index;
 }
 
 export const hash = (s) => createHash('sha256').update(s).digest('hex').slice(0, 16);
 
 // What a page's lastmod follows: the standings numbers and nothing else, so
 // a rebuild that only moves the "Updated" time (or the template) never
-// moves it.
+// moves it. /standings follows every team's numbers, a team page its own.
 export const standingsKey = (standings) => JSON.stringify(standings.teams);
 
 // pages: [{ url, key }]. Returns the new state and the sitemap text.
 export function updateSitemap(state, pages, today) {
-  const next = { _readme: 'Hash of the standings numbers and lastmod per sitemap URL. A lastmod moves only when the standings numbers change, never for the "Updated" time alone. Written by scripts/build.mjs.', pages: {} };
+  const next = { _readme: 'Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the "Updated" time alone. Written by scripts/build.mjs.', pages: {} };
   for (const p of pages) {
     const h = hash(p.key);
     const old = state.pages ? state.pages[p.url] : null;
@@ -147,22 +199,34 @@ export function updateSitemap(state, pages, today) {
   return { state: next, xml };
 }
 
-// Writes index.html, sitemap.xml and data/page_hashes.json.
+// Writes index.html, <slug>/index.html for every team, data/nights.json,
+// sitemap.xml and data/page_hashes.json. A file whose content did not
+// change is left as it is.
 export async function build({ today = etDate(), dataDir = DATA, outDir = root, srcRoot = root } = {}) {
-  const html = await renderPage({ dataDir, srcRoot });
-  await writeFile(join(outDir, 'index.html'), html);
+  const all = await renderAll({ dataDir, srcRoot });
+  const put = async (path, text) => {
+    let old = null;
+    try { old = await readFile(path, 'utf8'); } catch { /* new */ }
+    if (old !== text) await writeFile(path, text);
+  };
+  await put(join(outDir, 'index.html'), all.index);
+  await put(join(dataDir, 'nights.json'), all.nights + '\n');
+  for (const tp of all.teamPages) {
+    await mkdir(join(outDir, tp.slug), { recursive: true });
+    await put(join(outDir, tp.slug, 'index.html'), tp.html);
+  }
   const statePath = join(dataDir, 'page_hashes.json');
-  const standings = await readJson(join(dataDir, 'standings.json'));
-  const { state, xml } = updateSitemap(await readJson(statePath, {}), [{ url: PAGE_URL, key: standingsKey(standings) }], today);
-  await writeFile(statePath, JSON.stringify(state, null, 2) + '\n');
-  await writeFile(join(outDir, 'sitemap.xml'), xml);
-  return { html, lastmod: state.pages[PAGE_URL].lastmod };
+  const pages = [{ url: PAGE_URL, key: standingsKey(all.standings) }, ...all.teamPages.map((tp) => ({ url: tp.url, key: tp.key }))];
+  const { state, xml } = updateSitemap(await readJson(statePath, {}), pages, today);
+  await put(statePath, JSON.stringify(state, null, 2) + '\n');
+  await put(join(outDir, 'sitemap.xml'), xml);
+  return { html: all.index, lastmod: state.pages[PAGE_URL].lastmod, teams: all.teamPages.length };
 }
 
 async function main() {
   const i = process.argv.indexOf('--today');
-  const { html, lastmod } = await build(i > 0 ? { today: process.argv[i + 1] } : {});
-  console.log('built index.html (' + html.length + ' bytes), sitemap lastmod ' + lastmod);
+  const { html, lastmod, teams } = await build(i > 0 ? { today: process.argv[i + 1] } : {});
+  console.log('built index.html (' + html.length + ' bytes) and ' + teams + ' team pages, /standings lastmod ' + lastmod);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

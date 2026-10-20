@@ -4,6 +4,9 @@
 //   1. Scoreboards for yesterday and today (ET).
 //   2. Pregame archive: every game not yet started gets data/pregame/<date>/
 //      <AWAY>@<HOME>.json, written once and never edited (flag 'wx').
+//      Game log: every final gets data/games/<date>/<AWAY>@<HOME>.json, a
+//      later score correction a new .cN entry (scripts/gamelog.mjs). Dates
+//      counted in data/finals.json with no log entry are fetched and logged.
 //   3. If no regular-season game has gone final since the last committed
 //      update (data/finals.json), stop: nothing else is written. --force
 //      skips this check; so does a run whose scoreboards all failed.
@@ -13,7 +16,8 @@
 //   5. Snapshots: data/history/<date>.json for a game date whose games are
 //      all final and counted, rewritten while it changes, and never again
 //      once a game of a later date has started. No games, no snapshot.
-//   6. Payroll, and the page and sitemap, only when something changed. The
+//   6. Payroll, then the pages (/standings, the 30 team pages, the saved
+//      nights file) and the sitemap, only when some file was written. The
 //      "Updated" time (standings.updated_at) moves only when the standings
 //      numbers or the payroll changed.
 //
@@ -29,6 +33,7 @@ import { etDate, standings, scoreboards, payroll, SEASON } from './fetch.mjs';
 import { standingsReflect } from '../lib/scoreboard.mjs';
 import { addDays } from '../lib/timeframe.mjs';
 import { build } from './build.mjs';
+import { logFinal, readGameLog, missingLogDates } from './gamelog.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_DATA = join(root, 'data');
@@ -60,7 +65,7 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
   const prev = await readJson(join(dataDir, 'standings.json'));
   const finalsPath = join(dataDir, 'finals.json');
   const finals = await readJson(finalsPath, { dates: {} });
-  const result = { pregame: 0, newFinals: 0, counted: 0, standingsChanged: false, payrollChanged: false, snapshots: [], built: false };
+  const result = { pregame: 0, logged: 0, corrections: 0, newFinals: 0, counted: 0, standingsChanged: false, payrollChanged: false, snapshots: [], built: false };
 
   // ── 1. Scoreboards ──
   let sb = null;
@@ -77,7 +82,14 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
       if (wrote) result.pregame++;
     }
     if (result.pregame) console.log('pregame: archived ' + result.pregame + ' game(s)');
+    await logGames(sb.games);
   }
+  // Dates already counted but missing from the game log (at most 10 a run).
+  const missing = missingLogDates(finals, await readGameLog(dataDir)).filter((d) => !dates.includes(d)).slice(0, 10);
+  if (missing.length) {
+    try { await logGames((await scoreboards(teams, missing)).games); } catch (e) { console.log('game log backfill: ' + e.message); }
+  }
+  const wroteLogs = () => result.pregame + result.logged + result.corrections > 0;
 
   // ── 3. Anything new? ──
   const counted = new Set(Object.values(finals.dates).flat());
@@ -86,7 +98,7 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
   if (sb && !newFinals.length && !force) {
     console.log('no game has gone final since the last update');
     await snapshots(dataDir, sb, finals, prev, result);
-    if (result.snapshots.length) await rebuild();
+    if (result.snapshots.length || wroteLogs()) await rebuild();
     return result;
   }
 
@@ -137,13 +149,22 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
   // ── 5. Snapshots ──
   if (sb) await snapshots(dataDir, sb, finals, current, result);
 
-  if (take || result.payrollChanged || result.snapshots.length) await rebuild();
+  if (take || result.payrollChanged || result.snapshots.length || wroteLogs()) await rebuild();
   return result;
+
+  async function logGames(games) {
+    for (const g of games) {
+      const r = await logFinal(dataDir, g, now.toISOString());
+      if (r === 'new') result.logged++;
+      if (r === 'correction') { result.corrections++; console.log('game log: score correction for ' + g.key); }
+    }
+    if (result.logged) console.log('game log: ' + result.logged + ' final(s) logged');
+  }
 
   async function rebuild() {
     await build({ today, dataDir, outDir });
     result.built = true;
-    console.log('page and sitemap rebuilt');
+    console.log('pages and sitemap rebuilt');
   }
 }
 
