@@ -20,8 +20,12 @@ import { fileURLToPath } from 'node:url';
 import { requestHeaders, getJson, CHROME_UA, REQUEST_TIMEOUT_MS } from '../lib/http.mjs';
 import { SOURCES, SCOREBOARD_SOURCES, ESPN_URL, ESPN_SCOREBOARD_URL, NBA_SCHEDULE_URL, SSF_DATA_URL } from '../scripts/fetch.mjs';
 import { run } from '../scripts/update.mjs';
+import { build } from '../scripts/build.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+// Data frozen as of PR #6 (see test/fixtures/README.md), not the live data/
+// folder the update bot keeps committing to.
+const FIXTURE = join(root, 'test/fixtures/data');
 
 let failed = 0;
 const ok = (name, cond, detail) => {
@@ -94,12 +98,10 @@ ok('nightly: the probe step is node scripts/probe.mjs, no curl', /name: Probe fe
 // ── 4. run(): every source down -> nothing written, rejects ──
 async function scratch() {
   const dir = await mkdtemp(join(tmpdir(), 'standings-run-'));
-  await cp(join(root, 'data'), join(dir, 'data'), { recursive: true });
-  // The built pages too: a forced run rebuilds them, and with nothing new
-  // they must come out byte for byte the same.
-  for (const f of ['index.html', 'sitemap.xml']) await cp(join(root, f), join(dir, f));
-  const { teams } = JSON.parse(await readFile(join(root, 'data/teams.json'), 'utf8'));
-  for (const t of teams) await cp(join(root, t.ssf_slug), join(dir, t.ssf_slug), { recursive: true });
+  await cp(FIXTURE, join(dir, 'data'), { recursive: true });
+  // The pages as that data builds them, so a run with nothing new leaves
+  // them byte for byte the same.
+  await build({ today: '2026-10-20', dataDir: join(dir, 'data'), outDir: dir, srcRoot: root });
   return { data: join(dir, 'data'), out: dir };
 }
 async function snapshot(dir) {

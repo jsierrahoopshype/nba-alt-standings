@@ -26,14 +26,17 @@ import { fmtTipEtMadrid } from '../lib/render.mjs';
 import { methodologyHtml } from '../lib/page.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+// Data frozen as of PR #6 (see test/fixtures/README.md), not the live data/
+// folder the update bot keeps committing to.
+const FIXTURE = join(root, 'test/fixtures/data');
 const J = async (p) => JSON.parse(await readFile(p, 'utf8'));
 let failed = 0;
 const ok = (name, cond, detail) => {
   console.log((cond ? 'PASS  ' : 'FAIL  ') + name);
   if (!cond) { failed++; if (detail !== undefined) console.log('        ' + (typeof detail === 'string' ? detail : JSON.stringify(detail))); }
 };
-const { teams } = await J(join(root, 'data/teams.json'));
-const lines = await J(join(root, 'data/vegas_lines_2026-27.json'));
+const { teams } = await J(join(FIXTURE, 'teams.json'));
+const lines = await J(join(FIXTURE, 'vegas_lines_2026-27.json'));
 const order = teams.map((t) => t.abbr);
 const zero = () => ({ w: 0, l: 0, gp: 0, pf: 0, pa: 0, home_w: 0, home_l: 0, road_w: 0, road_l: 0 });
 const league = (over = {}) => Object.fromEntries(order.map((a) => [a, over[a] || zero()]));
@@ -42,9 +45,10 @@ const quiet = console.log;
 
 async function scratch() {
   const dir = await mkdtemp(join(tmpdir(), 'standings-p1c-'));
-  await cp(join(root, 'data'), join(dir, 'data'), { recursive: true });
-  for (const f of ['index.html', 'sitemap.xml']) await cp(join(root, f), join(dir, f));
-  for (const t of teams) await cp(join(root, t.ssf_slug), join(dir, t.ssf_slug), { recursive: true });
+  await cp(FIXTURE, join(dir, 'data'), { recursive: true });
+  // The pages as that data builds them, so a run with nothing new leaves
+  // them byte for byte the same.
+  await build({ today: '2026-10-20', dataDir: join(dir, 'data'), outDir: dir, srcRoot: root });
   return { data: join(dir, 'data'), out: dir };
 }
 

@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-20_PHI@NYK",
+  "game_id": "401909089",
+  "id_source": "espn",
+  "date": "2026-10-20",
+  "tip": "2026-10-20T23:00Z",
+  "saved_at": "2026-10-20T14:22:45.723Z",
+  "away": {
+    "abbr": "PHI",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NYK",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

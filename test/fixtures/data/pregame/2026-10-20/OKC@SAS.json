@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-20_OKC@SAS",
+  "game_id": "401909090",
+  "id_source": "espn",
+  "date": "2026-10-20",
+  "tip": "2026-10-21T01:30Z",
+  "saved_at": "2026-10-20T14:22:45.723Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAS",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}
