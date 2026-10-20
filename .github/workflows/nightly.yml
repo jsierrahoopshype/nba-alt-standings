@@ -1,7 +1,7 @@
 # Standings updates: every 30 minutes through the game window (16:00 to
 # 08:00 UTC), a daily safety net at 10:23 UTC, and "Run workflow". A run
-# commits only when something changed: a new final counted, a snapshot, the
-# payroll, or a pregame entry for a game not yet started.
+# commits only when something changed: a new final counted or logged, a
+# snapshot, the payroll, or a pregame entry for a game not yet started.
 name: Nightly standings
 
 on:
@@ -47,6 +47,7 @@ jobs:
           node test/metrics.test.mjs
           node test/http.test.mjs
           node test/phase1.test.mjs
+          node test/phase1b.test.mjs
 
       # Fails the run (and so the failure email) when every standings source
       # fails; nothing but pregame entries is written in that case, and the
@@ -59,7 +60,8 @@ jobs:
 
       - name: Commit if anything changed
         run: |
-          git add data index.html sitemap.xml
+          # data/, index.html, sitemap.xml and the 30 <slug>/index.html team pages
+          git add -A
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0

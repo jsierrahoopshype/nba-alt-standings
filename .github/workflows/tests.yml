@@ -15,3 +15,4 @@ jobs:
       - run: node test/data-and-page.test.mjs
       - run: node test/http.test.mjs
       - run: node test/phase1.test.mjs
+      - run: node test/phase1b.test.mjs

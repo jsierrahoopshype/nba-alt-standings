@@ -68,14 +68,14 @@ const league = (over = {}) => Object.fromEntries(order.map((a) => [a, over[a] ||
   const ctx = { dates, gameDate: '2026-10-25' };
   const t1 = resolveTimeframe({ asof: '2026-10-24' }, ctx);
   ok('asof Oct 24 -> uses Oct 23, flagged as a fallback', t1.kind === 'asof' && t1.used === '2026-10-23' && t1.fallback === true);
-  ok('asof Oct 24 label says so', /Nothing was saved for Oct 24, so this uses Oct 23, the nearest earlier date\./.test(timeframeLabel(t1, cur).note), timeframeLabel(t1, cur));
+  ok('asof Oct 24 label says so', /Nothing was saved for Oct\. 24, so this uses Oct\. 23, the nearest earlier date\./.test(timeframeLabel(t1, cur).note), timeframeLabel(t1, cur));
   const t2 = resolveTimeframe({ since: '2026-10-21' }, ctx);
-  ok('since Oct 21 exact, no note; label "Since Oct 21: N games"', t2.used === '2026-10-21' && !t2.fallback && timeframeLabel(t2, win).label === 'Since Oct 21: 5 games' && timeframeLabel(t2, win).note === '');
+  ok('since Oct 21 exact, no note; label "Since Oct. 21: N games"', t2.used === '2026-10-21' && !t2.fallback && timeframeLabel(t2, win).label === 'Since Oct. 21: 5 games' && timeframeLabel(t2, win).note === '');
   const t3 = resolveTimeframe({ since: 'last7' }, ctx);
   ok('last7: counts back from the latest game date (Oct 25 - 7 = Oct 18) -> nothing saved -> whole season', t3.preset === 'last7' && t3.requested === '2026-10-18' && t3.used === null);
   ok('last7 label: "Last 7 days (the season so far): N games"', timeframeLabel(t3, cur).label === 'Last 7 days (the season so far): ' + gamesIn(cur) + ' games', timeframeLabel(t3, cur).label);
   const t4 = resolveTimeframe({ since: 'last15' }, { dates: [...dates, '2026-11-01', '2026-11-09'], gameDate: '2026-11-09' });
-  ok('last15 from Nov 9 -> after Oct 25 (nearest on or before Oct 25)', t4.used === '2026-10-25' && /^Last 15 days \(games after Oct 25\): /.test(timeframeLabel(t4, win).label));
+  ok('last15 from Nov 9 -> after Oct 25 (nearest on or before Oct 25)', t4.used === '2026-10-25' && /^Last 15 days \(games after Oct\. 25\): /.test(timeframeLabel(t4, win).label));
   ok('nothing saved on or before: since covers the whole season, as of is the 0-0 start', /covers the whole season/.test(timeframeLabel(resolveTimeframe({ since: '2026-10-01' }, ctx), cur).note)
      && JSON.stringify(standingsFor(resolveTimeframe({ asof: '2026-10-01' }, ctx), cur, {})) === JSON.stringify(league()));
   const early = resolveTimeframe({ since: 'last7' }, { dates: [], gameDate: null });
@@ -87,9 +87,9 @@ const league = (over = {}) => Object.fromEntries(order.map((a) => [a, over[a] ||
      && JSON.stringify(standingsFor(resolveTimeframe({ since: '2026-10-23' }, ctx), cur, snaps)) === JSON.stringify(win));
   ok('pack/unpack round trip', JSON.stringify(unpackTeams(packTeams(cur, order), order)) === JSON.stringify(cur));
   ok('addDays across a month', addDays('2026-10-31', 1) === '2026-11-01' && addDays('2026-11-01', -7) === '2026-10-25');
-  ok('Updated stamp: Oct 21, 1:42 a.m. ET (7:42 Madrid)', fmtUpdated('2026-10-21T05:42:00Z') === 'Oct 21, 1:42 a.m. ET (7:42 Madrid)', fmtUpdated('2026-10-21T05:42:00Z'));
-  ok('Updated stamp: afternoon and after the clocks change (Nov 2: ET -5, Madrid +1)', fmtUpdated('2026-10-20T13:12:58Z') === 'Oct 20, 9:12 a.m. ET (15:12 Madrid)'
-     && fmtUpdated('2026-11-03T03:05:00Z') === 'Nov 2, 10:05 p.m. ET (4:05 Madrid)', [fmtUpdated('2026-10-20T13:12:58Z'), fmtUpdated('2026-11-03T03:05:00Z')]);
+  ok('Updated stamp: Oct. 21, 1:42 a.m. ET (7:42 Madrid)', fmtUpdated('2026-10-21T05:42:00Z') === 'Oct. 21, 1:42 a.m. ET (7:42 Madrid)', fmtUpdated('2026-10-21T05:42:00Z'));
+  ok('Updated stamp: afternoon and after the clocks change (Nov 2: ET -5, Madrid +1)', fmtUpdated('2026-10-20T13:12:58Z') === 'Oct. 20, 9:12 a.m. ET (15:12 Madrid)'
+     && fmtUpdated('2026-11-03T03:05:00Z') === 'Nov. 2, 10:05 p.m. ET (4:05 Madrid)', [fmtUpdated('2026-10-20T13:12:58Z'), fmtUpdated('2026-11-03T03:05:00Z')]);
 }
 
 // ── 2. The page script's bundle renders what lib/ renders ──
@@ -115,6 +115,7 @@ async function scratch() {
   await cp(join(root, 'data'), join(dir, 'data'), { recursive: true });
   await writeFile(join(dir, 'index.html'), await readFile(join(root, 'index.html')));
   await writeFile(join(dir, 'sitemap.xml'), await readFile(join(root, 'sitemap.xml')));
+  for (const t of teams) await cp(join(root, t.ssf_slug), join(dir, t.ssf_slug), { recursive: true });
   return { data: join(dir, 'data'), out: dir };
 }
 async function files(dir) {
@@ -185,7 +186,13 @@ const zeroLeague = league();
   const before = await files(d.out);
   const r1 = await go(d, '2026-10-20T14:00:00Z');
   const after1 = await files(d.out);
-  ok('pregame: both games archived, nothing else written', r1.pregame === 2 && JSON.stringify(changed(before, after1)) === JSON.stringify(['data/pregame/2026-10-20/BOS@NYK.json', 'data/pregame/2026-10-20/GSW@LAL.json']), changed(before, after1));
+  // The four teams' pages now show their next game; nothing else changes.
+  // (Celtics and Knicks may already show tonight's real games from the
+  // committed archive, so their pages need not change.)
+  const allowed = ['celtics/index.html', 'data/pregame/2026-10-20/BOS@NYK.json', 'data/pregame/2026-10-20/GSW@LAL.json', 'knicks/index.html', 'lakers/index.html', 'warriors/index.html'];
+  ok('pregame: both games archived, those teams\' pages show the next game, nothing else written', r1.pregame === 2
+     && changed(before, after1).every((f) => allowed.includes(f)) && ['data/pregame/2026-10-20/BOS@NYK.json', 'data/pregame/2026-10-20/GSW@LAL.json', 'lakers/index.html'].every((f) => changed(before, after1).includes(f))
+     && after1['lakers/index.html'].includes('Next game: vs. <a href="https://hoopsmatic.com/standings/warriors">Golden State</a>, Oct. 20, 7:30 p.m. ET'), changed(before, after1));
   const pg = JSON.parse(after1['data/pregame/2026-10-20/BOS@NYK.json']);
   ok('pregame entry: game id, teams, tip, saved time, both records', pg.game_id === '202610200' && pg.away.abbr === 'BOS' && pg.home.abbr === 'NYK' && pg.tip === '2026-10-20T23:30:00Z'
      && pg.saved_at === '2026-10-20T14:00:00.000Z' && pg.away.w === 0 && pg.home.l === 0 && !('prob' in pg), pg);
@@ -217,10 +224,10 @@ const zeroLeague = league();
   const after5 = await files(d.out);
   const st5 = JSON.parse(after5['data/standings.json']);
   // sitemap.xml itself reads the same: its lastmod was already Oct 20 (ET).
-  ok('final counted: standings, finals, page and sitemap hash written; no snapshot while a game is live',
-     r5.counted === 1 && r5.standingsChanged && JSON.stringify(changed(after4, after5)) === JSON.stringify(['data/finals.json', 'data/page_hashes.json', 'data/standings.json', 'index.html']), changed(after4, after5));
+  ok('final counted: standings, finals, page, the two teams\' pages and sitemap hashes written; no snapshot while a game is live',
+     r5.counted === 1 && r5.standingsChanged && JSON.stringify(changed(after4, after5)) === JSON.stringify(['celtics/index.html', 'data/finals.json', 'data/page_hashes.json', 'data/standings.json', 'index.html', 'knicks/index.html']), changed(after4, after5));
   ok('final counted: updated_at is the run time, game_date Oct 20', st5.updated_at === '2026-10-21T02:15:00.000Z' && st5.game_date === OCT20);
-  ok('final counted: page says "Updated Oct 20, 10:15 p.m. ET (4:15 Madrid)"', after5['index.html'].includes('Updated Oct 20, 10:15 p.m. ET (4:15 Madrid)'));
+  ok('final counted: page says "Updated Oct. 20, 10:15 p.m. ET (4:15 Madrid)"', after5['index.html'].includes('Updated Oct. 20, 10:15 p.m. ET (4:15 Madrid)'));
   ok('sitemap lastmod moved with the numbers', after5['sitemap.xml'].includes('<lastmod>2026-10-20</lastmod>') && JSON.parse(after5['data/page_hashes.json']).pages['https://hoopsmatic.com/standings'].hash !== JSON.parse(after4['data/page_hashes.json']).pages['https://hoopsmatic.com/standings'].hash);
 
   // 1:05 a.m. ET Oct 21: GSW@LAL final, every Oct 20 game final -> snapshot.
@@ -250,7 +257,7 @@ const zeroLeague = league();
   world.payroll = { meta: { built: 'x' }, seasons: teams.map((t) => ({ player: t.abbr, season: '2026-27', team: t.abbr, salary: 150e6 })) };
   const r9 = await go(d, '2026-10-22T14:23:00Z', { force: true });
   const after9 = await files(d.out);
-  ok('only "Updated" (and payroll) changed: page rebuilt with the new time', r9.payrollChanged && !r9.standingsChanged && after9['index.html'].includes('Updated Oct 22, 10:23 a.m. ET (16:23 Madrid)'), [r9, (after9['index.html'].match(/Updated Oct[^<]*/) || [])[0]]);
+  ok('only "Updated" (and payroll) changed: page rebuilt with the new time', r9.payrollChanged && !r9.standingsChanged && after9['index.html'].includes('Updated Oct. 22, 10:23 a.m. ET (16:23 Madrid)'), [r9, (after9['index.html'].match(/Updated Oct[^<]*/) || [])[0]]);
   ok('only "Updated" changed: sitemap lastmod and hash unchanged', after9['sitemap.xml'] === after8['sitemap.xml'] && after9['data/page_hashes.json'] === after8['data/page_hashes.json']);
 
   // A day with no games: no snapshot.
