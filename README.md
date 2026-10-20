@@ -12,8 +12,12 @@ Every team's 2026-27 record against its Vegas win total, last season, payroll pe
 2. Pregame archive: each game not yet started gets `data/pregame/<date>/<AWAY>@<HOME>.json` (game id, teams, tip, time saved, both records). Written once, never edited. Game log: each final gets `data/games/<date>/<AWAY>@<HOME>.json` (game id, ET date, home, away, scores, when it was recorded); a later score correction is a new `.c1`, `.c2` ... entry marked as a correction, never an edit. Counted dates missing from the log are backfilled.
 3. If no regular-season game has gone final since the last update (`data/finals.json`), the run stops and nothing is committed.
 4. Otherwise the standings are refreshed (ESPN's feed, else rebuilt from cdn.nba.com's schedule). A final counts once the standings reflect it. If every source fails, the run fails and nothing is written.
-5. `data/history/<date>.json`: the standings after every game of that ET date is final; rewritten if it changes that same night, never after the next game date has started. No games, no file.
+5. `data/history/<date>.json`: the standings, and that night's payroll, after every game of that ET date is final; rewritten if it changes that same night, never after the next game date has started. No games, no file.
 6. Payroll (Salary Season Finder's `data/data.json`), then `index.html`, the 30 team pages (`<slug>/index.html`, served at `/standings/<slug>`), `data/nights.json` and `sitemap.xml`, only when some file was written. The page's "Updated" time moves with the standings or the payroll; each sitemap `<lastmod>` moves only with its own numbers: `/standings` with every team's, a team page with its team's (`data/page_hashes.json`).
+
+The full regular-season schedule (cdn.nba.com) is cached in `data/schedule_2026-27.json` for each team page's next game: refreshed on the 10:23 UTC run (`--schedule`), fetched by any run when there is no copy, and kept as it is when a fetch fails. Forced runs rebuild every page, so the next game moves on daily.
+
+Fonts are shared files, `fonts/*.woff2`, served at `/standings/fonts/` and versioned by content hash (`?v=`), not inlined in the pages.
 
 `data/vegas_lines_2026-27.json` is frozen (Boyd's Bets six-book consensus, Oct 17, 2026) and never written by the run.
 
@@ -47,4 +51,5 @@ node test/data-and-page.test.mjs
 node test/http.test.mjs
 node test/phase1.test.mjs
 node test/phase1b.test.mjs
+node test/phase1c.test.mjs
 ```

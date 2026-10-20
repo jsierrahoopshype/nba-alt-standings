@@ -180,7 +180,9 @@ for (const [name, full] of [['committed page', page], ['mid-season sample', samp
   // Nothing third-party: no external script, stylesheet, font or frame. The
   // only external fetches are the nba-headshots logos.
   ok(name + ': no <script src>, <link rel=stylesheet>, <iframe>, @import', !/<script[^>]+src=|<link[^>]+stylesheet|<iframe|@import/i.test(full));
-  ok(name + ': fonts inlined as data: URLs only', !/url\((?!data:)/.test(full));
+  // Fonts are shared same-origin files, versioned by content hash.
+  const fontUrls = [...full.matchAll(/url\(([^)]+)\)/g)].map((m) => m[1]);
+  ok(name + ': fonts only from /standings/fonts/ (same origin, versioned)', fontUrls.length === 2 && fontUrls.every((u) => /^\/standings\/fonts\/[a-z-]+\.woff2\?v=[0-9a-f]{10}$/.test(u)), fontUrls);
   const srcs = [...html.matchAll(/\b(?:src|href)="(https?:[^"]+)"/g)].map((m) => m[1]);
   const fetched = [...html.matchAll(/<(?:img|image)\b[^>]*\b(?:src|href)="([^"]+)"/g)].map((m) => m[1]);
   ok(name + ': every image is an nba-headshots logo', fetched.length > 0 && fetched.every((u) => u.startsWith(LOGO_BASE) && /\/16106127\d\d\.svg$/.test(u)), fetched.filter((u) => !u.startsWith(LOGO_BASE)));

@@ -8,7 +8,7 @@
 // what to write.
 
 import { parseEspn, parseNbaSchedule, payrollByTeam } from '../lib/sources.mjs';
-import { parseEspnScoreboard, parseNbaScheduleDay } from '../lib/scoreboard.mjs';
+import { parseEspnScoreboard, parseNbaScheduleDay, parseSeasonSchedule } from '../lib/scoreboard.mjs';
 import { getJson } from '../lib/http.mjs';
 
 export const SEASON = '2026-27';
@@ -80,6 +80,13 @@ export async function scoreboards(teams, dates) {
     }
   }
   throw new Error('no scoreboard source worked:\n  ' + errors.join('\n  '));
+}
+
+// The whole regular-season schedule (cdn.nba.com), for the team pages'
+// next game: { season_year, games: [{ key, id, date, tip, home, away }] }.
+// Throws on failure; the caller keeps its cached copy.
+export async function seasonSchedule(teams) {
+  return parseSeasonSchedule(await getJson(NBA_SCHEDULE_URL), teams, { seasonYear: NBA_SEASON_YEAR });
 }
 
 // Payroll per team, or null (reason logged): the caller then keeps the

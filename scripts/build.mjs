@@ -16,10 +16,10 @@ import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildRows, byConference, movers } from '../lib/model.mjs';
-import { packTeams } from '../lib/timeframe.mjs';
+import { packTeams, packPayroll } from '../lib/timeframe.mjs';
 import { PAGE_URL } from '../lib/render.mjs';
 import { pageHtml } from '../lib/page.mjs';
-import { rankedRows, teamSeries, teamGames, nextGame, teamPageHtml, teamPageUrl } from '../lib/team.mjs';
+import { rankedRows, nightRowsFor, teamSeries, teamGames, nextGame, nextScheduled, teamPageHtml, teamPageUrl } from '../lib/team.mjs';
 import { readGameLog } from './gamelog.mjs';
 import { etDate } from './fetch.mjs';
 
@@ -43,11 +43,17 @@ export function checkLines(lines, teams) {
   return sum;
 }
 
+// The fonts are shared files, not part of each page: fonts/*.woff2 in this
+// repo, served at /standings/fonts/ (same origin, which the Worker's
+// standings CSP allows in font-src). ?v= is a hash of the file, so a new
+// font file is a new URL and the old one can be cached for as long as the
+// server allows.
+export const FONTS_PATH = '/standings/fonts/';
 export async function fontsCss() {
   const face = async (family, file) => {
-    const b64 = (await readFile(join(root, 'fonts', file))).toString('base64');
+    const v = hash(await readFile(join(root, 'fonts', file))).slice(0, 10);
     // One variable font file per family covers every weight used.
-    return `@font-face{font-family:'${family}';font-style:normal;font-weight:400 700;font-display:swap;src:url(data:font/woff2;base64,${b64}) format('woff2')}`;
+    return `@font-face{font-family:'${family}';font-style:normal;font-weight:400 700;font-display:swap;src:url(${FONTS_PATH}${file}?v=${v}) format('woff2')}`;
   };
   return '/* DM Sans and JetBrains Mono, latin subset, SIL Open Font License 1.1 (fonts/OFL-*.txt). */\n'
     + (await face('DM Sans', 'dm-sans-latin.woff2')) + '\n' + (await face('JetBrains Mono', 'jetbrains-mono-latin.woff2'));
@@ -70,7 +76,7 @@ export async function readSnapshots(dataDir = DATA) {
 // (src/views.js) calls exposed on window.HM. test/phase1.test.mjs runs this
 // bundle and checks it renders exactly what the modules render.
 export const BUNDLE_FILES = ['lib/metrics.mjs', 'lib/timeframe.mjs', 'lib/model.mjs', 'lib/render.mjs'];
-export const BUNDLE_EXPORTS = ['unpackTeams', 'resolveTimeframe', 'standingsFor', 'timeframeLabel', 'timeframeParts', 'fmtDay'];
+export const BUNDLE_EXPORTS = ['unpackTeams', 'resolveTimeframe', 'standingsFor', 'timeframeLabel', 'timeframeParts', 'fmtDay', 'payrollFor'];
 export async function bundleLib(srcRoot = root) {
   const parts = [];
   for (const f of BUNDLE_FILES) {
@@ -94,8 +100,12 @@ const jsonForScript = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 // Since or a preset; the page carries only its version (a hash of the
 // file), which the script adds to the URL so a new file is never served
 // from an old cache.
+// payrolls: the payroll saved with each night, in the same team order, for
+// the nights that have one (nights saved before payrolls were stored use the
+// current payroll in the page).
 export function nightsJson(snapshots, order) {
-  return JSON.stringify({ order, dates: snapshots.map((s) => s.date), snapshots: Object.fromEntries(snapshots.map((s) => [s.date, packTeams(s.teams, order)])) });
+  return JSON.stringify({ order, dates: snapshots.map((s) => s.date), snapshots: Object.fromEntries(snapshots.map((s) => [s.date, packTeams(s.teams, order)])),
+    payrolls: Object.fromEntries(snapshots.filter((s) => s.payroll).map((s) => [s.date, packPayroll(s.payroll, order)])) });
 }
 
 async function readPregames(dataDir) {
@@ -109,7 +119,7 @@ async function readPregames(dataDir) {
 
 // Everything the build writes, as strings: index.html, data/nights.json and
 // one page per team ({ slug, html, key }), plus the sitemap key of each URL.
-export async function renderAll({ dataDir = DATA, srcRoot = root } = {}) {
+export async function renderAll({ dataDir = DATA, srcRoot = root, today = etDate() } = {}) {
   const { teams } = await readJson(join(dataDir, 'teams.json'));
   const lines = await readJson(join(dataDir, 'vegas_lines_2026-27.json'));
   checkLines(lines, teams);
@@ -139,6 +149,7 @@ export async function renderAll({ dataDir = DATA, srcRoot = root } = {}) {
   };
   const index = pageHtml({
     rows, conferences, lines,
+    nightsWithoutPayroll: snapshots.filter((sn) => !sn.payroll).map((sn) => sn.date),
     movers: movers(rows, prev),
     prevDate: prev ? prev.date : null,
     gameDate,
@@ -155,10 +166,14 @@ export async function renderAll({ dataDir = DATA, srcRoot = root } = {}) {
   // ── Team pages ──
   const pay = payroll ? { payroll: payroll.payroll } : null;
   const now = rankedRows(teams, standings.teams, lines, pay);
-  const base = prev ? rankedRows(teams, prev.teams, lines, pay) : null;
-  const nightRows = snapshots.map((sn) => ({ date: sn.date, rows: rankedRows(teams, sn.teams, lines, pay) }));
+  // Each night with the payroll saved with it (the current one for nights
+  // saved before payrolls were).
+  const nightPay = (sn) => (sn.payroll ? { payroll: sn.payroll } : pay);
+  const base = prev ? rankedRows(teams, prev.teams, lines, nightPay(prev)) : null;
+  const nightRows = nightRowsFor(snapshots, teams, lines, pay);
   const log = await readGameLog(dataDir);
   const pregames = await readPregames(dataDir);
+  const schedule = await readJson(join(dataDir, 'schedule_' + SEASON + '.json'), null);
   const byAbbr = Object.fromEntries(teams.map((t) => [t.abbr, t]));
   const teamPages = teams.map((t) => ({
     slug: t.ssf_slug,
@@ -166,7 +181,7 @@ export async function renderAll({ dataDir = DATA, srcRoot = root } = {}) {
     key: JSON.stringify(standings.teams[t.abbr]),
     html: teamPageHtml({
       team: t, row: now[t.abbr], base: base ? base[t.abbr] : null, baseDate: prev ? prev.date : null,
-      series: teamSeries(t.abbr, nightRows), games: teamGames(t.abbr, log), next: nextGame(t.abbr, pregames, log, gameDate),
+      series: teamSeries(t.abbr, nightRows), games: teamGames(t.abbr, log), next: schedule ? nextScheduled(t.abbr, schedule.games, log, today) : nextGame(t.abbr, pregames, log, gameDate),
       peers: teams.filter((p) => p.conf === t.conf && p.abbr !== t.abbr), byAbbr,
       line: lines.teams[t.abbr].line, last: lines.teams[t.abbr].last_season_wins, styles, fontsCss: fonts,
     }),
@@ -203,7 +218,7 @@ export function updateSitemap(state, pages, today) {
 // sitemap.xml and data/page_hashes.json. A file whose content did not
 // change is left as it is.
 export async function build({ today = etDate(), dataDir = DATA, outDir = root, srcRoot = root } = {}) {
-  const all = await renderAll({ dataDir, srcRoot });
+  const all = await renderAll({ dataDir, srcRoot, today });
   const put = async (path, text) => {
     let old = null;
     try { old = await readFile(path, 'utf8'); } catch { /* new */ }

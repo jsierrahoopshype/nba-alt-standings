@@ -62,7 +62,8 @@
       var snaps = {};
       N.dates.forEach(function (d) { snaps[d] = HM.unpackTeams(N.snapshots[d], N.order); });
       var standings = HM.standingsFor(t2, HM.unpackTeams(D.current, order), snaps);
-      var parts = HM.timeframeParts(D.teams, standings, D.lines, D.payroll);
+      // $ per Win with the payroll saved with the night this view uses.
+      var parts = HM.timeframeParts(D.teams, standings, D.lines, HM.payrollFor(t2, N.payrolls, D.payroll, N.order));
       document.getElementById('tf-leaders').innerHTML = parts.leaders;
       document.getElementById('tf-tables').innerHTML = parts.tables;
       document.getElementById('tf-charts').innerHTML = parts.charts;
