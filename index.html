@@ -488,7 +488,9 @@ function resolveTimeframe(params, { dates, gameDate }) {
   let kind, requested, preset = null;
   if (asof && ISO.test(asof)) { kind = 'asof'; requested = asof; }
   else if (since && PRESETS[since]) {
-    if (!gameDate) return { kind: 'season', invalid: since };
+    // Before the first game there is nothing to count back from: the window
+    // is the season so far (still its own view, noindex like the others).
+    if (!gameDate) return { kind: 'since', requested: null, used: null, fallback: false, preset: since };
     kind = 'since'; preset = since; requested = addDays(gameDate, -PRESETS[since]);
   } else if (since && ISO.test(since)) { kind = 'since'; requested = since; }
   else return { kind: 'season', invalid: asof || since || null };

@@ -78,6 +78,9 @@ const league = (over = {}) => Object.fromEntries(order.map((a) => [a, over[a] ||
   ok('last15 from Nov 9 -> after Oct 25 (nearest on or before Oct 25)', t4.used === '2026-10-25' && /^Last 15 days \(games after Oct 25\): /.test(timeframeLabel(t4, win).label));
   ok('nothing saved on or before: since covers the whole season, as of is the 0-0 start', /covers the whole season/.test(timeframeLabel(resolveTimeframe({ since: '2026-10-01' }, ctx), cur).note)
      && JSON.stringify(standingsFor(resolveTimeframe({ asof: '2026-10-01' }, ctx), cur, {})) === JSON.stringify(league()));
+  const early = resolveTimeframe({ since: 'last7' }, { dates: [], gameDate: null });
+  ok('last7 before any game: its own view (not the season), the season so far', early.kind === 'since' && early.preset === 'last7' && early.used === null
+     && timeframeLabel(early, league()).label === 'Last 7 days (the season so far): 0 games' && JSON.stringify(standingsFor(early, cur, {})) === JSON.stringify(subtractStandings(cur, null)));
   ok('bad parameters fall back to the season', resolveTimeframe({ since: 'yesterday' }, ctx).kind === 'season' && resolveTimeframe({ asof: '21-10-2026' }, ctx).kind === 'season');
   const snaps = { '2026-10-23': base };
   ok('standingsFor: asof is the snapshot exactly, since is current minus snapshot', JSON.stringify(standingsFor(resolveTimeframe({ asof: '2026-10-23' }, ctx), cur, snaps)) === JSON.stringify(base)
