@@ -25,19 +25,21 @@ jobs:
         with:
           node-version: '22'
 
-      # Informational: shows in the log whether each feed answers from
-      # GitHub's runners. The fetch step below decides which one is used.
+      # Informational: shows in the log whether each source answers from
+      # GitHub's runners, using the same request and parsing code as the
+      # fetch below (scripts/probe.mjs runs fetch.mjs's SOURCES).
       - name: Probe feeds
         continue-on-error: true
-        run: |
-          for u in "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings?season=2027&seasontype=2" \
-                   "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json"; do
-            echo "$(curl -sS -o /dev/null -m 30 -A 'Mozilla/5.0' -w '%{http_code} %{size_download}B %{time_total}s' "$u" || echo failed) $u"
-          done
+        run: node scripts/probe.mjs
 
       - name: Unit tests
-        run: node test/metrics.test.mjs
+        run: |
+          node test/metrics.test.mjs
+          node test/http.test.mjs
 
+      # Fails the run (and so the failure email) when every standings source
+      # fails; it writes nothing in that case, so nothing below runs and the
+      # committed data and page stay as they were.
       - name: Fetch standings and payroll
         run: node scripts/fetch.mjs
 

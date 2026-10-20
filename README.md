@@ -8,7 +8,7 @@ Every team's 2026-27 record against its Vegas win total, last season, payroll pe
 
 `.github/workflows/nightly.yml` runs every morning (10:23 UTC) and on demand (Actions tab, "Run workflow"):
 
-1. `scripts/fetch.mjs`: standings from ESPN's public feed (`site.api.espn.com/apis/v2/sports/basketball/nba/standings`); if that fails, they are rebuilt from cdn.nba.com's season schedule. Payroll is the sum of 2026-27 salaries in Salary Season Finder's `data/data.json`. Writes `data/standings.json`, `data/payroll_2026-27.json` and a snapshot in `data/history/` on each day the standings changed.
+1. `scripts/fetch.mjs`: every request goes through `lib/http.mjs` (desktop Chrome headers, plus nba.com Referer/Origin for cdn.nba.com; 30s, one retry), the same code the "Probe feeds" step (`scripts/probe.mjs`) runs. If every standings source fails, nothing is written and the run fails. Standings come from ESPN's public feed (`site.api.espn.com/apis/v2/sports/basketball/nba/standings`); if that fails, they are rebuilt from cdn.nba.com's season schedule. Payroll is the sum of 2026-27 salaries in Salary Season Finder's `data/data.json`. Writes `data/standings.json`, `data/payroll_2026-27.json` and a snapshot in `data/history/` on each day the standings changed.
 2. `scripts/build.mjs`: renders `index.html` (one self-contained file: styles, fonts and the sort script inline) and `sitemap.xml`. `data/page_hashes.json` keeps the page's content hash; its `<lastmod>` moves only when the hash changes.
 3. Tests, then a commit only if something changed.
 
@@ -28,4 +28,5 @@ Every team's 2026-27 record against its Vegas win total, last season, payroll pe
 ```
 node test/metrics.test.mjs
 node test/data-and-page.test.mjs
+node test/http.test.mjs
 ```
