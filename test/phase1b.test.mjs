@@ -25,19 +25,22 @@ import { unpackTeams } from '../lib/timeframe.mjs';
 import { ordinal, MIN_CHART_POINTS } from '../lib/team.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+// Data frozen as of PR #6 (see test/fixtures/README.md), not the live data/
+// folder the update bot keeps committing to.
+const FIXTURE = join(root, 'test/fixtures/data');
 const J = async (p) => JSON.parse(await readFile(p, 'utf8'));
 let failed = 0;
 const ok = (name, cond, detail) => {
   console.log((cond ? 'PASS  ' : 'FAIL  ') + name);
   if (!cond) { failed++; if (detail !== undefined) console.log('        ' + (typeof detail === 'string' ? detail : JSON.stringify(detail))); }
 };
-const { teams } = await J(join(root, 'data/teams.json'));
+const { teams } = await J(join(FIXTURE, 'teams.json'));
 const order = teams.map((t) => t.abbr);
 const zero = () => ({ w: 0, l: 0, gp: 0, pf: 0, pa: 0, home_w: 0, home_l: 0, road_w: 0, road_l: 0 });
 
 async function scratch() {
   const dir = await mkdtemp(join(tmpdir(), 'standings-p1b-'));
-  await cp(join(root, 'data'), join(dir, 'data'), { recursive: true });
+  await cp(FIXTURE, join(dir, 'data'), { recursive: true });
   return { data: join(dir, 'data'), out: dir };
 }
 async function files(dir) {
@@ -79,8 +82,7 @@ const fin = (date, away, home, as, hs) => ({ key: date + '_' + away + '@' + home
 // ── 2. The update run logs finals and backfills ──
 {
   const d = await scratch();
-  for (const t of teams) await cp(join(root, t.ssf_slug), join(d.out, t.ssf_slug), { recursive: true });
-  await writeFile(join(d.out, 'index.html'), await readFile(join(root, 'index.html')));
+  await build({ today: '2026-10-20', dataDir: d.data, outDir: d.out, srcRoot: root });
   const st = Object.fromEntries(order.map((a) => [a, zero()]));
   Object.assign(st, { DET: { ...zero(), w: 0, l: 1, gp: 1, pf: 99, pa: 101, home_l: 1 }, BOS: { ...zero(), w: 1, gp: 1, pf: 101, pa: 99, road_w: 1 } });
   const espnAbbr = Object.fromEntries(teams.map((t) => [t.abbr, t.espn[0]]));

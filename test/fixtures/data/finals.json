@@ -1,0 +1,4 @@
+{
+  "_readme": "Regular-season finals already counted in standings.json, by ET game date. Written by scripts/update.mjs.",
+  "dates": {}
+}
