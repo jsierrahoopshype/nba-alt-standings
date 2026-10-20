@@ -2,7 +2,10 @@
 // flip the direction. Numbers start high-to-low (Rank and $ per Win start
 // low-to-high, where low is best), names start A-Z, and a dash always sorts
 // last in either direction. Each cell's data-v carries the raw value.
+// hmBindSort() runs once here and again whenever src/views.js redraws the
+// tables for another timeframe.
 (function () {
+  function bind() {
   var tables = document.querySelectorAll('table.lb[data-sortable]');
   Array.prototype.forEach.call(tables, function (table) {
     var ths = table.querySelectorAll('thead th');
@@ -45,4 +48,7 @@
       });
     });
   });
+  }
+  window.hmBindSort = bind;
+  bind();
 })();

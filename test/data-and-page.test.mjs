@@ -9,7 +9,7 @@
 //   - the page: title, description, canonical and og:url on hoopsmatic.com,
 //     the exact footer, no em dash in copy, nothing third-party loaded except
 //     the nba-headshots logos, team links to Salary Season Finder team pages;
-//   - sitemap lastmod moves only when the page's content hash changes.
+//   - sitemap lastmod moves only when the standings numbers change.
 //
 // Run: node test/data-and-page.test.mjs
 
@@ -18,8 +18,9 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseEspn, parseNbaSchedule, payrollByTeam, parseWL } from '../lib/sources.mjs';
 import { buildRows, byConference, leaders, movers, moverText, joinAnd } from '../lib/model.mjs';
-import { pageHtml, PAGE_URL, LOGO_BASE, SSF_TEAM_BASE, TITLE, DESCRIPTION } from '../lib/render.mjs';
-import { checkLines, updateSitemap, fontsCss, renderPage, POSSIBLE_WINS } from '../scripts/build.mjs';
+import { PAGE_URL, LOGO_BASE, SSF_TEAM_BASE, TITLE, DESCRIPTION } from '../lib/render.mjs';
+import { pageHtml } from '../lib/page.mjs';
+import { checkLines, updateSitemap, fontsCss, renderPage, POSSIBLE_WINS, standingsKey } from '../scripts/build.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const J = async (p) => JSON.parse(await readFile(join(root, p), 'utf8'));
@@ -156,8 +157,13 @@ const sample = pageHtml({ rows, conferences: conf, lines, movers: mv, prevDate: 
   styles: await readFile(join(root, 'src/styles.css'), 'utf8'), fontsCss: await fontsCss(), sortJs: await readFile(join(root, 'src/sort.js'), 'utf8') });
 const committed = await readFile(join(root, 'index.html'), 'utf8');
 ok('index.html is what the build produces from the committed data', committed === page, 'run: node scripts/build.mjs');
-for (const [name, html] of [['committed page', page], ['mid-season sample', sample]]) {
+for (const [name, full] of [['committed page', page], ['mid-season sample', sample]]) {
+  // The markup checks read the page without its inline scripts (the page
+  // script's bundled copy of lib/ holds the same templates as text).
+  const html = full.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
   const count = (re) => (html.match(re) || []).length;
+  ok(name + ': every <script> closes once, nothing inside an inline script says "</script" or "<!--"', (full.match(/<script\b/g) || []).length === (full.match(/<\/script>/g) || []).length
+     && [...full.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].every((m) => !/<\/script|<!--/i.test(m[1])));
   ok(name + ': one canonical, https://hoopsmatic.com/standings', count(/<link rel="canonical"/g) === 1 && html.includes('<link rel="canonical" href="https://hoopsmatic.com/standings">'));
   ok(name + ': one og:url, https://hoopsmatic.com/standings', count(/property="og:url"/g) === 1 && html.includes('<meta property="og:url" content="https://hoopsmatic.com/standings">'));
   ok(name + ': no github.io canonical or og:url', !/rel="canonical" href="[^"]*github\.io|og:url" content="[^"]*github\.io/.test(html));
@@ -173,8 +179,8 @@ for (const [name, html] of [['committed page', page], ['mid-season sample', samp
   ok(name + ': no NaN, Infinity or undefined anywhere', !/\bNaN\b|Infinity|undefined/.test(html.replace(/<style>[\s\S]*?<\/style>|<script>[\s\S]*?<\/script>/g, '')));
   // Nothing third-party: no external script, stylesheet, font or frame. The
   // only external fetches are the nba-headshots logos.
-  ok(name + ': no <script src>, <link rel=stylesheet>, <iframe>, @import', !/<script[^>]+src=|<link[^>]+stylesheet|<iframe|@import/i.test(html));
-  ok(name + ': fonts inlined as data: URLs only', !/url\((?!data:)/.test(html));
+  ok(name + ': no <script src>, <link rel=stylesheet>, <iframe>, @import', !/<script[^>]+src=|<link[^>]+stylesheet|<iframe|@import/i.test(full));
+  ok(name + ': fonts inlined as data: URLs only', !/url\((?!data:)/.test(full));
   const srcs = [...html.matchAll(/\b(?:src|href)="(https?:[^"]+)"/g)].map((m) => m[1]);
   const fetched = [...html.matchAll(/<(?:img|image)\b[^>]*\b(?:src|href)="([^"]+)"/g)].map((m) => m[1]);
   ok(name + ': every image is an nba-headshots logo', fetched.length > 0 && fetched.every((u) => u.startsWith(LOGO_BASE) && /\/16106127\d\d\.svg$/.test(u)), fetched.filter((u) => !u.startsWith(LOGO_BASE)));
@@ -208,9 +214,9 @@ ok('sample page: Miami row shows Pct 70.0%', /data-v="Miami"[\s\S]*?<td class="p
 ok('sample page: Indiana $ per Win is the dash', /data-v="Indiana"[\s\S]*?<td data-v="" class="dash">—<\/td>/.test(sample));
 
 // ── 8. Sitemap lastmod ──
-const s1 = updateSitemap({}, [{ url: PAGE_URL, html: 'a' }], '2026-10-19');
-const s2 = updateSitemap(s1.state, [{ url: PAGE_URL, html: 'a' }], '2026-10-20');
-const s3 = updateSitemap(s2.state, [{ url: PAGE_URL, html: 'b' }], '2026-10-21');
+const s1 = updateSitemap({}, [{ url: PAGE_URL, key: 'a' }], '2026-10-19');
+const s2 = updateSitemap(s1.state, [{ url: PAGE_URL, key: 'a' }], '2026-10-20');
+const s3 = updateSitemap(s2.state, [{ url: PAGE_URL, key: 'b' }], '2026-10-21');
 ok('sitemap: first build dates the page today', s1.state.pages[PAGE_URL].lastmod === '2026-10-19');
 ok('sitemap: same content next day keeps the date', s2.state.pages[PAGE_URL].lastmod === '2026-10-19' && s2.xml === s1.xml);
 ok('sitemap: changed content moves the date', s3.state.pages[PAGE_URL].lastmod === '2026-10-21' && s3.xml.includes('<lastmod>2026-10-21</lastmod>'));
@@ -218,7 +224,7 @@ const sm = await readFile(join(root, 'sitemap.xml'), 'utf8');
 const hashes = await J('data/page_hashes.json');
 ok('sitemap.xml: one URL, https://hoopsmatic.com/standings, lastmod from page_hashes.json', (sm.match(/<loc>/g) || []).length === 1
   && sm.includes('<loc>https://hoopsmatic.com/standings</loc><lastmod>' + hashes.pages[PAGE_URL].lastmod + '</lastmod>'));
-ok('page_hashes.json: hash matches the committed index.html', updateSitemap(hashes, [{ url: PAGE_URL, html: committed }], '2099-01-01').state.pages[PAGE_URL].lastmod === hashes.pages[PAGE_URL].lastmod);
+ok('page_hashes.json: hash matches the committed standings numbers', updateSitemap(hashes, [{ url: PAGE_URL, key: standingsKey(await J('data/standings.json')) }], '2099-01-01').state.pages[PAGE_URL].lastmod === hashes.pages[PAGE_URL].lastmod);
 ok('description is unique to this page and names the section', DESCRIPTION.includes('Vegas') && DESCRIPTION.length < 170);
 
 console.log(failed ? `\n${failed} test(s) FAILED` : '\nall tests passed');
