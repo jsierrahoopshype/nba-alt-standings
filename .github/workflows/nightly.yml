@@ -1,0 +1,60 @@
+# Nightly: fetch standings and payroll, rebuild the page and the sitemap,
+# commit only when something changed. Also runs from the Actions tab
+# ("Run workflow").
+name: Nightly standings
+
+on:
+  schedule:
+    - cron: '23 10 * * *'   # 10:23 UTC = 6:23 a.m. ET, after the last West Coast final
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-standings
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Informational: shows in the log whether each feed answers from
+      # GitHub's runners. The fetch step below decides which one is used.
+      - name: Probe feeds
+        continue-on-error: true
+        run: |
+          for u in "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings?season=2027&seasontype=2" \
+                   "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json"; do
+            echo "$(curl -sS -o /dev/null -m 30 -A 'Mozilla/5.0' -w '%{http_code} %{size_download}B %{time_total}s' "$u" || echo failed) $u"
+          done
+
+      - name: Unit tests
+        run: node test/metrics.test.mjs
+
+      - name: Fetch standings and payroll
+        run: node scripts/fetch.mjs
+
+      - name: Build page and sitemap
+        run: node scripts/build.mjs
+
+      - name: Page tests
+        run: node test/data-and-page.test.mjs
+
+      - name: Commit if anything changed
+        run: |
+          git add data index.html sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Standings update $(TZ=America/New_York date +%F)"
+          git push
