@@ -38,7 +38,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 
 .hdr h1{font-size:1.15rem;font-weight:700;letter-spacing:-.03em;margin-bottom:.35rem}
 .subtitle{color:var(--text-secondary);font-size:.82rem;margin-bottom:1rem;max-width:60rem}
-.subtitle .stamp{font-family:'JetBrains Mono',monospace;font-size:.74rem;white-space:nowrap}
+.subtitle .stamp{font-family:'JetBrains Mono',monospace;font-size:.74rem}
 
 .block{margin-bottom:1.4rem}
 .block-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
@@ -133,20 +133,51 @@ td.pct{font-weight:600;color:var(--text)}
   .leaders{grid-template-columns:repeat(4,1fr)}
 }
 
+/* timeframe selector */
+.tf{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.65rem .8rem}
+.tf .chips{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.5rem}
+.tf .chip{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;padding:.34rem .7rem;
+  border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text-secondary);
+  text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;text-decoration:none}
+.tf .chip:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.tf .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tf-dates{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.78rem;color:var(--text-secondary)}
+.tf-dates label{display:flex;align-items:center;gap:.35rem;font-weight:600}
+.tf-dates select{font:inherit;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--text);
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.3rem .45rem}
+.tf-label{margin-top:.55rem;font-weight:700;font-size:.86rem}
+.tf-note{margin-top:.2rem;font-size:.78rem;color:var(--text-secondary)}
+
 </style>
 </head>
 <body>
 <div class="container">
 
 <div class="hdr"><h1>NBA Real Standings</h1></div>
-<p class="subtitle">Every team’s record measured against Vegas, last season, its payroll and its luck. <span class="stamp">Updated Oct 20, 2026</span></p>
+<p class="subtitle">Every team’s record measured against Vegas, last season, its payroll and its luck. <span class="stamp">Updated Oct 20, 9:12 a.m. ET (15:12 Madrid)</span></p>
 
-<section class="block"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd class="none">After the first games.</dd></div><div><dt>Most underachieving</dt><dd class="none">After the first games.</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd class="none">After the first games.</dd></div><div><dt>Most declined</dt><dd class="none">After the first games.</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd class="none">After the first games.</dd></div><div><dt>Worst bang for the buck</dt><dd class="none">After the first games.</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd class="none">After the first games.</dd></div><div><dt>Unluckiest</dt><dd class="none">After the first games.</dd></div></dl></div></div></section>
+<section class="block"><nav class="tf" aria-label="Timeframe">
+<div class="chips">
+<a class="chip active" data-tf="season" href="https://hoopsmatic.com/standings">Season</a>
+<a class="chip" data-tf="last7" href="https://hoopsmatic.com/standings?since=last7">Last 7 days</a>
+<a class="chip" data-tf="last15" href="https://hoopsmatic.com/standings?since=last15">Last 15 days</a>
+</div>
+<form class="tf-dates" action="https://hoopsmatic.com/standings" method="get">
+<label>As of <select name="asof" id="tf-asof" disabled><option value="">No saved dates yet</option></select></label>
+<label>Since <select name="since" id="tf-since" disabled><option value="">No saved dates yet</option></select></label>
+<noscript><button type="submit">Show</button></noscript>
+</form>
+<p class="tf-label" id="tf-label" hidden></p>
+<p class="tf-note" id="tf-note" hidden></p>
+</nav></section>
+
+<section class="block" id="tf-leaders"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd class="none">After the first games.</dd></div><div><dt>Most underachieving</dt><dd class="none">After the first games.</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd class="none">After the first games.</dd></div><div><dt>Most declined</dt><dd class="none">After the first games.</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd class="none">After the first games.</dd></div><div><dt>Worst bang for the buck</dt><dd class="none">After the first games.</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd class="none">After the first games.</dd></div><div><dt>Unluckiest</dt><dd class="none">After the first games.</dd></div></dl></div></div></section>
 
 <section class="block"><div class="block-head"><h2>Biggest movers since yesterday</h2></div>
 <p class="note">Movers appear once there is a previous night to compare against.</p>
 </section>
 
+<div id="tf-tables">
 <section class="block"><div class="block-head"><h2>Eastern Conference</h2></div>
 <div class="table-wrap"><table class="lb" data-sortable aria-label="Eastern Conference"><thead><tr><th scope="col" class="c-rank" data-k="rank" data-t="num" data-first="1" aria-sort="none"><button type="button">Rank<span class="arr"></span></button></th><th scope="col" class="c-team" data-k="team" data-t="str" data-first="1" aria-sort="none"><button type="button">Team<span class="arr"></span></button></th><th scope="col" data-k="w" data-t="num" data-first="-1" aria-sort="none"><button type="button">W<span class="arr"></span></button></th><th scope="col" data-k="l" data-t="num" data-first="-1" aria-sort="none"><button type="button">L<span class="arr"></span></button></th><th scope="col" data-k="pct" data-t="num" data-first="-1" aria-sort="descending"><button type="button">Pct<span class="arr">▼</span></button></th><th scope="col" data-k="vsVegas" data-t="num" data-first="-1" aria-sort="none"><button type="button">vs. Vegas<span class="arr"></span></button></th><th scope="col" data-k="vsLastYear" data-t="num" data-first="-1" aria-sort="none"><button type="button">vs. Last Year<span class="arr"></span></button></th><th scope="col" data-k="dollarsPerWin" data-t="num" data-first="1" aria-sort="none"><button type="button">$ per Win<span class="arr"></span></button></th><th scope="col" data-k="ptDiff" data-t="num" data-first="-1" aria-sort="none"><button type="button">Pt Diff<span class="arr"></span></button></th><th scope="col" data-k="expW" data-t="num" data-first="-1" aria-sort="none"><button type="button">Exp. W-L<span class="arr"></span></button></th><th scope="col" data-k="luck" data-t="num" data-first="-1" aria-sort="none"><button type="button">Luck<span class="arr"></span></button></th><th scope="col" data-k="roadMinusHome" data-t="num" data-first="-1" aria-sort="none"><button type="button">Road W − Home L<span class="arr"></span></button></th></tr></thead><tbody>
 <tr data-o="0"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Atlanta"><a class="tm" href="https://hoopsmatic.com/salary-season-finder/team/hawks/" title="Atlanta Hawks payroll and salaries"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612737.svg" alt="" width="22" height="22" loading="lazy">Atlanta</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
@@ -185,14 +216,15 @@ td.pct{font-weight:600;color:var(--text)}
 <tr data-o="14"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Utah"><a class="tm" href="https://hoopsmatic.com/salary-season-finder/team/jazz/" title="Utah Jazz payroll and salaries"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612762.svg" alt="" width="22" height="22" loading="lazy">Utah</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
 </tbody></table></div>
 </section>
+</div>
 
 <section class="block"><div class="block-head"><h2>Payroll vs. win percentage</h2><span class="sub">Dashed lines: .500 and league-average payroll</span></div>
-<div class="charts"><figure class="chart"><h3>Eastern Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-East-t"><title id="chart-East-t">Eastern Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><text class="empty" x="208" y="79" text-anchor="middle">Teams appear here after their first game.</text></svg></figure><figure class="chart"><h3>Western Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-West-t"><title id="chart-West-t">Western Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><text class="empty" x="208" y="79" text-anchor="middle">Teams appear here after their first game.</text></svg></figure></div>
+<div class="charts" id="tf-charts"><figure class="chart"><h3>Eastern Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-East-t"><title id="chart-East-t">Eastern Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><text class="empty" x="208" y="79" text-anchor="middle">Teams appear here after their first game.</text></svg></figure><figure class="chart"><h3>Western Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-West-t"><title id="chart-West-t">Western Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><text class="empty" x="208" y="79" text-anchor="middle">Teams appear here after their first game.</text></svg></figure></div>
 </section>
 
 <section class="method block" id="methodology">
 <h2>How it works</h2>
-<p>The standings are rebuilt every morning after the previous night’s games. Every number below is worked out from the games played so far, so a team is compared with where it should be today, not with where it should finish in April.</p>
+<p>The standings are rebuilt after every game goes final. Every number below is worked out from the games played so far, so a team is compared with where it should be today, not with where it should finish in April.</p>
 <dl>
 <dt>W, L and Pct</dt><dd>Wins, losses and winning percentage (wins divided by games played). Each conference is ranked by Pct, with more wins breaking ties.</dd>
 <dt>vs. Vegas</dt><dd>Wins above or below the pace of the team’s preseason win total. A team with a 41.5-win line is expected to win 41.5 of 82 games, so after 20 games it should have about 10.1 wins. At 12-8 it is +1.9; at 8-12 it is −2.1.</dd>
@@ -203,7 +235,8 @@ td.pct{font-weight:600;color:var(--text)}
 <dt>Exp. W-L</dt><dd>The record a team’s scoring suggests, using the Pythagorean formula with exponent 14: expected wins = games × PF¹⁴ / (PF¹⁴ + PA¹⁴), rounded to whole wins.</dd>
 <dt>Luck</dt><dd>Actual wins minus expected wins. A positive number means the team has won more than its point differential says it should, usually by winning close games.</dd>
 <dt>Road W − Home L</dt><dd>Road wins minus home losses. The old rule of thumb for a contender is to win at home and steal some on the road; a positive number means the road wins are outpacing the home slip-ups.</dd>
-<dt>Biggest movers</dt><dd>The teams whose vs. Vegas number changed most since the previous night’s update.</dd>
+<dt>Biggest movers</dt><dd>The teams whose vs. Vegas number changed most since the standings saved after the previous night of games.</dd>
+<dt>Timeframes</dt><dd>Season shows the whole season. The standings are saved once every game of a night is final, and you can look back from any saved night. As of shows the standings exactly as they were that night. Since shows only the games played after that night: wins, losses, points and home and road records are the current ones minus that night’s, and every column is worked out again from those, with payroll prorated to the games in the window. Last 7 days and Last 15 days count back from the latest night with games. If a night was not saved, the nearest earlier one is used and the page says so.</dd>
 </dl>
 <p>Sources: records, points scored and allowed, and home and road records from ESPN’s standings feed. Payroll from Salary Season Finder. Before a team’s first game, and wherever a number cannot be worked out yet, the table shows a dash.</p>
 </section>
@@ -214,12 +247,16 @@ td.pct{font-weight:600;color:var(--text)}
 </footer>
 
 </div>
+<script type="application/json" id="hm-data">{"pageUrl":"https://hoopsmatic.com/standings","gameDate":null,"teams":[{"abbr":"ATL","nba_id":1610612737,"conf":"East","short":"Atlanta","name":"Atlanta Hawks","ssf_slug":"hawks"},{"abbr":"BOS","nba_id":1610612738,"conf":"East","short":"Boston","name":"Boston Celtics","ssf_slug":"celtics"},{"abbr":"BKN","nba_id":1610612751,"conf":"East","short":"Brooklyn","name":"Brooklyn Nets","ssf_slug":"nets"},{"abbr":"CHA","nba_id":1610612766,"conf":"East","short":"Charlotte","name":"Charlotte Hornets","ssf_slug":"hornets"},{"abbr":"CHI","nba_id":1610612741,"conf":"East","short":"Chicago","name":"Chicago Bulls","ssf_slug":"bulls"},{"abbr":"CLE","nba_id":1610612739,"conf":"East","short":"Cleveland","name":"Cleveland Cavaliers","ssf_slug":"cavaliers"},{"abbr":"DET","nba_id":1610612765,"conf":"East","short":"Detroit","name":"Detroit Pistons","ssf_slug":"pistons"},{"abbr":"IND","nba_id":1610612754,"conf":"East","short":"Indiana","name":"Indiana Pacers","ssf_slug":"pacers"},{"abbr":"MIA","nba_id":1610612748,"conf":"East","short":"Miami","name":"Miami Heat","ssf_slug":"heat"},{"abbr":"MIL","nba_id":1610612749,"conf":"East","short":"Milwaukee","name":"Milwaukee Bucks","ssf_slug":"bucks"},{"abbr":"NYK","nba_id":1610612752,"conf":"East","short":"New York","name":"New York Knicks","ssf_slug":"knicks"},{"abbr":"ORL","nba_id":1610612753,"conf":"East","short":"Orlando","name":"Orlando Magic","ssf_slug":"magic"},{"abbr":"PHI","nba_id":1610612755,"conf":"East","short":"Philadelphia","name":"Philadelphia 76ers","ssf_slug":"76ers"},{"abbr":"TOR","nba_id":1610612761,"conf":"East","short":"Toronto","name":"Toronto Raptors","ssf_slug":"raptors"},{"abbr":"WAS","nba_id":1610612764,"conf":"East","short":"Washington","name":"Washington Wizards","ssf_slug":"wizards"},{"abbr":"DAL","nba_id":1610612742,"conf":"West","short":"Dallas","name":"Dallas Mavericks","ssf_slug":"mavericks"},{"abbr":"DEN","nba_id":1610612743,"conf":"West","short":"Denver","name":"Denver Nuggets","ssf_slug":"nuggets"},{"abbr":"GSW","nba_id":1610612744,"conf":"West","short":"Golden State","name":"Golden State Warriors","ssf_slug":"warriors"},{"abbr":"HOU","nba_id":1610612745,"conf":"West","short":"Houston","name":"Houston Rockets","ssf_slug":"rockets"},{"abbr":"LAC","nba_id":1610612746,"conf":"West","short":"LA Clippers","name":"LA Clippers","ssf_slug":"clippers"},{"abbr":"LAL","nba_id":1610612747,"conf":"West","short":"LA Lakers","name":"Los Angeles Lakers","ssf_slug":"lakers"},{"abbr":"MEM","nba_id":1610612763,"conf":"West","short":"Memphis","name":"Memphis Grizzlies","ssf_slug":"grizzlies"},{"abbr":"MIN","nba_id":1610612750,"conf":"West","short":"Minnesota","name":"Minnesota Timberwolves","ssf_slug":"timberwolves"},{"abbr":"NOP","nba_id":1610612740,"conf":"West","short":"New Orleans","name":"New Orleans Pelicans","ssf_slug":"pelicans"},{"abbr":"OKC","nba_id":1610612760,"conf":"West","short":"Oklahoma City","name":"Oklahoma City Thunder","ssf_slug":"thunder"},{"abbr":"PHX","nba_id":1610612756,"conf":"West","short":"Phoenix","name":"Phoenix Suns","ssf_slug":"suns"},{"abbr":"POR","nba_id":1610612757,"conf":"West","short":"Portland","name":"Portland Trail Blazers","ssf_slug":"trail-blazers"},{"abbr":"SAC","nba_id":1610612758,"conf":"West","short":"Sacramento","name":"Sacramento Kings","ssf_slug":"kings"},{"abbr":"SAS","nba_id":1610612759,"conf":"West","short":"San Antonio","name":"San Antonio Spurs","ssf_slug":"spurs"},{"abbr":"UTA","nba_id":1610612762,"conf":"West","short":"Utah","name":"Utah Jazz","ssf_slug":"jazz"}],"lines":{"teams":{"NYK":{"line":52.5,"last_season_wins":53},"BOS":{"line":51.5,"last_season_wins":56},"PHI":{"line":49.5,"last_season_wins":45},"CLE":{"line":48.5,"last_season_wins":52},"DET":{"line":48.5,"last_season_wins":60},"MIA":{"line":46.5,"last_season_wins":43},"TOR":{"line":46.5,"last_season_wins":46},"IND":{"line":44.5,"last_season_wins":19},"ATL":{"line":43.5,"last_season_wins":46},"ORL":{"line":43.5,"last_season_wins":45},"CHA":{"line":38.5,"last_season_wins":44},"WAS":{"line":34.5,"last_season_wins":17},"CHI":{"line":29.5,"last_season_wins":31},"MIL":{"line":25.5,"last_season_wins":32},"BKN":{"line":24.5,"last_season_wins":20},"OKC":{"line":62.5,"last_season_wins":64},"SAS":{"line":60.5,"last_season_wins":62},"DEN":{"line":48.5,"last_season_wins":54},"HOU":{"line":48.5,"last_season_wins":52},"MIN":{"line":48.5,"last_season_wins":49},"LAL":{"line":45.5,"last_season_wins":53},"POR":{"line":41.5,"last_season_wins":42},"PHX":{"line":38.5,"last_season_wins":45},"UTA":{"line":37.5,"last_season_wins":22},"GSW":{"line":37.5,"last_season_wins":37},"DAL":{"line":33.5,"last_season_wins":26},"MEM":{"line":29.5,"last_season_wins":25},"LAC":{"line":28.5,"last_season_wins":42},"NOP":{"line":28.5,"last_season_wins":26},"SAC":{"line":20.5,"last_season_wins":22}}},"payroll":{"payroll":{"ATL":200206158,"BOS":202186160,"BKN":162093004,"CHA":172768756,"CHI":167806729,"CLE":212477757,"DET":196534824,"IND":209838686,"MIA":209018830,"MIL":191002986,"NYK":226384237,"ORL":223461006,"PHI":210400824,"TOR":204155760,"WAS":197115893,"DAL":190423858,"DEN":224166279,"GSW":226301961,"HOU":204227285,"LAC":185194198,"LAL":207230816,"MEM":176150419,"MIN":218203961,"NOP":198893985,"OKC":216406838,"PHX":217583270,"POR":194130118,"SAC":199894616,"SAS":201153591,"UTA":186149985}},"current":[[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]],"dates":[],"snapshots":{}}</script>
 <script>
 // Tap a column header to sort that conference's table by it; tap again to
 // flip the direction. Numbers start high-to-low (Rank and $ per Win start
 // low-to-high, where low is best), names start A-Z, and a dash always sorts
 // last in either direction. Each cell's data-v carries the raw value.
+// hmBindSort() runs once here and again whenever src/views.js redraws the
+// tables for another timeframe.
 (function () {
+  function bind() {
   var tables = document.querySelectorAll('table.lb[data-sortable]');
   Array.prototype.forEach.call(tables, function (table) {
     var ths = table.querySelectorAll('thead th');
@@ -262,6 +299,604 @@ td.pct{font-weight:600;color:var(--text)}
       });
     });
   });
+  }
+  window.hmBindSort = bind;
+  bind();
+})();
+
+</script>
+<script>
+(function () {
+// ── lib/metrics.mjs ──
+// The metrics behind every column. Each compute function returns a number, or
+// null when it cannot be computed (no games played, no wins, missing input).
+// Each format function turns that into what the page shows, and null always
+// becomes DASH: nothing on the page can read NaN or Infinity.
+
+const SEASON_GAMES = 82;
+const PYTHAG_EXP = 14;
+const DASH = '—';
+const MINUS = '−';
+
+const num = (x) => typeof x === 'number' && Number.isFinite(x);
+const hasGames = (t) => num(t.gp) && t.gp > 0;
+
+// Rounds half away from zero at `d` decimals, after nudging off binary float
+// error (1.25 stored as 1.2499999 must still round to 1.3).
+function round(x, d = 1) {
+  if (!num(x)) return null;
+  const f = 10 ** d;
+  const r = Math.round(Math.abs(x) * f + 1e-9) / f;
+  return x < 0 ? -r : r;
+}
+
+function pct(t) {
+  return hasGames(t) ? t.w / t.gp : null;
+}
+
+// Wins above the pace of a full-season total, over the games played so far.
+function vsPace(t, total) {
+  return hasGames(t) && num(total) ? t.w - t.gp * (total / SEASON_GAMES) : null;
+}
+const vsVegas = (t) => vsPace(t, t.line);
+const vsLastYear = (t) => vsPace(t, t.last_season_wins);
+
+// Payroll prorated to the games played, per win. No wins, no number.
+function dollarsPerWin(t) {
+  if (!hasGames(t) || !num(t.payroll) || !num(t.w) || t.w <= 0) return null;
+  return t.payroll * (t.gp / SEASON_GAMES) / t.w;
+}
+
+function ptDiff(t) {
+  return hasGames(t) && num(t.pf) && num(t.pa) ? (t.pf - t.pa) / t.gp : null;
+}
+
+// Pythagorean expectation, exponent 14, written as 1 / (1 + (PA/PF)^14) so
+// season-long point totals never get raised to the 14th power directly.
+function expectedWins(t) {
+  if (!hasGames(t) || !num(t.pf) || !num(t.pa) || t.pf < 0 || t.pa < 0) return null;
+  if (t.pf + t.pa === 0) return null;
+  if (t.pf === 0) return 0;
+  return t.gp / (1 + (t.pa / t.pf) ** PYTHAG_EXP);
+}
+
+function expectedRecord(t) {
+  const e = expectedWins(t);
+  if (e === null) return null;
+  const w = Math.round(e);
+  return { w, l: t.gp - w };
+}
+
+function luck(t) {
+  const e = expectedWins(t);
+  return e === null ? null : t.w - e;
+}
+
+function roadWMinusHomeL(t) {
+  return hasGames(t) && num(t.road_w) && num(t.home_l) ? t.road_w - t.home_l : null;
+}
+
+// ── Formatting ──
+
+function signed(x, d = 1) {
+  const r = round(x, d);
+  if (r === null) return DASH;
+  const s = Math.abs(r).toFixed(d);
+  if (r > 0) return '+' + s;
+  if (r < 0) return MINUS + s;
+  return (0).toFixed(d);
+}
+
+const fmtPct = (x) => (x === null || !num(x) ? DASH : round(x * 100, 1).toFixed(1) + '%');
+const fmtMoneyM = (x) => (x === null || !num(x) ? DASH : '$' + round(x / 1e6, 2).toFixed(2) + 'M');
+const fmtRecord = (r) => (r ? r.w + '-' + r.l : DASH);
+const fmtSignedInt = (x) => (x === null || !num(x) ? DASH : signed(x, 0));
+
+// Every metric for one team: the raw value (for sorting and the leader
+// lines) and the text the page shows.
+function teamMetrics(t) {
+  const exp = expectedRecord(t);
+  const v = {
+    pct: pct(t),
+    vsVegas: vsVegas(t),
+    vsLastYear: vsLastYear(t),
+    dollarsPerWin: dollarsPerWin(t),
+    ptDiff: ptDiff(t),
+    expW: exp ? exp.w : null,
+    luck: luck(t),
+    roadMinusHome: roadWMinusHomeL(t),
+  };
+  return {
+    value: v,
+    text: {
+      pct: fmtPct(v.pct),
+      vsVegas: signed(v.vsVegas),
+      vsLastYear: signed(v.vsLastYear),
+      dollarsPerWin: fmtMoneyM(v.dollarsPerWin),
+      ptDiff: signed(v.ptDiff),
+      expWL: fmtRecord(exp),
+      luck: signed(v.luck),
+      roadMinusHome: fmtSignedInt(v.roadMinusHome),
+    },
+  };
+}
+
+// ── lib/timeframe.mjs ──
+// Timeframes: Season (the current standings), "As of" a saved night, and
+// "Since" a saved night (the current standings minus that night's). Pure
+// functions over the standings shape { ABBR: { w, l, gp, pf, pa, home_w,
+// home_l, road_w, road_l } }, shared by the build, the page script and the
+// tests. Dates are ET game dates, "YYYY-MM-DD".
+
+const FIELDS = ['w', 'l', 'pf', 'pa', 'home_w', 'home_l', 'road_w', 'road_l'];
+const PRESETS = { last7: 7, last15: 15 };
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+
+function addDays(iso, n) {
+  const d = new Date(iso + 'T12:00:00Z');
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+// The latest saved date on or before `target`, or null.
+function nearestOnOrBefore(dates, target) {
+  let best = null;
+  for (const d of dates) if (d <= target && (best === null || d > best)) best = d;
+  return best;
+}
+
+const zeroRow = () => ({ w: 0, l: 0, gp: 0, pf: 0, pa: 0, home_w: 0, home_l: 0, road_w: 0, road_l: 0 });
+
+// latest minus base, per team. A team with no games in between comes out
+// 0-0 (GP 0), which every metric already shows as a dash. A field that would
+// go negative (a feed correction between the two nights) is held at 0.
+function subtractStandings(latest, base) {
+  const out = {};
+  for (const [abbr, cur] of Object.entries(latest)) {
+    const b = (base && base[abbr]) || zeroRow();
+    const r = zeroRow();
+    for (const f of FIELDS) r[f] = Math.max(0, (cur[f] || 0) - (b[f] || 0));
+    r.gp = r.w + r.l;
+    out[abbr] = r;
+  }
+  return out;
+}
+
+// Compact form for the page: one array of FIELDS per team, in teams order.
+const packTeams = (teamsStandings, order) => order.map((a) => FIELDS.map((f) => teamsStandings[a][f] || 0));
+function unpackTeams(packed, order) {
+  const out = {};
+  order.forEach((a, i) => {
+    const r = zeroRow();
+    FIELDS.forEach((f, j) => { r[f] = packed[i][j]; });
+    r.gp = r.w + r.l;
+    out[a] = r;
+  });
+  return out;
+}
+
+// Reads ?asof= / ?since= into what to show. Returns:
+//   { kind: 'season' }
+//   { kind: 'asof' | 'since', requested, used, fallback, preset, invalid }
+// used is the saved date actually used (null: nothing saved on or before
+// the request, so "as of" is the 0-0 start and "since" is the whole season).
+// fallback is true when used differs from the requested date. A preset
+// (last7, last15) counts back from the latest game date: "last 7 days" is
+// every game after the night 7 days before it.
+function resolveTimeframe(params, { dates, gameDate }) {
+  const asof = params.asof, since = params.since;
+  let kind, requested, preset = null;
+  if (asof && ISO.test(asof)) { kind = 'asof'; requested = asof; }
+  else if (since && PRESETS[since]) {
+    if (!gameDate) return { kind: 'season', invalid: since };
+    kind = 'since'; preset = since; requested = addDays(gameDate, -PRESETS[since]);
+  } else if (since && ISO.test(since)) { kind = 'since'; requested = since; }
+  else return { kind: 'season', invalid: asof || since || null };
+  const used = nearestOnOrBefore(dates, requested);
+  return { kind, requested, used, fallback: used !== requested, preset };
+}
+
+// The standings a timeframe shows, from the current standings and the
+// saved nights (date -> standings).
+function standingsFor(tf, current, snapshots) {
+  if (tf.kind === 'season') return current;
+  const snap = tf.used ? snapshots[tf.used] : null;
+  if (tf.kind === 'asof') return snap ? subtractStandings(snap, null) : subtractStandings(current, current);
+  return subtractStandings(current, snap);
+}
+
+const gamesIn = (standings) => Object.values(standings).reduce((s, r) => s + (r.gp || 0), 0) / 2;
+
+// ── lib/model.mjs ──
+// Joins standings, lines and payroll into one row per team, ranks each
+// conference, and works out the leader lines and the movers strip.
+
+
+const CONFERENCES = ['East', 'West'];
+
+function buildRows(teams, standings, lines, payroll) {
+  return teams.map((t) => {
+    const s = standings.teams[t.abbr];
+    const l = lines.teams[t.abbr];
+    if (!s) throw new Error('no standings row for ' + t.abbr);
+    if (!l) throw new Error('no Vegas line for ' + t.abbr);
+    const p = payroll && payroll.payroll ? payroll.payroll[t.abbr] : undefined;
+    const row = {
+      ...t,
+      ...s,
+      line: l.line,
+      last_season_wins: l.last_season_wins,
+      payroll: Number.isFinite(p) && p > 0 ? p : null,
+    };
+    return { ...row, m: teamMetrics(row) };
+  });
+}
+
+// Standings order: win percentage, then more wins, then fewer losses, then
+// name. A team that has not played yet has no rank and sorts last.
+function rankConference(rows) {
+  const sorted = [...rows].sort((a, b) => {
+    const pa = a.m.value.pct, pb = b.m.value.pct;
+    if ((pa === null) !== (pb === null)) return pa === null ? 1 : -1;
+    if (pa !== null && pb !== pa) return pb - pa;
+    if (b.w !== a.w) return b.w - a.w;
+    if (a.l !== b.l) return a.l - b.l;
+    return a.short.localeCompare(b.short);
+  });
+  return sorted.map((r) => ({ ...r, rank: r.m.value.pct === null ? null : sorted.indexOf(r) + 1 }));
+}
+
+function byConference(rows) {
+  const out = {};
+  for (const c of CONFERENCES) out[c] = rankConference(rows.filter((r) => r.conf === c));
+  return out;
+}
+
+// "A, B and C"
+function joinAnd(parts) {
+  if (parts.length <= 1) return parts.join('');
+  return parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];
+}
+
+// The three teams at one end of a metric, best first, as one sentence:
+// "Miami (+4.2 wins vs. Vegas), Portland (+3.1) and LA Lakers (+2.7)". The
+// unit goes on the first team only. `keep` drops teams on the wrong side of
+// zero, so "Most underachieving" never lists a team that is ahead of its line.
+function leaderLine(rows, key, { dir, fmt, unit, keep = () => true, n = 3 }) {
+  const pool = rows.filter((r) => r.m.value[key] !== null && keep(r.m.value[key]));
+  pool.sort((a, b) => {
+    const d = dir === 'desc' ? b.m.value[key] - a.m.value[key] : a.m.value[key] - b.m.value[key];
+    return d !== 0 ? d : a.short.localeCompare(b.short);
+  });
+  const top = pool.slice(0, n);
+  if (!top.length) return null;
+  return joinAnd(top.map((r, i) => r.short + ' (' + fmt(r.m.value[key]) + (i === 0 ? unit : '') + ')'));
+}
+
+function leaders(rows) {
+  const pos = (v) => round(v, 1) > 0, neg = (v) => round(v, 1) < 0;
+  const s = (v) => signed(v);
+  return [
+    { label: 'Most overachieving', text: leaderLine(rows, 'vsVegas', { dir: 'desc', fmt: s, unit: ' wins vs. Vegas', keep: pos }) },
+    { label: 'Most underachieving', text: leaderLine(rows, 'vsVegas', { dir: 'asc', fmt: s, unit: ' wins vs. Vegas', keep: neg }) },
+    { label: 'Most improved', text: leaderLine(rows, 'vsLastYear', { dir: 'desc', fmt: s, unit: ' wins vs. last year', keep: pos }) },
+    { label: 'Most declined', text: leaderLine(rows, 'vsLastYear', { dir: 'asc', fmt: s, unit: ' wins vs. last year', keep: neg }) },
+    { label: 'Best bang for the buck', text: leaderLine(rows, 'dollarsPerWin', { dir: 'asc', fmt: fmtMoneyM, unit: ' per win' }) },
+    { label: 'Worst bang for the buck', text: leaderLine(rows, 'dollarsPerWin', { dir: 'desc', fmt: fmtMoneyM, unit: ' per win' }) },
+    { label: 'Luckiest', text: leaderLine(rows, 'luck', { dir: 'desc', fmt: s, unit: ' wins vs. expected', keep: pos }) },
+    { label: 'Unluckiest', text: leaderLine(rows, 'luck', { dir: 'asc', fmt: s, unit: ' wins vs. expected', keep: neg }) },
+  ];
+}
+
+// Movers: the change in "vs. Vegas" between the previous snapshot and now,
+// for every team that played in between, biggest change first.
+function movers(rows, prev, { n = 6 } = {}) {
+  if (!prev || !prev.teams) return null;
+  const out = [];
+  for (const r of rows) {
+    const p = prev.teams[r.abbr];
+    if (!p || r.gp === p.gp) continue;
+    const before = vsVegas({ ...p, line: r.line });
+    const after = r.m.value.vsVegas;
+    const delta = (after ?? 0) - (before ?? 0);
+    out.push({ abbr: r.abbr, short: r.short, name: r.name, nba_id: r.nba_id, delta,
+      dw: r.w - p.w, dl: r.l - p.l, w: r.w, l: r.l });
+  }
+  out.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || a.short.localeCompare(b.short));
+  return out.slice(0, n);
+}
+
+function moverText(m) {
+  // A feed correction can take a game away; say so rather than "won -1".
+  const games = m.dw < 0 || m.dl < 0 ? 'record revised' : m.dw && m.dl ? 'went ' + m.dw + '-' + m.dl : m.dw ? (m.dw === 1 ? 'won' : 'won ' + m.dw) : (m.dl === 1 ? 'lost' : 'lost ' + m.dl);
+  return { delta: signed(m.delta) + ' vs. Vegas', games, record: m.w + '-' + m.l };
+}
+
+function leagueAveragePayroll(rows) {
+  const ps = rows.map((r) => r.payroll).filter((p) => p !== null);
+  return ps.length ? ps.reduce((a, b) => a + b, 0) / ps.length : null;
+}
+
+
+// ── lib/render.mjs ──
+// The parts of the page: tables, leader lines, movers, the SVG charts and
+// the timeframe label, plus the formatting they share. lib/page.mjs puts
+// them into the whole page. These functions run at build time and, bundled
+// by scripts/build.mjs, again in the browser for the ?asof= and ?since=
+// views, so they use nothing but plain JavaScript and Intl.
+
+
+const PAGE_URL = 'https://hoopsmatic.com/standings';
+const LOGO_BASE = 'https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/';
+const SSF_TEAM_BASE = 'https://hoopsmatic.com/salary-season-finder/team/';
+const TITLE = 'NBA Real Standings 2026-27: Records vs. Vegas, Payroll per Win and Luck | HoopsMatic';
+const DESCRIPTION = 'Every NBA team’s 2026-27 record measured against its Vegas win total, last season, payroll per win, point differential and Pythagorean luck. Updated nightly.';
+
+const logoUrl = (t) => LOGO_BASE + t.nba_id + '.svg';
+const teamUrl = (t) => SSF_TEAM_BASE + t.ssf_slug + '/';
+
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function fmtDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  return m ? MONTHS[Number(m[2]) - 1] + ' ' + Number(m[3]) + ', ' + m[1] : '';
+}
+// "Oct 21", for labels inside the season.
+function fmtDay(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  return m ? MONTHS[Number(m[2]) - 1] + ' ' + Number(m[3]) : '';
+}
+
+// "Oct 21, 1:42 a.m. ET (7:42 Madrid)" for an ISO instant.
+function fmtUpdated(isoUtc) {
+  const d = new Date(isoUtc);
+  if (Number.isNaN(d.getTime())) return '';
+  const part = (opts, type) => new Intl.DateTimeFormat('en-US', opts).formatToParts(d).find((p) => p.type === type).value;
+  const et = { timeZone: 'America/New_York' };
+  const month = part({ ...et, month: 'short' }, 'month');
+  const day = part({ ...et, day: 'numeric' }, 'day');
+  const h12 = part({ ...et, hour: 'numeric', hour12: true }, 'hour');
+  const min = part({ ...et, minute: '2-digit' }, 'minute').padStart(2, '0');
+  const ampm = part({ ...et, hour: 'numeric', hour12: true }, 'dayPeriod').toLowerCase() === 'am' ? 'a.m.' : 'p.m.';
+  const mad = { timeZone: 'Europe/Madrid', hour: 'numeric', minute: '2-digit', hourCycle: 'h23' };
+  const mh = String(Number(part(mad, 'hour')));
+  const mm = part(mad, 'minute').padStart(2, '0');
+  return `${month} ${day}, ${h12}:${min} ${ampm} ET (${mh}:${mm} Madrid)`;
+}
+
+// Sign class for a signed column: by the value as shown, so +0.0 is neutral.
+function signCls(v, d = 1) {
+  const r = round(v, d);
+  return r === null ? 'dash' : r > 0 ? 'pos' : r < 0 ? 'neg' : '';
+}
+
+// first: the direction of the first tap (1 = low to high).
+const COLUMNS = [
+  { k: 'rank', label: 'Rank', t: 'num', first: 1 },
+  { k: 'team', label: 'Team', t: 'str', first: 1 },
+  { k: 'w', label: 'W', t: 'num', first: -1 },
+  { k: 'l', label: 'L', t: 'num', first: -1 },
+  { k: 'pct', label: 'Pct', t: 'num', first: -1 },
+  { k: 'vsVegas', label: 'vs. Vegas', t: 'num', first: -1 },
+  { k: 'vsLastYear', label: 'vs. Last Year', t: 'num', first: -1 },
+  { k: 'dollarsPerWin', label: '$ per Win', t: 'num', first: 1 },
+  { k: 'ptDiff', label: 'Pt Diff', t: 'num', first: -1 },
+  { k: 'expW', label: 'Exp. W-L', t: 'num', first: -1 },
+  { k: 'luck', label: 'Luck', t: 'num', first: -1 },
+  { k: 'roadMinusHome', label: 'Road W − Home L', t: 'num', first: -1 },
+];
+
+function cell(r, k) {
+  const v = r.m.value, t = r.m.text;
+  const dv = (x) => (x === null || x === undefined ? '' : String(x));
+  switch (k) {
+    case 'rank': return `<td class="c-rank" data-v="${dv(r.rank)}">${r.rank ?? DASH}</td>`;
+    case 'team':
+      return `<td class="c-team" data-v="${esc(r.short)}"><a class="tm" href="${teamUrl(r)}" title="${esc(r.name)} payroll and salaries">`
+        + `<img src="${logoUrl(r)}" alt="" width="22" height="22" loading="lazy">${esc(r.short)}</a></td>`;
+    case 'w': return `<td data-v="${r.w}">${r.w}</td>`;
+    case 'l': return `<td data-v="${r.l}">${r.l}</td>`;
+    case 'pct': return `<td class="pct" data-v="${dv(v.pct)}">${t.pct}</td>`;
+    case 'dollarsPerWin': return `<td data-v="${dv(v.dollarsPerWin)}"${v.dollarsPerWin === null ? ' class="dash"' : ''}>${t.dollarsPerWin}</td>`;
+    case 'expW': return `<td data-v="${dv(v.expW)}"${v.expW === null ? ' class="dash"' : ''}>${t.expWL}</td>`;
+    case 'roadMinusHome': return `<td data-v="${dv(v.roadMinusHome)}" class="${signCls(v.roadMinusHome, 0)}">${t.roadMinusHome}</td>`;
+    default: return `<td data-v="${dv(v[k])}" class="${signCls(v[k])}">${t[k]}</td>`;
+  }
+}
+
+function tableHtml(conf, rows) {
+  const head = COLUMNS.map((c) => {
+    const cls = c.k === 'rank' ? ' class="c-rank"' : c.k === 'team' ? ' class="c-team"' : '';
+    const sort = c.k === 'pct' ? 'descending' : 'none';
+    const arr = c.k === 'pct' ? '▼' : '';
+    return `<th scope="col"${cls} data-k="${c.k}" data-t="${c.t}" data-first="${c.first}" aria-sort="${sort}"><button type="button">${esc(c.label)}<span class="arr">${arr}</span></button></th>`;
+  }).join('');
+  const body = rows.map((r, i) => `<tr data-o="${i}">` + COLUMNS.map((c) => cell(r, c.k)).join('') + '</tr>').join('\n');
+  return `<div class="table-wrap"><table class="lb" data-sortable aria-label="${conf}ern Conference">`
+    + `<thead><tr>${head}</tr></thead><tbody>\n${body}\n</tbody></table></div>`;
+}
+
+function leadersHtml(rows) {
+  const L = leaders(rows);
+  const pairs = [[L[0], L[1]], [L[2], L[3]], [L[4], L[5]], [L[6], L[7]]];
+  return '<div class="leaders">' + pairs.map((p) => '<div class="lead"><dl>' + p.map((x) =>
+    `<div><dt>${esc(x.label)}</dt>` + (x.text ? `<dd>${esc(x.text)}</dd>` : '<dd class="none">After the first games.</dd>') + '</div>').join('') + '</dl></div>').join('') + '</div>';
+}
+
+function moversHtml(list, prevDate, today) {
+  if (list === null) return '<p class="note">Movers appear once there is a previous night to compare against.</p>';
+  const since = prevDate ? fmtDate(prevDate) : '';
+  if (!list.length) return `<p class="note">No games since the ${esc(since)} update.</p>`;
+  return '<div class="movers">' + list.map((m) => {
+    const t = moverText(m);
+    const cls = round(m.delta, 1) > 0 ? 'pos' : round(m.delta, 1) < 0 ? 'neg' : '';
+    return `<div class="mover"><img src="${logoUrl(m)}" alt="" width="28" height="28" loading="lazy">`
+      + `<span><span class="nm">${esc(m.short)} <span class="d ${cls}">${esc(t.delta)}</span></span>`
+      + `<span class="det">${esc(t.games)}, now ${esc(t.record)}</span></span></div>`;
+  }).join('') + '</div>';
+}
+
+// ── Scatter chart: X payroll, Y win % ──
+// Drawn in a 400x320 box that is scaled to the column width, so at 360px it
+// is close to 1:1 and the labels stay legible. X is shared by both charts
+// (auto-scaled to the league's payroll range in $10M steps), Y is 0-100%.
+function xDomain(rows) {
+  const ps = rows.map((r) => r.payroll).filter((p) => p !== null);
+  if (!ps.length) return [150e6, 250e6];
+  const step = 10e6;
+  return [Math.floor((Math.min(...ps) - 4e6) / step) * step, Math.ceil((Math.max(...ps) + 4e6) / step) * step];
+}
+
+function scatterSvg(conf, rows, domain, avgPayroll) {
+  const W = 400, H = 320, ml = 40, mr = 24, mt = 12, mb = 40;
+  const [x0, x1] = domain;
+  const X = (p) => ml + ((p - x0) / (x1 - x0)) * (W - ml - mr);
+  const Y = (f) => mt + (1 - f) * (H - mt - mb);
+  const out = [];
+  out.push(`<svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="chart-${conf}-t">`);
+  out.push(`<title id="chart-${conf}-t">${conf}ern Conference: payroll against win percentage</title>`);
+  for (const f of [0, 0.25, 0.5, 0.75, 1]) {
+    if (f !== 0.5) out.push(`<line class="grid" x1="${ml}" x2="${W - mr}" y1="${Y(f)}" y2="${Y(f)}"/>`);
+    out.push(`<text class="ax" x="${ml - 6}" y="${Y(f) + 4}" text-anchor="end">${Math.round(f * 100)}%</text>`);
+  }
+  const span = (x1 - x0) / 1e6;
+  const tickStep = span > 80 ? 20e6 : 10e6;
+  for (let p = Math.ceil(x0 / tickStep) * tickStep; p <= x1; p += tickStep) {
+    out.push(`<line class="grid" x1="${X(p)}" x2="${X(p)}" y1="${mt}" y2="${H - mb}" opacity=".5"/>`);
+    out.push(`<text class="ax" x="${X(p)}" y="${H - mb + 15}" text-anchor="middle">$${Math.round(p / 1e6)}M</text>`);
+  }
+  out.push(`<text class="ax" x="${(ml + W - mr) / 2}" y="${H - 6}" text-anchor="middle">2026-27 payroll</text>`);
+  // Reference lines: .500 and the league-average payroll.
+  out.push(`<line class="ref" x1="${ml}" x2="${W - mr}" y1="${Y(0.5)}" y2="${Y(0.5)}"/>`);
+  out.push(`<text class="reflbl" x="${W - mr - 2}" y="${Y(0.5) - 4}" text-anchor="end">.500</text>`);
+  if (avgPayroll !== null) {
+    const ax = X(avgPayroll);
+    out.push(`<line class="ref" x1="${ax}" x2="${ax}" y1="${mt}" y2="${H - mb}"/>`);
+    out.push(`<text class="reflbl" x="${ax + 4}" y="${mt + 11}">avg $${round(avgPayroll / 1e6, 1).toFixed(1)}M</text>`);
+  }
+  const pts = rows.filter((r) => r.payroll !== null && r.m.value.pct !== null);
+  if (!pts.length) {
+    out.push(`<text class="empty" x="${(ml + W - mr) / 2}" y="${Y(0.75)}" text-anchor="middle">Teams appear here after their first game.</text>`);
+  }
+  const S = 26;
+  // Lowest win % first, so the better team's logo sits on top where two overlap.
+  for (const r of [...pts].sort((a, b) => a.m.value.pct - b.m.value.pct)) {
+    const cx = X(r.payroll), cy = Y(r.m.value.pct);
+    out.push(`<g><title>${esc(r.name)}: ${esc(r.m.text.pct)} (${r.w}-${r.l}), $${round(r.payroll / 1e6, 2).toFixed(2)}M payroll</title>`
+      + `<image href="${logoUrl(r)}" x="${(cx - S / 2).toFixed(1)}" y="${(cy - S / 2).toFixed(1)}" width="${S}" height="${S}"/></g>`);
+  }
+  out.push('</svg>');
+  return out.join('');
+}
+
+// ── Timeframes ──
+// The parts of the page that follow the selected timeframe: leader lines,
+// the two conference tables and the two charts. The build renders them for
+// the season; the page script (src/views.js) renders them again for ?asof=
+// and ?since= with these same functions, bundled into the page.
+function tablesHtml(conferences) {
+  return CONFERENCES.map((c) => `<section class="block"><div class="block-head"><h2>${c}ern Conference</h2></div>\n${tableHtml(c, conferences[c])}\n</section>`).join('\n');
+}
+function chartsHtml(rows, conferences) {
+  const avg = leagueAveragePayroll(rows);
+  const dom = xDomain(rows);
+  return CONFERENCES.map((c) => `<figure class="chart"><h3>${c}ern Conference</h3>${scatterSvg(c, conferences[c], dom, avg)}</figure>`).join('');
+}
+
+const plural = (n, one, many) => n + ' ' + (n === 1 ? one : many);
+
+// The line under the selector, and the note when a date had to fall back.
+function timeframeLabel(tf, standings) {
+  if (tf.kind === 'season') return { label: '', note: '' };
+  const g = gamesIn(standings);
+  const games = plural(g, 'game', 'games');
+  let label;
+  if (tf.preset) {
+    label = (tf.preset === 'last7' ? 'Last 7 days' : 'Last 15 days')
+      + (tf.used ? ' (games after ' + fmtDay(tf.used) + '): ' : ' (the season so far): ') + games;
+  } else if (tf.kind === 'since') {
+    label = 'Since ' + fmtDay(tf.requested) + ': ' + games;
+  } else {
+    label = 'As of ' + fmtDay(tf.requested) + ': ' + plural(g, 'game', 'games') + ' played';
+  }
+  let note = '';
+  if (!tf.preset && tf.fallback) {
+    note = tf.used
+      ? 'Nothing was saved for ' + fmtDay(tf.requested) + ', so this uses ' + fmtDay(tf.used) + ', the nearest earlier date.'
+      : 'Nothing was saved on or before ' + fmtDay(tf.requested) + ', so this '
+        + (tf.kind === 'since' ? 'covers the whole season.' : 'is the 0-0 start of the season.');
+  }
+  return { label, note };
+}
+
+// Everything that follows the timeframe, for one set of standings.
+function timeframeParts(teams, standings, lines, payroll) {
+  const rows = buildRows(teams, { teams: standings }, lines, payroll);
+  const conferences = byConference(rows);
+  return { leaders: leadersHtml(rows), tables: tablesHtml(conferences), charts: chartsHtml(rows, conferences) };
+}
+
+window.HM = { unpackTeams, resolveTimeframe, standingsFor, timeframeLabel, timeframeParts, fmtDay };
+})();
+// Timeframes in the browser: ?asof=YYYY-MM-DD, ?since=YYYY-MM-DD,
+// ?since=last7 and ?since=last15. The build renders the season; for any of
+// these the leader lines, tables and charts are drawn again from the saved
+// nights embedded in #hm-data, with the same functions the build uses
+// (window.HM, bundled from lib/ by scripts/build.mjs). These views are
+// marked noindex,follow with a canonical to themselves; the plain page is
+// left exactly as built.
+(function () {
+  var HM = window.HM, el = document.getElementById('hm-data');
+  if (!HM || !el) return;
+  var D = JSON.parse(el.textContent);
+  var order = D.teams.map(function (t) { return t.abbr; });
+  var q = new URLSearchParams(location.search);
+  var params = { asof: q.get('asof'), since: q.get('since') };
+  var tf = HM.resolveTimeframe(params, { dates: D.dates, gameDate: D.gameDate });
+
+  // The chips and the two date pickers show the current choice; picking a
+  // date opens that view.
+  var key = tf.kind === 'season' ? 'season' : (tf.preset || '');
+  Array.prototype.forEach.call(document.querySelectorAll('.tf .chip'), function (a) {
+    a.classList.toggle('active', a.getAttribute('data-tf') === key);
+  });
+  ['asof', 'since'].forEach(function (name) {
+    var s = document.getElementById('tf-' + name);
+    if (!s) return;
+    if (tf.kind === name && !tf.preset) {
+      var has = Array.prototype.some.call(s.options, function (o) { return o.value === tf.requested; });
+      if (!has) { var o = document.createElement('option'); o.value = tf.requested; o.textContent = HM.fmtDay(tf.requested); s.appendChild(o); }
+      s.value = tf.requested;
+    }
+    s.addEventListener('change', function () {
+      if (s.value) location.href = D.pageUrl + '?' + name + '=' + encodeURIComponent(s.value);
+    });
+  });
+  if (tf.kind === 'season') return;
+
+  var snaps = {};
+  D.dates.forEach(function (d) { snaps[d] = HM.unpackTeams(D.snapshots[d], order); });
+  var standings = HM.standingsFor(tf, HM.unpackTeams(D.current, order), snaps);
+  var parts = HM.timeframeParts(D.teams, standings, D.lines, D.payroll);
+  document.getElementById('tf-leaders').innerHTML = parts.leaders;
+  document.getElementById('tf-tables').innerHTML = parts.tables;
+  document.getElementById('tf-charts').innerHTML = parts.charts;
+  var text = HM.timeframeLabel(tf, standings);
+  var lab = document.getElementById('tf-label'), note = document.getElementById('tf-note');
+  lab.textContent = text.label; lab.hidden = !text.label;
+  note.textContent = text.note; note.hidden = !text.note;
+  if (window.hmBindSort) window.hmBindSort();
+
+  // Not for search: noindex,follow, canonical and og:url to this view.
+  var self = D.pageUrl + '?' + (tf.kind === 'asof' ? 'asof=' + tf.requested : 'since=' + (tf.preset || tf.requested));
+  var m = document.createElement('meta');
+  m.name = 'robots'; m.content = 'noindex,follow';
+  document.head.appendChild(m);
+  var c = document.querySelector('link[rel="canonical"]');
+  if (c) c.href = self;
+  var og = document.querySelector('meta[property="og:url"]');
+  if (og) og.content = self;
 })();
 
 </script>

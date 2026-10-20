@@ -1,14 +1,15 @@
-// The request code the nightly run uses (lib/http.mjs), and what scripts/
-// fetch.mjs does with it:
+// The request code the update run uses (lib/http.mjs), and what the run
+// (scripts/update.mjs over scripts/fetch.mjs) does with it:
 //
 //   - every request carries desktop Chrome's User-Agent, Accept:
 //     application/json and Accept-Language: en-US; cdn.nba.com requests also
 //     carry Referer https://www.nba.com/ and Origin https://www.nba.com;
 //   - 30s per attempt, one retry, then an error naming both attempts;
-//   - the probe runs the fetch's own sources, and nothing in scripts/ calls
-//     fetch() directly;
-//   - when every standings source fails, run() rejects and writes nothing;
-//   - a successful run dates the standings today even when no game changed.
+//   - the probe runs the fetch's own sources (standings and scoreboards),
+//     and nothing in scripts/ calls fetch() directly;
+//   - when every source fails, run() rejects and writes nothing;
+//   - a forced run whose numbers did not change writes nothing and leaves
+//     the "Updated" time alone.
 //
 // Run: node test/http.test.mjs
 
@@ -17,7 +18,8 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { requestHeaders, getJson, CHROME_UA, REQUEST_TIMEOUT_MS } from '../lib/http.mjs';
-import { run, SOURCES, ESPN_URL, NBA_SCHEDULE_URL, SSF_DATA_URL } from '../scripts/fetch.mjs';
+import { SOURCES, SCOREBOARD_SOURCES, ESPN_URL, ESPN_SCOREBOARD_URL, NBA_SCHEDULE_URL, SSF_DATA_URL } from '../scripts/fetch.mjs';
+import { run } from '../scripts/update.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -78,7 +80,9 @@ globalThis.fetch = realFetch;
 // ── 3. One request path: probe and fetch share it ──
 const probeSrc = await readFile(join(root, 'scripts/probe.mjs'), 'utf8');
 const fetchSrc = await readFile(join(root, 'scripts/fetch.mjs'), 'utf8');
-ok('probe runs fetch.mjs\'s SOURCES', /import \{ SOURCES \} from '\.\/fetch\.mjs'/.test(probeSrc) && SOURCES.map((s) => s.name).join() === 'ESPN,cdn.nba.com');
+ok('probe runs fetch.mjs\'s SOURCES and SCOREBOARD_SOURCES', /import \{ SOURCES, SCOREBOARD_SOURCES, etDate \} from '\.\/fetch\.mjs'/.test(probeSrc)
+   && SOURCES.map((s) => s.name).join() === 'ESPN,cdn.nba.com' && SCOREBOARD_SOURCES.map((s) => s.name).join() === 'ESPN,cdn.nba.com');
+ok('scoreboard requests carry the same browser headers', JSON.stringify(requestHeaders(ESPN_SCOREBOARD_URL + '20261021')) === JSON.stringify(requestHeaders(ESPN_URL)));
 ok('fetch.mjs gets every URL through lib/http.mjs getJson', /import \{ getJson \} from '\.\.\/lib\/http\.mjs'/.test(fetchSrc));
 const scripts = await readdir(join(root, 'scripts'));
 const direct = [];
@@ -87,11 +91,11 @@ ok('nothing in scripts/ calls fetch() directly', direct.length === 0, direct);
 const wf = await readFile(join(root, '.github/workflows/nightly.yml'), 'utf8');
 ok('nightly: the probe step is node scripts/probe.mjs, no curl', /name: Probe feeds[\s\S]*?run: node scripts\/probe\.mjs/.test(wf) && !/curl/.test(wf));
 
-// ── 4. run(): all sources down -> nothing written, rejects ──
-async function scratchData() {
+// ── 4. run(): every source down -> nothing written, rejects ──
+async function scratch() {
   const dir = await mkdtemp(join(tmpdir(), 'standings-run-'));
-  await cp(join(root, 'data'), dir, { recursive: true });
-  return dir;
+  await cp(join(root, 'data'), join(dir, 'data'), { recursive: true });
+  return { data: join(dir, 'data'), out: dir };
 }
 async function snapshot(dir) {
   const out = {};
@@ -106,43 +110,47 @@ async function snapshot(dir) {
   return out;
 }
 const quiet = console.log;
+const NOW = new Date('2026-10-21T14:00:00Z');
 {
-  const dir = await scratchData();
-  const before = await snapshot(dir);
+  const d = await scratch();
+  const before = await snapshot(d.out);
   stub([403]);
   console.log = () => {};
-  e = await rejects(run({ dataDir: dir, today: '2026-10-21' }));
+  e = await rejects(run({ dataDir: d.data, outDir: d.out, now: NOW }));
   console.log = quiet;
-  const after = await snapshot(dir);
+  const after = await snapshot(d.out);
   ok('all sources fail: run() rejects (the step exits 1, so the run fails)', e && /no standings source worked/.test(e.message), e && e.message);
-  ok('all sources fail: each source retried once (2 x 2 requests), payroll never fetched', calls.length === 4 && calls.every((c) => c.url !== SSF_DATA_URL), calls.map((c) => c.url));
-  ok('all sources fail: every data file byte for byte as before, no history file added', JSON.stringify(before) === JSON.stringify(after), Object.keys(after).filter((k) => before[k] !== after[k]));
+  ok('all sources fail: scoreboards and standings each tried on both sources, each request retried once; payroll never fetched',
+     calls.length === 8 && calls.every((c) => c.url !== SSF_DATA_URL), calls.map((c) => c.url));
+  ok('all sources fail: every file byte for byte as before (data, index.html, sitemap.xml)', JSON.stringify(before) === JSON.stringify(after), Object.keys(after).filter((k) => before[k] !== after[k]));
   globalThis.fetch = realFetch;
 }
 
-// ── 5. run(): a good night with no games still moves "Updated" to today ──
+// ── 5. run(): a forced run with the same numbers writes nothing ──
 {
-  const dir = await scratchData();
-  const { teams } = JSON.parse(await readFile(join(dir, 'teams.json'), 'utf8'));
-  const prev = JSON.parse(await readFile(join(dir, 'standings.json'), 'utf8'));
-  const zero = { wins: 0, losses: 0 };
-  const entries = (conf) => teams.filter((t) => t.conf === conf).map((t) => ({ team: { abbreviation: t.espn[0] }, stats: [{ name: 'wins', value: zero.wins }, { name: 'losses', value: zero.losses }] }));
+  const d = await scratch();
+  const before = await snapshot(d.out);
+  const { teams } = JSON.parse(await readFile(join(d.data, 'teams.json'), 'utf8'));
+  const entries = (conf) => teams.filter((t) => t.conf === conf).map((t) => ({ team: { abbreviation: t.espn[0] }, stats: [{ name: 'wins', value: 0 }, { name: 'losses', value: 0 }] }));
   const espnBody = { children: [{ standings: { season: 2027, entries: entries('East') } }, { standings: { season: 2027, entries: entries('West') } }] };
+  const pay = JSON.parse(await readFile(join(d.data, 'payroll_2026-27.json'), 'utf8'));
   calls = [];
   globalThis.fetch = async (url, init) => {
     calls.push({ url: String(url), init });
     if (String(url) === ESPN_URL) return new Response(JSON.stringify(espnBody));
-    return new Response('down', { status: 503 });
+    if (String(url).startsWith(ESPN_SCOREBOARD_URL)) return new Response(JSON.stringify({ events: [] }));
+    if (String(url) === SSF_DATA_URL) return new Response('down', { status: 503 });
+    return new Response('nope', { status: 404 });
   };
   console.log = () => {};
-  await run({ dataDir: dir, today: '2026-10-21' });
+  const r = await run({ dataDir: d.data, outDir: d.out, now: NOW, force: true });
   console.log = quiet;
   globalThis.fetch = realFetch;
-  const st = JSON.parse(await readFile(join(dir, 'standings.json'), 'utf8'));
-  ok('good run, same 0-0 records: updated_on is today, source espn', st.updated_on === '2026-10-21' && st.source === 'espn' && JSON.stringify(st.teams) === JSON.stringify(prev.teams), { updated_on: st.updated_on, source: st.source });
-  ok('good run: ESPN asked once, with the browser headers', calls.filter((c) => c.url === ESPN_URL).length === 1 && calls[0].init.headers['User-Agent'] === CHROME_UA);
-  ok('good run: payroll down (503 twice) keeps the committed payroll file', JSON.stringify(JSON.parse(await readFile(join(dir, 'payroll_2026-27.json'), 'utf8')))
-     === JSON.stringify(JSON.parse(await readFile(join(root, 'data/payroll_2026-27.json'), 'utf8'))));
+  const after = await snapshot(d.out);
+  ok('forced run, same 0-0 numbers, payroll down: nothing written at all ("Updated" stays)', JSON.stringify(before) === JSON.stringify(after) && !r.standingsChanged && !r.built,
+     Object.keys(after).filter((k) => before[k] !== after[k]));
+  ok('forced run: standings asked once, with the browser headers', calls.filter((c) => c.url === ESPN_URL).length === 1 && calls.find((c) => c.url === ESPN_URL).init.headers['User-Agent'] === CHROME_UA);
+  ok('forced run: payroll asked (twice: one retry) and the committed file kept', calls.filter((c) => c.url === SSF_DATA_URL).length === 2 && JSON.stringify(pay) === JSON.stringify(JSON.parse(after['data/payroll_2026-27.json'])));
 }
 
 console.log(failed ? `\n${failed} test(s) FAILED` : '\nall tests passed');
