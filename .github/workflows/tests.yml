@@ -13,3 +13,4 @@ jobs:
           node-version: '22'
       - run: node test/metrics.test.mjs
       - run: node test/data-and-page.test.mjs
+      - run: node test/http.test.mjs

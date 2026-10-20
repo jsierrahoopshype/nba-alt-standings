@@ -6,7 +6,13 @@
 // Standings come from ESPN's public feed; if that fails from wherever this
 // runs (or answers for the wrong season, or with the wrong teams), the
 // standings are rebuilt from cdn.nba.com's season schedule instead.
-// stats.nba.com is never used: it blocks cloud servers.
+// stats.nba.com is never used: it blocks cloud servers. Every request goes
+// through lib/http.mjs (browser-like headers, 30s, one retry), the same code
+// scripts/probe.mjs uses.
+//
+// IF EVERY STANDINGS SOURCE FAILS, nothing is written: the committed data and
+// page stay as they are, and the process exits 1 so the run fails and GitHub
+// sends its failure email.
 //
 // Run: node scripts/fetch.mjs [--today YYYY-MM-DD]
 
@@ -14,28 +20,21 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseEspn, parseNbaSchedule, payrollByTeam } from '../lib/sources.mjs';
+import { getJson } from '../lib/http.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DATA = join(root, 'data');
+const DEFAULT_DATA = join(root, 'data');
 const SEASON = '2026-27';
 const ESPN_SEASON = 2027;               // ESPN names a season by the year it ends
 const NBA_SEASON_YEAR = '2026-27';
 
-const ESPN_URL = 'https://site.api.espn.com/apis/v2/sports/basketball/nba/standings?season=' + ESPN_SEASON + '&seasontype=2';
-const NBA_SCHEDULE_URL = 'https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json';
-const SSF_DATA_URL = 'https://jsierrahoopshype.github.io/salary-season-finder/data/data.json';
-
-const UA = { 'User-Agent': 'Mozilla/5.0 (compatible; hoopsmatic-standings/1.0; +https://hoopsmatic.com/standings)', Accept: 'application/json' };
+export const ESPN_URL = 'https://site.api.espn.com/apis/v2/sports/basketball/nba/standings?season=' + ESPN_SEASON + '&seasontype=2';
+export const NBA_SCHEDULE_URL = 'https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json';
+export const SSF_DATA_URL = 'https://jsierrahoopshype.github.io/salary-season-finder/data/data.json';
 
 // Today in New York: the run after a night of games is dated the next morning.
 export function etDate(d = new Date()) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
-}
-
-async function getJson(url) {
-  const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(60000) });
-  if (!r.ok) throw new Error('HTTP ' + r.status + ' from ' + url);
-  return r.json();
 }
 
 const readJson = async (p, fallback = null) => {
@@ -50,30 +49,35 @@ async function writeIfChanged(path, obj, same) {
   return true;
 }
 
-async function standings(teams) {
-  const errors = [];
-  try {
+// The standings sources in the order they are tried. Each fetches and
+// parses, so a source that answers with the wrong season or teams fails
+// here too. scripts/probe.mjs runs these same functions.
+export const SOURCES = [
+  { name: 'ESPN', fetch: async (teams) => {
     const parsed = parseEspn(await getJson(ESPN_URL), teams, { season: ESPN_SEASON });
     if (parsed.listed < 30) throw new Error('ESPN listed ' + parsed.listed + ' teams');
-    console.log('standings: ESPN ok (' + parsed.listed + ' teams)');
     return parsed;
-  } catch (e) {
-    errors.push('ESPN: ' + e.message);
-    console.log('standings: ESPN failed: ' + e.message);
-  }
-  try {
-    const parsed = parseNbaSchedule(await getJson(NBA_SCHEDULE_URL), teams, { seasonYear: NBA_SEASON_YEAR });
-    console.log('standings: cdn.nba.com schedule ok');
-    return parsed;
-  } catch (e) {
-    errors.push('cdn.nba.com: ' + e.message);
+  } },
+  { name: 'cdn.nba.com', fetch: async (teams) => parseNbaSchedule(await getJson(NBA_SCHEDULE_URL), teams, { seasonYear: NBA_SEASON_YEAR }) },
+];
+
+export async function standings(teams) {
+  const errors = [];
+  for (const src of SOURCES) {
+    try {
+      const parsed = await src.fetch(teams);
+      console.log('standings: ' + src.name + ' ok (' + parsed.listed + ' teams listed)');
+      return parsed;
+    } catch (e) {
+      errors.push(src.name + ': ' + e.message);
+      console.log('standings: ' + src.name + ' failed: ' + e.message);
+    }
   }
   throw new Error('no standings source worked:\n  ' + errors.join('\n  '));
 }
 
-async function main() {
-  const i = process.argv.indexOf('--today');
-  const today = i > 0 ? process.argv[i + 1] : etDate();
+export async function run({ today = etDate(), dataDir = DEFAULT_DATA } = {}) {
+  const DATA = dataDir;
   const { teams } = await readJson(join(DATA, 'teams.json'));
 
   // ── Standings ──
@@ -84,12 +88,13 @@ async function main() {
   const next = {
     season: SEASON,
     source: st.source,
-    // The date the numbers last changed, which is what the page shows.
-    updated_on: prev && sameTeams(prev, st) ? prev.updated_on : today,
+    // The date of the last successful fetch, which the page shows as
+    // "Updated": a night with no games still moves it.
+    updated_on: today,
     teams: st.teams,
   };
   const stChanged = await writeIfChanged(stPath, next, (a, b) => sameTeams(a, b) && a.source === b.source && a.updated_on === b.updated_on);
-  console.log('standings.json ' + (stChanged ? 'updated' : 'unchanged') + ' (source ' + st.source + ')');
+  console.log('standings.json ' + (stChanged ? 'updated' : 'unchanged') + ' (source ' + st.source + ')' + (prev && sameTeams(prev, st) ? ', same records as before' : ''));
 
   // ── History: one snapshot per day the standings changed ──
   const hist = join(DATA, 'history');
@@ -119,5 +124,6 @@ async function main() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main().catch((e) => { console.error(e.message); process.exit(1); });
+  const i = process.argv.indexOf('--today');
+  run(i > 0 ? { today: process.argv[i + 1] } : {}).catch((e) => { console.error(e.message); process.exit(1); });
 }
