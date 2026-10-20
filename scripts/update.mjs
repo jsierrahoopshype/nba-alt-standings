@@ -13,9 +13,13 @@
 //   4. Standings. A new final counts once the standings reflect it (both
 //      teams have played as many games as the scoreboard's record says); a
 //      final the feed has not caught up with is left for the next run.
-//   5. Snapshots: data/history/<date>.json for a game date whose games are
-//      all final and counted, rewritten while it changes, and never again
-//      once a game of a later date has started. No games, no snapshot.
+//   5. Snapshots: data/history/<date>.json (standings and that night's
+//      payroll) for a game date whose games are all final and counted,
+//      rewritten while it changes, and never again once a game of a later
+//      date has started. No games, no snapshot.
+//   Schedule: the full regular-season schedule (cdn.nba.com) is cached in
+//      data/schedule_2026-27.json, refreshed with --schedule (the 10:23 UTC
+//      run) or when there is no cached copy; a failed fetch keeps the cache.
 //   6. Payroll, then the pages (/standings, the 30 team pages, the saved
 //      nights file) and the sitemap, only when some file was written. The
 //      "Updated" time (standings.updated_at) moves only when the standings
@@ -24,12 +28,12 @@
 // If every standings source fails, the run throws: nothing past the
 // pregame archive is written and the workflow step fails (failure email).
 //
-// Run: node scripts/update.mjs [--force]
+// Run: node scripts/update.mjs [--force] [--schedule]
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { etDate, standings, scoreboards, payroll, SEASON } from './fetch.mjs';
+import { etDate, standings, scoreboards, payroll, seasonSchedule, SEASON } from './fetch.mjs';
 import { standingsReflect } from '../lib/scoreboard.mjs';
 import { addDays } from '../lib/timeframe.mjs';
 import { build } from './build.mjs';
@@ -58,14 +62,30 @@ export async function archivePregame(dataDir, entry) {
   }
 }
 
-export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Date(), force = false } = {}) {
+export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Date(), force = false, refreshSchedule = false } = {}) {
   const today = etDate(now);
   const dates = [addDays(today, -1), today];
   const { teams } = await readJson(join(dataDir, 'teams.json'));
   const prev = await readJson(join(dataDir, 'standings.json'));
   const finalsPath = join(dataDir, 'finals.json');
   const finals = await readJson(finalsPath, { dates: {} });
-  const result = { pregame: 0, logged: 0, corrections: 0, newFinals: 0, counted: 0, standingsChanged: false, payrollChanged: false, snapshots: [], built: false };
+  const result = { pregame: 0, logged: 0, corrections: 0, newFinals: 0, counted: 0, standingsChanged: false, payrollChanged: false, scheduleChanged: false, snapshots: [], built: false };
+
+  // ── 0. Schedule: once a day, or when there is no cached copy ──
+  const schedPath = join(dataDir, 'schedule_' + SEASON + '.json');
+  const cached = await readJson(schedPath);
+  if (refreshSchedule || !cached) {
+    try {
+      const sched = await seasonSchedule(teams);
+      if (!cached || !same(cached.games, sched.games)) {
+        await writeFile(schedPath, stable({ _readme: 'The 2026-27 regular-season schedule from cdn.nba.com (scheduleLeagueV2), for each team page\'s next game. Refreshed by scripts/update.mjs on the 10:23 UTC run; a failed fetch keeps this copy.', ...sched }));
+        result.scheduleChanged = true;
+      }
+      console.log('schedule: ' + sched.games.length + ' games, ' + (result.scheduleChanged ? 'updated' : 'unchanged'));
+    } catch (e) {
+      console.log('schedule: kept the cached copy: ' + e.message);
+    }
+  }
 
   // ── 1. Scoreboards ──
   let sb = null;
@@ -89,7 +109,9 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
   if (missing.length) {
     try { await logGames((await scoreboards(teams, missing)).games); } catch (e) { console.log('game log backfill: ' + e.message); }
   }
-  const wroteLogs = () => result.pregame + result.logged + result.corrections > 0;
+  // Anything written so far (or a forced run, which rebuilds so each team
+  // page's next game moves on with the calendar) means a rebuild.
+  const wroteLogs = () => result.pregame + result.logged + result.corrections > 0 || result.scheduleChanged || force;
 
   // ── 3. Anything new? ──
   const counted = new Set(Object.values(finals.dates).flat());
@@ -177,16 +199,20 @@ async function snapshots(dataDir, sb, finals, current, result) {
     if (sb.games.some((g) => g.date > d && g.state !== 'pre')) continue;   // the next game date has started
     const path = join(hist, d + '.json');
     const old = await readJson(path);
-    if (old && same(old.teams, current.teams)) continue;
+    // The night's payroll goes with it, so $ per Win for that night (its
+    // chart point, its As of / Since view) uses the payroll of that night.
+    const pr = await readJson(join(dataDir, 'payroll_' + SEASON + '.json'));
+    const payroll = pr ? pr.payroll : null;
+    if (old && same(old.teams, current.teams) && same(old.payroll ?? null, payroll)) continue;
     await mkdir(hist, { recursive: true });
-    await writeFile(path, stable({ date: d, source: current.source, teams: current.teams }));
+    await writeFile(path, stable({ date: d, source: current.source, teams: current.teams, payroll }));
     result.snapshots.push(d);
     console.log('history/' + d + '.json ' + (old ? 'rewritten' : 'written'));
   }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  run({ force: process.argv.includes('--force') })
+  run({ force: process.argv.includes('--force'), refreshSchedule: process.argv.includes('--schedule') })
     .then((r) => console.log(JSON.stringify(r)))
     .catch((e) => { console.error(e.message); process.exit(1); });
 }

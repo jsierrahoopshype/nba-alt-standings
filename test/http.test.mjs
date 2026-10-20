@@ -95,6 +95,11 @@ ok('nightly: the probe step is node scripts/probe.mjs, no curl', /name: Probe fe
 async function scratch() {
   const dir = await mkdtemp(join(tmpdir(), 'standings-run-'));
   await cp(join(root, 'data'), join(dir, 'data'), { recursive: true });
+  // The built pages too: a forced run rebuilds them, and with nothing new
+  // they must come out byte for byte the same.
+  for (const f of ['index.html', 'sitemap.xml']) await cp(join(root, f), join(dir, f));
+  const { teams } = JSON.parse(await readFile(join(root, 'data/teams.json'), 'utf8'));
+  for (const t of teams) await cp(join(root, t.ssf_slug), join(dir, t.ssf_slug), { recursive: true });
   return { data: join(dir, 'data'), out: dir };
 }
 async function snapshot(dir) {
@@ -120,8 +125,10 @@ const NOW = new Date('2026-10-21T14:00:00Z');
   console.log = quiet;
   const after = await snapshot(d.out);
   ok('all sources fail: run() rejects (the step exits 1, so the run fails)', e && /no standings source worked/.test(e.message), e && e.message);
-  ok('all sources fail: scoreboards and standings each tried on both sources, each request retried once; payroll never fetched',
-     calls.length === 8 && calls.every((c) => c.url !== SSF_DATA_URL), calls.map((c) => c.url));
+  // 10 = the season schedule (no cached copy yet) + scoreboards and
+  // standings on both sources, each request retried once.
+  ok('all sources fail: schedule, scoreboards and standings each tried (both sources), each request retried once; payroll never fetched',
+     calls.length === 10 && calls.every((c) => c.url !== SSF_DATA_URL), calls.map((c) => c.url));
   ok('all sources fail: every file byte for byte as before (data, index.html, sitemap.xml)', JSON.stringify(before) === JSON.stringify(after), Object.keys(after).filter((k) => before[k] !== after[k]));
   globalThis.fetch = realFetch;
 }
@@ -147,7 +154,7 @@ const NOW = new Date('2026-10-21T14:00:00Z');
   console.log = quiet;
   globalThis.fetch = realFetch;
   const after = await snapshot(d.out);
-  ok('forced run, same 0-0 numbers, payroll down: nothing written at all ("Updated" stays)', JSON.stringify(before) === JSON.stringify(after) && !r.standingsChanged && !r.built,
+  ok('forced run, same 0-0 numbers, payroll down: rebuilt, but nothing changes ("Updated" stays)', JSON.stringify(before) === JSON.stringify(after) && !r.standingsChanged && r.built,
      Object.keys(after).filter((k) => before[k] !== after[k]));
   ok('forced run: standings asked once, with the browser headers', calls.filter((c) => c.url === ESPN_URL).length === 1 && calls.find((c) => c.url === ESPN_URL).init.headers['User-Agent'] === CHROME_UA);
   ok('forced run: payroll asked (twice: one retry) and the committed file kept', calls.filter((c) => c.url === SSF_DATA_URL).length === 2 && JSON.stringify(pay) === JSON.stringify(JSON.parse(after['data/payroll_2026-27.json'])));

@@ -27,6 +27,9 @@ jobs:
       # The safety net and manual runs refresh the standings and payroll even
       # when no new final shows on the scoreboard.
       FORCE: ${{ (github.event_name == 'workflow_dispatch' || github.event.schedule == '23 10 * * *') && '--force' || '' }}
+      # The season schedule (each team page's next game) is refreshed once a
+      # day, on the safety-net run; any run fetches it if there is no copy.
+      SCHEDULE: ${{ github.event.schedule == '23 10 * * *' && '--schedule' || '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -48,12 +51,13 @@ jobs:
           node test/http.test.mjs
           node test/phase1.test.mjs
           node test/phase1b.test.mjs
+          node test/phase1c.test.mjs
 
       # Fails the run (and so the failure email) when every standings source
       # fails; nothing but pregame entries is written in that case, and the
       # steps below do not run.
       - name: Update
-        run: node scripts/update.mjs $FORCE
+        run: node scripts/update.mjs $FORCE $SCHEDULE
 
       - name: Page tests
         run: node test/data-and-page.test.mjs
