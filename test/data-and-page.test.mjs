@@ -135,13 +135,13 @@ ok('conferences: 15 each', conf.East.length === 15 && conf.West.length === 15);
 ok('ranks: East #1 Miami, teams without games unranked and last', conf.East[0].abbr === 'MIA' && conf.East[0].rank === 1 && conf.East.at(-1).rank === null);
 const L = leaders(rows);
 const over = L.find((x) => x.label === 'Most overachieving').text;
-ok('leaders: "Most overachieving" names the unit once, "A (x), B (y) and C (z)"', /^[A-Za-z .]+ \(\+\d+\.\d wins vs\. Vegas\), [A-Za-z .]+ \(\+\d+\.\d\) and [A-Za-z .]+ \(\+\d+\.\d\)$/.test(over), over);
-// Portland 13 - 20*41.5/82 = +2.88, Miami 14 - 20*46.5/82 = +2.66, LA Lakers 13 - 20*45.5/82 = +1.90.
-ok('leaders: exact sentence', over === 'Portland (+2.9 wins vs. Vegas), Miami (+2.7) and LA Lakers (+1.9)', over);
+ok('leaders: "Most overachieving" names the unit once, "A (x), B (y) and C (z)"', /^[A-Za-z .]+ \(\+\d+\.\d% vs\. Vegas\), [A-Za-z .]+ \(\+\d+\.\d%\) and [A-Za-z .]+ \(\+\d+\.\d%\)$/.test(over), over);
+// Portland 13/20 - 41.5/82 = +14.39%, Miami 14/20 - 46.5/82 = +13.29%, LA Lakers 13/20 - 45.5/82 = +9.51%.
+ok('leaders: exact sentence', over === 'Portland (+14.4% vs. Vegas), Miami (+13.3%) and LA Lakers (+9.5%)', over);
 const under = L.find((x) => x.label === 'Most underachieving').text;
 ok('leaders: underachieving lists only teams behind their line, most behind first, minus sign', under.startsWith('Indiana (' + MINUS) && !under.includes('(+'), under);
 const best = L.find((x) => x.label === 'Best bang for the buck').text;
-ok('leaders: bang for the buck in $xx.xxM, Indiana (0 wins) never listed', /^\w[\w .]* \(\$\d+\.\d\dM per win\)/.test(best) && !best.includes('Indiana') && !L.find((x) => x.label === 'Worst bang for the buck').text.includes('Indiana'), best);
+ok('leaders: bang for the buck in $xx.xM, Indiana (0 wins) never listed', /^\w[\w .]* \(\$\d+\.\dM per win\)/.test(best) && !best.includes('Indiana') && !L.find((x) => x.label === 'Worst bang for the buck').text.includes('Indiana'), best);
 ok('leaders: luckiest/unluckiest present', L.find((x) => x.label === 'Luckiest').text && L.find((x) => x.label === 'Unluckiest').text);
 ok('leaders: no em dash in any line', L.every((x) => !String(x.text).includes('—')));
 const preseason = leaders(buildRows(teams, { teams: Object.fromEntries(teams.map((t) => [t.abbr, mk(0, 0, 0, 0, 0, 0, 0, 0)])) }, lines, payroll));
@@ -151,7 +151,8 @@ const prevSt = JSON.parse(JSON.stringify(st)); prevSt.teams.MIA = mk(13, 6, 2190
 const mv = movers(rows, prevSt);
 ok('movers: only teams that played since, biggest change first', mv.length === 2 && mv.map((m) => m.abbr).sort().join() === 'IND,MIA', mv);
 const mia = mv.find((m) => m.abbr === 'MIA');
-ok('movers: Miami won, +(1 - 46.5/82) vs. Vegas', Math.abs(mia.delta - (1 - 46.5 / 82)) < 1e-9 && moverText(mia).games === 'won' && moverText(mia).delta === '+0.4 vs. Vegas', moverText(mia));
+// 13-6 to 14-6: 14/20 - 13/19 = +1.58 percentage points (the line cancels out).
+ok('movers: Miami won, +1.6% vs. Vegas', Math.abs(mia.delta - (14 / 20 - 13 / 19)) < 1e-9 && moverText(mia).games === 'won' && moverText(mia).delta === '+1.6% vs. Vegas', moverText(mia));
 ok('movers: no previous snapshot -> null', movers(rows, null) === null);
 
 // ── 7. The built page ──
@@ -197,10 +198,10 @@ for (const [name, full] of [['committed page', page], ['mid-season sample', samp
   ok(name + ': two tables, East then West', tables.length === 2 && tables[0].includes('Eastern Conference') && tables[1].includes('Western Conference') && html.indexOf('Eastern Conference</h2>') < html.indexOf('Western Conference</h2>'));
   const rowTeams = tables.flatMap((t) => [...t.matchAll(/<td class="c-team" data-v="([^"]+)"/g)].map((m) => m[1]));
   ok(name + ': all 30 teams exactly once across the two tables', rowTeams.length === 30 && new Set(rowTeams).size === 30);
-  const heads = [...tables[0].matchAll(/<button type="button">([^<]+)</g)].map((m) => m[1]);
-  ok(name + ': columns in order', JSON.stringify(heads) === JSON.stringify(['Rank', 'Team', 'W', 'L', 'Pct', 'vs. Vegas', 'vs. Last Year', '$ per Win', 'Pt Diff', 'Exp. W-L', 'Luck', 'Road W − Home L']), heads);
+  const heads = [...tables[0].matchAll(/<button type="button"[^>]*>([^<]+)</g)].map((m) => m[1]);
+  ok(name + ': columns in order, the game-log ones at the end', JSON.stringify(heads) === JSON.stringify(['Rank', 'Team', 'W', 'L', 'Pct', 'vs. Vegas', 'vs. Last Year', '$ per Win', 'Pt Diff', 'Exp. W-L', 'Luck', 'Road W − Home L', 'Last 10', 'vs. .500+', 'Reg. W-L-T']), heads);
   ok(name + ': default sort is Pct descending', /data-k="pct"[^>]*aria-sort="descending"/.test(tables[0]) && tables.every((t) => (t.match(/aria-sort="descending"/g) || []).length === 1));
-  ok(name + ': every column header is a button (tap to sort)', tables.every((t) => (t.match(/<th /g) || []).length === 12 && (t.match(/<button type="button">/g) || []).length === 12));
+  ok(name + ': every column header is a button (tap to sort)', tables.every((t) => (t.match(/<th /g) || []).length === 15 && (t.match(/<button type="button"/g) || []).length === 15));
   ok(name + ': two scatter charts with .500 and league-average lines', (html.match(/<figure class="chart">/g) || []).length === 2 && (html.match(/>\.500</g) || []).length === 2 && (html.match(/>avg \$/g) || []).length === 2);
   ok(name + ': methodology names the frozen Oct. 17 lines and 1,237 vs 1,230', html.includes('Oct. 17, 2026') && html.includes('1,237') && html.includes('1,230'));
 }

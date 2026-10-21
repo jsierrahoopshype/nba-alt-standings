@@ -17,6 +17,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildRows, byConference, movers } from '../lib/model.mjs';
 import { packTeams, packPayroll } from '../lib/timeframe.mjs';
+import { fromLog, packGames } from '../lib/games.mjs';
 import { PAGE_URL } from '../lib/render.mjs';
 import { pageHtml } from '../lib/page.mjs';
 import { rankedRows, nightRowsFor, teamSeries, teamGames, nextGame, nextScheduled, teamPageHtml, teamPageUrl } from '../lib/team.mjs';
@@ -75,8 +76,9 @@ export async function readSnapshots(dataDir = DATA) {
 // keyword dropped, wrapped in a function, and the names the page script
 // (src/views.js) calls exposed on window.HM. test/phase1.test.mjs runs this
 // bundle and checks it renders exactly what the modules render.
-export const BUNDLE_FILES = ['lib/metrics.mjs', 'lib/timeframe.mjs', 'lib/model.mjs', 'lib/render.mjs'];
-export const BUNDLE_EXPORTS = ['unpackTeams', 'resolveTimeframe', 'standingsFor', 'timeframeLabel', 'timeframeParts', 'fmtDay', 'payrollFor'];
+export const BUNDLE_FILES = ['lib/metrics.mjs', 'lib/timeframe.mjs', 'lib/games.mjs', 'lib/model.mjs', 'lib/render.mjs'];
+export const BUNDLE_EXPORTS = ['unpackTeams', 'resolveTimeframe', 'standingsFor', 'timeframeLabel', 'timeframeParts', 'fmtDay', 'payrollFor',
+  'unpackGames', 'gamesForTimeframe', 'refStandingsFor'];
 export async function bundleLib(srcRoot = root) {
   const parts = [];
   for (const f of BUNDLE_FILES) {
@@ -103,9 +105,12 @@ const jsonForScript = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 // payrolls: the payroll saved with each night, in the same team order, for
 // the nights that have one (nights saved before payrolls were stored use the
 // current payroll in the page).
-export function nightsJson(snapshots, order) {
+// games: every logged game (lib/games.mjs packGames), for the tiebreaker and
+// the Last 10, vs. .500+ and Reg. W-L-T columns of these views.
+export function nightsJson(snapshots, order, games = []) {
   return JSON.stringify({ order, dates: snapshots.map((s) => s.date), snapshots: Object.fromEntries(snapshots.map((s) => [s.date, packTeams(s.teams, order)])),
-    payrolls: Object.fromEntries(snapshots.filter((s) => s.payroll).map((s) => [s.date, packPayroll(s.payroll, order)])) });
+    payrolls: Object.fromEntries(snapshots.filter((s) => s.payroll).map((s) => [s.date, packPayroll(s.payroll, order)])),
+    games: packGames(games, order) });
 }
 
 async function readPregames(dataDir) {
@@ -125,7 +130,9 @@ export async function renderAll({ dataDir = DATA, srcRoot = root, today = etDate
   checkLines(lines, teams);
   const standings = await readJson(join(dataDir, 'standings.json'));
   const payroll = await readJson(join(dataDir, 'payroll_' + SEASON + '.json'), null);
-  const rows = buildRows(teams, standings, lines, payroll);
+  const log = await readGameLog(dataDir);
+  const games = fromLog(log);
+  const rows = buildRows(teams, standings, lines, payroll, games);
   const conferences = byConference(rows);
   const snapshots = await readSnapshots(dataDir);
   // Movers: now against the last saved night before the latest night with
@@ -134,8 +141,9 @@ export async function renderAll({ dataDir = DATA, srcRoot = root, today = etDate
   const before = gameDate ? snapshots.filter((s) => s.date < gameDate) : [];
   const prev = before.length ? before[before.length - 1] : null;
   const order = teams.map((t) => t.abbr);
-  const nights = nightsJson(snapshots, order);
+  const nights = nightsJson(snapshots, order, games);
   const styles = await readFile(join(srcRoot, 'src/styles.css'), 'utf8');
+  const tipsJs = await readFile(join(srcRoot, 'src/tips.js'), 'utf8');
   const fonts = await fontsCss();
   const data = {
     pageUrl: PAGE_URL,
@@ -161,17 +169,17 @@ export async function renderAll({ dataDir = DATA, srcRoot = root, today = etDate
     viewsJs: await readFile(join(srcRoot, 'src/views.js'), 'utf8'),
     styles, fontsCss: fonts,
     sortJs: await readFile(join(srcRoot, 'src/sort.js'), 'utf8'),
+    tipsJs,
   });
 
   // ── Team pages ──
   const pay = payroll ? { payroll: payroll.payroll } : null;
-  const now = rankedRows(teams, standings.teams, lines, pay);
+  const now = rankedRows(teams, standings.teams, lines, pay, games);
   // Each night with the payroll saved with it (the current one for nights
   // saved before payrolls were).
   const nightPay = (sn) => (sn.payroll ? { payroll: sn.payroll } : pay);
-  const base = prev ? rankedRows(teams, prev.teams, lines, nightPay(prev)) : null;
-  const nightRows = nightRowsFor(snapshots, teams, lines, pay);
-  const log = await readGameLog(dataDir);
+  const base = prev ? rankedRows(teams, prev.teams, lines, nightPay(prev), games.filter((g) => g.date <= prev.date)) : null;
+  const nightRows = nightRowsFor(snapshots, teams, lines, pay, games);
   const pregames = await readPregames(dataDir);
   const schedule = await readJson(join(dataDir, 'schedule_' + SEASON + '.json'), null);
   const byAbbr = Object.fromEntries(teams.map((t) => [t.abbr, t]));
@@ -183,7 +191,7 @@ export async function renderAll({ dataDir = DATA, srcRoot = root, today = etDate
       team: t, row: now[t.abbr], base: base ? base[t.abbr] : null, baseDate: prev ? prev.date : null,
       series: teamSeries(t.abbr, nightRows), games: teamGames(t.abbr, log), next: schedule ? nextScheduled(t.abbr, schedule.games, log, today) : nextGame(t.abbr, pregames, log, gameDate),
       peers: teams.filter((p) => p.conf === t.conf && p.abbr !== t.abbr), byAbbr,
-      line: lines.teams[t.abbr].line, last: lines.teams[t.abbr].last_season_wins, styles, fontsCss: fonts,
+      line: lines.teams[t.abbr].line, last: lines.teams[t.abbr].last_season_wins, styles, fontsCss: fonts, tipsJs,
     }),
   }));
   return { index, nights, teamPages, standings };

@@ -58,8 +58,10 @@ const league = (over = {}) => Object.fromEntries(order.map((a) => [a, over[a] ||
   const nyk = teamMetrics({ ...win.NYK, line: 52.5, last_season_wins: 53, payroll: 200e6 });
   ok('since: zero games in the window -> every metric is the dash', Object.values(nyk.text).every((t) => t === DASH), nyk.text);
   const mia = teamMetrics({ ...win.MIA, line: 46.5, last_season_wins: 43, payroll: 209e6 });
-  ok('since: metrics recomputed from the window (Miami 4-1: Pct 80.0%, vs. Vegas 4 - 5*46.5/82 = +1.2, $ per Win 209M*5/82/4 = $3.19M, Pt Diff +8.0)',
-     mia.text.pct === '80.0%' && mia.text.vsVegas === '+1.2' && mia.text.dollarsPerWin === '$3.19M' && mia.text.ptDiff === '+8.0', mia.text);
+  // The window's Pct against the line's (46.5/82 = 56.71%) and last season's (43/82 = 52.44%);
+  // the full payroll over the window's wins.
+  ok('since: metrics recomputed from the window (Miami 4-1: Pct 80.0%, vs. Vegas +23.3%, vs. Last Year +27.6%, $ per Win 209M/4 = $52.3M, Pt Diff +8.0)',
+     mia.text.pct === '80.0%' && mia.text.vsVegas === '+23.3%' && mia.text.vsLastYear === '+27.6%' && mia.text.dollarsPerWin === '$52.3M' && mia.text.ptDiff === '+8.0', mia.text);
   ok('since: whole league in the window is 5 games + 5 games / 2 = 5 games', gamesIn(win) === 5);
   const neg = subtractStandings(league({ MIA: row(3, 1, 400, 380, 2, 0, 1, 1) }), league({ MIA: row(4, 1, 500, 470, 3, 0, 1, 1) }));
   ok('since: a feed correction that would go negative is held at 0', neg.MIA.w === 0 && neg.MIA.l === 0 && neg.MIA.gp === 0 && neg.MIA.pf === 0, neg.MIA);

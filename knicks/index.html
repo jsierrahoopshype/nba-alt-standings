@@ -67,7 +67,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 
 /* tables: one horizontal scroller per conference, Rank and Team frozen on
    the left. No max-height, so the page is the only vertical scroller. */
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+.table-wrap{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;
   overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.lb{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem}
 table.lb thead th{background:var(--surface-hover);color:var(--text-secondary);text-transform:uppercase;
@@ -92,6 +92,14 @@ table.lb thead th.c-team{text-align:left}
 a.tm:hover{color:var(--accent);text-decoration:none}
 .pos{color:var(--green)}.neg{color:var(--red)}.dash{color:var(--text-secondary)}
 td.pct{font-weight:600;color:var(--text)}
+
+/* column explanations (src/tips.js): one box under the header, on hover or tap */
+.hm-tip{position:fixed;z-index:20;max-width:16rem;background:var(--text);color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.74rem;line-height:1.35;font-weight:500;text-transform:none;letter-spacing:0;padding:.45rem .6rem;
+  border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.18);pointer-events:none}
+.hm-tip[hidden]{display:none}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+table.glog thead th[data-tip]{cursor:help}
 
 /* charts */
 .charts{display:grid;grid-template-columns:1fr;gap:.8rem}
@@ -204,12 +212,12 @@ table.glog tbody tr{cursor:default}
 <section class="block">
 <div class="stat-cards">
 <div class="stat-card"><div class="lbl">Record</div><div class="num" data-k="record">0-1</div></div>
-<div class="stat-card"><div class="lbl">Conference</div><div class="num" data-k="confRank">4th in the East</div></div>
-<div class="stat-card"><div class="lbl">League</div><div class="num" data-k="leagueRank">5th in the NBA</div></div>
+<div class="stat-card"><div class="lbl">Conference</div><div class="num" data-k="confRank">3rd in the East</div></div>
+<div class="stat-card"><div class="lbl">League</div><div class="num" data-k="leagueRank">4th in the NBA</div></div>
 </div>
 <p class="since">Changes since the previous night show from the second night of games.</p>
 <p class="next">Next game: at <a href="https://hoopsmatic.com/standings/celtics">Boston</a>, Oct. 23, 7 p.m. ET (1 a.m. Oct. 24 Madrid)</p>
-<div class="stats"><div class="stat" data-k="pct"><span class="lbl">Pct</span><span class="num">0.0%</span></div><div class="stat" data-k="vsVegas"><span class="lbl">vs. Vegas</span><span class="num">−0.6</span></div><div class="stat" data-k="vsLastYear"><span class="lbl">vs. Last Year</span><span class="num">−0.6</span></div><div class="stat" data-k="dollarsPerWin"><span class="lbl">$ per Win</span><span class="num">—</span></div><div class="stat" data-k="ptDiff"><span class="lbl">Pt Diff</span><span class="num">−6.0</span></div><div class="stat" data-k="expWL"><span class="lbl">Exp. W-L</span><span class="num">0-1</span></div><div class="stat" data-k="luck"><span class="lbl">Luck</span><span class="num">−0.3</span></div><div class="stat" data-k="roadMinusHome"><span class="lbl">Road W − Home L</span><span class="num">−1</span></div></div>
+<div class="stats"><div class="stat" data-k="pct"><span class="lbl">Pct</span><span class="num">0.0%</span></div><div class="stat" data-k="vsVegas"><span class="lbl">vs. Vegas</span><span class="num">−64.0%</span></div><div class="stat" data-k="vsLastYear"><span class="lbl">vs. Last Year</span><span class="num">−64.6%</span></div><div class="stat" data-k="dollarsPerWin"><span class="lbl">$ per Win</span><span class="num">—</span></div><div class="stat" data-k="ptDiff"><span class="lbl">Pt Diff</span><span class="num">−6.0</span></div><div class="stat" data-k="expWL"><span class="lbl">Exp. W-L</span><span class="num">0-1</span></div><div class="stat" data-k="luck"><span class="lbl">Luck</span><span class="num">−0.3</span></div><div class="stat" data-k="roadMinusHome"><span class="lbl">Road W − Home L</span><span class="num">−1</span></div><div class="stat" data-k="last10"><span class="lbl">Last 10</span><span class="num">0-1</span></div><div class="stat" data-k="vs500"><span class="lbl">vs. .500+</span><span class="num">0-1</span></div><div class="stat" data-k="regWLT"><span class="lbl">Reg. W-L-T</span><span class="num">—</span></div></div>
 </section>
 
 <section class="block"><div class="block-head"><h2>Night by night</h2></div>
@@ -217,7 +225,7 @@ table.glog tbody tr{cursor:default}
 </section>
 
 <section class="block"><div class="block-head"><h2>Games</h2></div>
-<div class="table-wrap"><table class="lb glog"><thead><tr><th class="left">Date</th><th class="left">Opponent</th><th>Result</th><th>Record</th></tr></thead><tbody><tr><td class="left">Oct. 20</td><td class="left">vs. <a href="https://hoopsmatic.com/standings/76ers">Philadelphia</a></td><td class="neg">L 100-106</td><td>0-1</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="lb glog"><thead><tr><th class="left" data-tip="The game’s date (ET)." tabindex="0">Date</th><th class="left" data-tip="“vs.” is a home game, “at” a road game." tabindex="0">Opponent</th><th data-tip="Win or loss and the final score, this team’s points first." tabindex="0">Result</th><th data-tip="The team’s record after this game." tabindex="0">Record</th></tr></thead><tbody><tr><td class="left">Oct. 20</td><td class="left">vs. <a href="https://hoopsmatic.com/standings/76ers">Philadelphia</a></td><td class="neg">L 100-106</td><td>0-1</td></tr></tbody></table></div>
 </section>
 
 <section class="block links">
@@ -232,5 +240,48 @@ table.glog tbody tr{cursor:default}
 </footer>
 
 </div>
+<script>
+// Column explanations: every table header with a data-tip shows it in a
+// small box under the header, on hover (desktop) and on tap (mobile; the tap
+// still sorts a sortable table). One box for the page, fixed to the viewport
+// so the tables' horizontal scroller cannot clip it. Listeners sit on the
+// document, so tables redrawn by src/views.js need nothing re-bound.
+(function () {
+  var box = document.createElement('div');
+  box.className = 'hm-tip';
+  box.setAttribute('role', 'tooltip');
+  box.hidden = true;
+  document.body.appendChild(box);
+  var current = null, timer = null;
+  var hover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+
+  function show(th, ms) {
+    var text = th.getAttribute('data-tip');
+    if (!text) return;
+    current = th;
+    box.textContent = text;
+    box.hidden = false;
+    var r = th.getBoundingClientRect(), w = box.offsetWidth, vw = document.documentElement.clientWidth;
+    var left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), vw - w - 8);
+    box.style.left = left + 'px';
+    box.style.top = (r.bottom + 6) + 'px';
+    clearTimeout(timer);
+    if (ms) timer = setTimeout(hide, ms);
+  }
+  function hide() { clearTimeout(timer); box.hidden = true; current = null; }
+  function tipOf(el) { return el && el.closest ? el.closest('th[data-tip]') : null; }
+
+  if (hover) {
+    document.addEventListener('mouseover', function (e) { var th = tipOf(e.target); if (th && th !== current) show(th); else if (!th && current) hide(); });
+  }
+  // A tap (or click) shows the explanation for a few seconds.
+  document.addEventListener('click', function (e) { var th = tipOf(e.target); if (th) show(th, 4000); else hide(); });
+  document.addEventListener('focusin', function (e) { var th = tipOf(e.target); if (th) show(th); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  window.addEventListener('scroll', hide, true);
+  window.addEventListener('resize', hide);
+})();
+
+</script>
 </body>
 </html>

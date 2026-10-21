@@ -47,7 +47,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 
 /* tables: one horizontal scroller per conference, Rank and Team frozen on
    the left. No max-height, so the page is the only vertical scroller. */
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+.table-wrap{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;
   overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.lb{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem}
 table.lb thead th{background:var(--surface-hover);color:var(--text-secondary);text-transform:uppercase;
@@ -72,6 +72,14 @@ table.lb thead th.c-team{text-align:left}
 a.tm:hover{color:var(--accent);text-decoration:none}
 .pos{color:var(--green)}.neg{color:var(--red)}.dash{color:var(--text-secondary)}
 td.pct{font-weight:600;color:var(--text)}
+
+/* column explanations (src/tips.js): one box under the header, on hover or tap */
+.hm-tip{position:fixed;z-index:20;max-width:16rem;background:var(--text);color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.74rem;line-height:1.35;font-weight:500;text-transform:none;letter-spacing:0;padding:.45rem .6rem;
+  border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.18);pointer-events:none}
+.hm-tip[hidden]{display:none}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+table.glog thead th[data-tip]{cursor:help}
 
 /* charts */
 .charts{display:grid;grid-template-columns:1fr;gap:.8rem}

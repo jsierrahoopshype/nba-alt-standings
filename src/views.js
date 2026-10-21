@@ -1,7 +1,7 @@
 // Timeframes in the browser: ?asof=YYYY-MM-DD, ?since=YYYY-MM-DD,
 // ?since=last7 and ?since=last15. The build renders the season; for any of
 // these the leader lines, tables and charts are drawn again from the saved
-// nights in data/nights.json (fetched only then), with the same functions the build uses
+// nights and the game log in data/nights.json (fetched only then), with the same functions the build uses
 // (window.HM, bundled from lib/ by scripts/build.mjs). These views are
 // marked noindex,follow with a canonical to themselves; the plain page is
 // left exactly as built.
@@ -61,9 +61,14 @@
       var t2 = HM.resolveTimeframe(params, { dates: N.dates, gameDate: D.gameDate });
       var snaps = {};
       N.dates.forEach(function (d) { snaps[d] = HM.unpackTeams(N.snapshots[d], N.order); });
-      var standings = HM.standingsFor(t2, HM.unpackTeams(D.current, order), snaps);
+      var current = HM.unpackTeams(D.current, order);
+      var standings = HM.standingsFor(t2, current, snaps);
+      // The logged games this view covers, for the tiebreaker and the Last 10,
+      // vs. .500+ and Reg. W-L-T columns; .500 or better as of the view's end.
+      var games = HM.gamesForTimeframe(t2, HM.unpackGames(N.games, N.order));
       // $ per Win with the payroll saved with the night this view uses.
-      var parts = HM.timeframeParts(D.teams, standings, D.lines, HM.payrollFor(t2, N.payrolls, D.payroll, N.order));
+      var parts = HM.timeframeParts(D.teams, standings, D.lines, HM.payrollFor(t2, N.payrolls, D.payroll, N.order),
+        games, HM.refStandingsFor(t2, standings, current));
       document.getElementById('tf-leaders').innerHTML = parts.leaders;
       document.getElementById('tf-tables').innerHTML = parts.tables;
       document.getElementById('tf-charts').innerHTML = parts.charts;

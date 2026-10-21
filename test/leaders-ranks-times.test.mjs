@@ -50,27 +50,36 @@ ok('leaders: a pair needs 6 teams', LEADER_PAIR_MIN === 6);
   ok('leaders, fixture (no games): "After a few more games." 8 times', (html.match(/<dd class="none">After a few more games\.<\/dd>/g) || []).length === 8 && !html.includes('After the first games'), html);
 }
 {
-  // Opening night as it happened: three 1-0 teams, three 0-1 teams.
+  // Opening night as it happened: three 1-0 teams, three 0-1 teams. Nobody
+  // has the 5 games a team needs to count, so every pair waits.
   const L = leaders(rowsFor({ DET: mk(1, 0), PHI: mk(1, 0), OKC: mk(1, 0), BOS: mk(0, 1), NYK: mk(0, 1), SAS: mk(0, 1) }));
-  const [best, worst] = pair(L, 'Best bang for the buck');
-  ok('leaders, 6 teams played but 3 with a win: $ per win pair waits on both lines', best.text === null && worst.text === null && best.wait && worst.wait, [best, worst]);
-  const [over, under] = pair(L, 'Most overachieving');
-  ok('leaders, 6 teams played: vs. Vegas pair shows', over.text !== null && under.text !== null && !over.wait && !under.wait, [over, under]);
+  ok('leaders, opening night (1 game each): every pair waits', L.every((x) => x.text === null && x.wait), L);
   const html = leadersHtml(rowsFor({ DET: mk(1, 0), PHI: mk(1, 0), OKC: mk(1, 0), BOS: mk(0, 1), NYK: mk(0, 1), SAS: mk(0, 1) }));
-  ok('leaders, opening night: exactly the $ per win pair says "After a few more games."', (html.match(/After a few more games\./g) || []).length === 2
+  ok('leaders, opening night: "After a few more games." on all 8 lines', (html.match(/After a few more games\./g) || []).length === 8);
+}
+{
+  // Six teams with 5 games, three of them with a win: vs. Vegas shows, $ per win waits.
+  const six = { DET: mk(5, 0), PHI: mk(4, 1), OKC: mk(3, 2), BOS: mk(0, 5), NYK: mk(0, 5), SAS: mk(0, 5) };
+  const L = leaders(rowsFor(six));
+  const [best, worst] = pair(L, 'Best bang for the buck');
+  ok('leaders, 6 teams with 5 games but 3 with a win: $ per win pair waits on both lines', best.text === null && worst.text === null && best.wait && worst.wait, [best, worst]);
+  const [over, under] = pair(L, 'Most overachieving');
+  ok('leaders, 6 teams with 5 games: vs. Vegas pair shows', over.text !== null && under.text !== null && !over.wait && !under.wait, [over, under]);
+  const html = leadersHtml(rowsFor(six));
+  ok('leaders, 6 teams with 5 games: exactly the $ per win pair says "After a few more games."', (html.match(/After a few more games\./g) || []).length === 2
      && /<dt>Best bang for the buck<\/dt><dd class="none">After a few more games\.<\/dd>/.test(html) && /<dt>Worst bang for the buck<\/dt><dd class="none">After a few more games\.<\/dd>/.test(html));
 }
 {
-  // Five played: no pair shows.
-  const five = { DET: mk(1, 0), PHI: mk(1, 0), OKC: mk(1, 0), BOS: mk(0, 1), NYK: mk(0, 1) };
-  ok('leaders, 5 teams played: every pair waits', leaders(rowsFor(five)).every((x) => x.text === null && x.wait));
+  // Five with 5 games: no pair shows.
+  const five = { DET: mk(5, 0), PHI: mk(4, 1), OKC: mk(3, 2), BOS: mk(0, 5), NYK: mk(1, 4) };
+  ok('leaders, 5 teams with 5 games: every pair waits', leaders(rowsFor(five)).every((x) => x.text === null && x.wait));
   // Five winners plus losers: $ per win waits at 5, shows at 6.
-  const w5 = { ...five, BOS: mk(1, 1), NYK: mk(1, 1), SAS: mk(0, 2), LAL: mk(0, 1) };
+  const w5 = { ...five, BOS: mk(2, 3), SAS: mk(0, 5), LAL: mk(0, 5) };
   const r5 = rowsFor(w5);
   const [b5, x5] = pair(leaders(r5), 'Best bang for the buck');
   ok('leaders, 5 teams with a win (7 played): $ per win waits, vs. Vegas shows', r5.filter((r) => r.w > 0).length === 5 && b5.text === null && x5.text === null && b5.wait
      && pair(leaders(r5), 'Most overachieving').every((x) => !x.wait), [b5, x5]);
-  const w6 = { ...w5, LAL: mk(1, 1) };
+  const w6 = { ...w5, LAL: mk(1, 4) };
   const [b6, x6] = pair(leaders(rowsFor(w6)), 'Best bang for the buck');
   ok('leaders, 6 teams with a win: $ per win shows, 3 and 3, nobody in both', b6.text !== null && x6.text !== null && named(b6.text).length === 3 && named(x6.text).length === 3
      && named(b6.text).every((t) => !named(x6.text).includes(t)), [b6.text, x6.text]);
