@@ -90,9 +90,9 @@ const league = (over = {}) => Object.fromEntries(order.map((a) => [a, over[a] ||
      && JSON.stringify(standingsFor(resolveTimeframe({ since: '2026-10-23' }, ctx), cur, snaps)) === JSON.stringify(win));
   ok('pack/unpack round trip', JSON.stringify(unpackTeams(packTeams(cur, order), order)) === JSON.stringify(cur));
   ok('addDays across a month', addDays('2026-10-31', 1) === '2026-11-01' && addDays('2026-11-01', -7) === '2026-10-25');
-  ok('Updated stamp: Oct. 21, 1:42 a.m. ET (7:42 Madrid)', fmtUpdated('2026-10-21T05:42:00Z') === 'Oct. 21, 1:42 a.m. ET (7:42 Madrid)', fmtUpdated('2026-10-21T05:42:00Z'));
-  ok('Updated stamp: afternoon and after the clocks change (Nov 2: ET -5, Madrid +1)', fmtUpdated('2026-10-20T13:12:58Z') === 'Oct. 20, 9:12 a.m. ET (15:12 Madrid)'
-     && fmtUpdated('2026-11-03T03:05:00Z') === 'Nov. 2, 10:05 p.m. ET (4:05 Madrid)', [fmtUpdated('2026-10-20T13:12:58Z'), fmtUpdated('2026-11-03T03:05:00Z')]);
+  ok('Updated stamp: Oct. 21, 1:42 a.m. ET (7:42 a.m. Madrid)', fmtUpdated('2026-10-21T05:42:00Z') === 'Oct. 21, 1:42 a.m. ET (7:42 a.m. Madrid)', fmtUpdated('2026-10-21T05:42:00Z'));
+  ok('Updated stamp: afternoon and after the clocks change (Nov 2: ET -5, Madrid +1)', fmtUpdated('2026-10-20T13:12:58Z') === 'Oct. 20, 9:12 a.m. ET (3:12 p.m. Madrid)'
+     && fmtUpdated('2026-11-03T03:05:00Z') === 'Nov. 2, 10:05 p.m. ET (4:05 a.m. Nov. 3 Madrid)', [fmtUpdated('2026-10-20T13:12:58Z'), fmtUpdated('2026-11-03T03:05:00Z')]);
 }
 
 // ── 2. The page script's bundle renders what lib/ renders ──
@@ -230,7 +230,7 @@ const zeroLeague = league();
   ok('final counted: standings, finals, page, the two teams\' pages and sitemap hashes written; no snapshot while a game is live',
      r5.counted === 1 && r5.standingsChanged && JSON.stringify(changed(after4, after5)) === JSON.stringify(['celtics/index.html', 'data/finals.json', 'data/page_hashes.json', 'data/standings.json', 'index.html', 'knicks/index.html']), changed(after4, after5));
   ok('final counted: updated_at is the run time, game_date Oct 20', st5.updated_at === '2026-10-21T02:15:00.000Z' && st5.game_date === OCT20);
-  ok('final counted: page says "Updated Oct. 20, 10:15 p.m. ET (4:15 Madrid)"', after5['index.html'].includes('Updated Oct. 20, 10:15 p.m. ET (4:15 Madrid)'));
+  ok('final counted: page says "Updated Oct. 20, 10:15 p.m. ET (4:15 a.m. Oct. 21 Madrid)"', after5['index.html'].includes('Updated Oct. 20, 10:15 p.m. ET (4:15 a.m. Oct. 21 Madrid)'));
   ok('sitemap lastmod moved with the numbers', after5['sitemap.xml'].includes('<lastmod>2026-10-20</lastmod>') && JSON.parse(after5['data/page_hashes.json']).pages['https://hoopsmatic.com/standings'].hash !== JSON.parse(after4['data/page_hashes.json']).pages['https://hoopsmatic.com/standings'].hash);
 
   // 1:05 a.m. ET Oct 21: GSW@LAL final, every Oct 20 game final -> snapshot.
@@ -260,7 +260,7 @@ const zeroLeague = league();
   world.payroll = { meta: { built: 'x' }, seasons: teams.map((t) => ({ player: t.abbr, season: '2026-27', team: t.abbr, salary: 150e6 })) };
   const r9 = await go(d, '2026-10-22T14:23:00Z', { force: true });
   const after9 = await files(d.out);
-  ok('only "Updated" (and payroll) changed: page rebuilt with the new time', r9.payrollChanged && !r9.standingsChanged && after9['index.html'].includes('Updated Oct. 22, 10:23 a.m. ET (16:23 Madrid)'), [r9, (after9['index.html'].match(/Updated Oct[^<]*/) || [])[0]]);
+  ok('only "Updated" (and payroll) changed: page rebuilt with the new time', r9.payrollChanged && !r9.standingsChanged && after9['index.html'].includes('Updated Oct. 22, 10:23 a.m. ET (4:23 p.m. Madrid)'), [r9, (after9['index.html'].match(/Updated Oct[^<]*/) || [])[0]]);
   ok('only "Updated" changed: sitemap lastmod and hash unchanged', after9['sitemap.xml'] === after8['sitemap.xml'] && after9['data/page_hashes.json'] === after8['data/page_hashes.json']);
 
   // A day with no games: no snapshot.

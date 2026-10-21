@@ -123,6 +123,9 @@ const st = { teams: Object.fromEntries(teams.map((t) => [t.abbr, mk(0, 0, 0, 0, 
 Object.assign(st.teams, {
   MIA: mk(14, 6, 2300, 2200, 8, 2, 6, 4), POR: mk(13, 7, 2280, 2240, 6, 4, 7, 3), LAL: mk(13, 7, 2250, 2250, 7, 3, 6, 4),
   IND: mk(0, 20, 2000, 2300, 0, 10, 0, 10), SAC: mk(2, 18, 2050, 2350, 1, 9, 1, 9),
+  // Two more teams with wins, so every leader pair has its six teams (Indiana
+  // has no win, so $ per win needs both).
+  CHI: mk(5, 15, 2150, 2250, 3, 7, 2, 8), DEN: mk(10, 10, 2200, 2210, 6, 4, 4, 6),
 });
 const rows = buildRows(teams, st, lines, payroll);
 const conf = byConference(rows);
@@ -207,9 +210,9 @@ const zeroRows = buildRows(teams, { teams: Object.fromEntries(teams.map((t) => [
 const pre = pageHtml({ rows: zeroRows, conferences: byConference(zeroRows), lines, movers: null, prevDate: null, updatedOn: '2026-10-20',
   styles: '', fontsCss: '', sortJs: '' });
 const preCells = [...pre.matchAll(/<td class="pct" data-v="([^"]*)">([^<]*)</g)];
-ok('GP=0 page: every Pct cell is the dash, charts show the empty note, leaders say "After the first games."',
+ok('GP=0 page: every Pct cell is the dash, charts show the empty note, leaders say "After a few more games."',
   preCells.length === 30 && preCells.every((m) => m[1] === '' && m[2] === '\u2014') && (pre.match(/Teams appear here after their first game\./g) || []).length === 2
-  && (pre.match(/After the first games\./g) || []).length === 8);
+  && (pre.match(/After a few more games\./g) || []).length === 8);
 ok('GP=0 page: no NaN, Infinity or undefined', !/\bNaN\b|Infinity|undefined/.test(pre));
 ok('GP=0 page: all 30 teams once, unranked', (pre.match(/<td class="c-rank" data-v="">\u2014<\/td>/g) || []).length === 30);
 ok('sample page: Miami row shows Pct 70.0%', /data-v="Miami"[\s\S]*?<td class="pct" data-v="0\.7">70\.0%<\/td>/.test(sample));
