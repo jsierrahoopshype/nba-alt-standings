@@ -199,9 +199,9 @@ for (const [name, full] of [['committed page', page], ['mid-season sample', samp
   const rowTeams = tables.flatMap((t) => [...t.matchAll(/<td class="c-team" data-v="([^"]+)"/g)].map((m) => m[1]));
   ok(name + ': all 30 teams exactly once across the two tables', rowTeams.length === 30 && new Set(rowTeams).size === 30);
   const heads = [...tables[0].matchAll(/<button type="button"[^>]*>([^<]+)</g)].map((m) => m[1]);
-  ok(name + ': columns in order, the game-log ones at the end', JSON.stringify(heads) === JSON.stringify(['Rank', 'Team', 'W', 'L', 'Pct', 'vs. Vegas', 'vs. Last Year', '$ per Win', 'Pt Diff', 'Exp. W-L', 'Luck', 'Road W − Home L', 'Last 10', 'vs. .500+', 'Reg. W-L-T']), heads);
+  ok(name + ': columns in order, the game-log ones at the end', JSON.stringify(heads) === JSON.stringify(['Rank', 'Team', 'W', 'L', 'Pct', 'vs. Vegas', 'vs. Last Year', '$ per Win', 'Pt Diff', 'Exp. W-L', 'Luck', 'Road W − Home L', 'Last 10', 'vs. .500+']), heads);
   ok(name + ': default sort is Pct descending', /data-k="pct"[^>]*aria-sort="descending"/.test(tables[0]) && tables.every((t) => (t.match(/aria-sort="descending"/g) || []).length === 1));
-  ok(name + ': every column header is a button (tap to sort)', tables.every((t) => (t.match(/<th /g) || []).length === 15 && (t.match(/<button type="button"/g) || []).length === 15));
+  ok(name + ': every column header is a button (tap to sort)', tables.every((t) => (t.match(/<th /g) || []).length === 14 && (t.match(/<button type="button"/g) || []).length === 14));
   ok(name + ': two scatter charts with .500 and league-average lines', (html.match(/<figure class="chart">/g) || []).length === 2 && (html.match(/>\.500</g) || []).length === 2 && (html.match(/>avg \$/g) || []).length === 2);
   ok(name + ': methodology names the frozen Oct. 17 lines and 1,237 vs 1,230', html.includes('Oct. 17, 2026') && html.includes('1,237') && html.includes('1,230'));
 }

@@ -106,7 +106,7 @@ const jsonForScript = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 // the nights that have one (nights saved before payrolls were stored use the
 // current payroll in the page).
 // games: every logged game (lib/games.mjs packGames), for the tiebreaker and
-// the Last 10, vs. .500+ and Reg. W-L-T columns of these views.
+// the Last 10 and vs. .500+ columns of these views.
 export function nightsJson(snapshots, order, games = []) {
   return JSON.stringify({ order, dates: snapshots.map((s) => s.date), snapshots: Object.fromEntries(snapshots.map((s) => [s.date, packTeams(s.teams, order)])),
     payrolls: Object.fromEntries(snapshots.filter((s) => s.payroll).map((s) => [s.date, packPayroll(s.payroll, order)])),
