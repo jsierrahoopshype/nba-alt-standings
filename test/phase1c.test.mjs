@@ -155,7 +155,7 @@ const go = async (d, now, opts = {}) => { calls = []; console.log = () => {}; tr
      && !cache.games.some((g) => g.id === '0012600005' || g.key === '2026-10-23_NYK@TOR'));
   const knicks = await readFile(join(d.out, 'knicks/index.html'), 'utf8');
   ok('team page: next game is the next scheduled one not yet final (at Boston, Oct. 22), tip in ET and Madrid',
-     knicks.includes('Next game: at <a href="https://hoopsmatic.com/standings/celtics">Boston</a>, Oct. 22, 7:30 p.m. ET (1:30 Madrid)'), (knicks.match(/<p class="next">[\s\S]*?<\/p>/) || [''])[0]);
+     knicks.includes('Next game: at <a href="https://hoopsmatic.com/standings/celtics">Boston</a>, Oct. 22, 7:30 p.m. ET (1:30 a.m. Oct. 23 Madrid)'), (knicks.match(/<p class="next">[\s\S]*?<\/p>/) || [''])[0]);
   const before = await readFile(join(d.data, 'schedule_2026-27.json'), 'utf8');
   // No --schedule and a cache present: not fetched.
   world.boards = { '2026-10-21': [], '2026-10-22': [] };
@@ -170,13 +170,13 @@ const go = async (d, now, opts = {}) => { calls = []; console.log = () => {}; tr
   world.schedule.leagueSchedule.gameDates[0].games[1].gameDateTimeUTC = '2026-10-23T00:00:00Z';
   const r3 = await go(d, '2026-10-22T14:30:00Z', { force: true, refreshSchedule: true });
   const k3 = await readFile(join(d.out, 'knicks/index.html'), 'utf8');
-  ok('schedule: a refresh with a changed tip rewrites the cache and the page (8 p.m. ET, 2:00 Madrid)', r3.scheduleChanged && k3.includes('Oct. 22, 8:00 p.m. ET (2:00 Madrid)'), (k3.match(/<p class="next">[\s\S]*?<\/p>/) || [''])[0]);
+  ok('schedule: a refresh with a changed tip rewrites the cache and the page (8 p.m. ET, 2 a.m. Oct. 23 Madrid)', r3.scheduleChanged && k3.includes('Oct. 22, 8 p.m. ET (2 a.m. Oct. 23 Madrid)'), (k3.match(/<p class="next">[\s\S]*?<\/p>/) || [''])[0]);
   // A day later (the forced 10:23 run), Oct. 22 is past: next is Miami at home.
   world.boards = { '2026-10-22': [], '2026-10-23': [] };
   await go(d, '2026-10-23T14:23:00Z', { force: true });
   const k4 = await readFile(join(d.out, 'knicks/index.html'), 'utf8');
-  ok('team page: the next game moves on with the calendar on the daily run (vs. Miami, Oct. 24, 8:00 p.m. ET)',
-     k4.includes('Next game: vs. <a href="https://hoopsmatic.com/standings/heat">Miami</a>, Oct. 24, 8:00 p.m. ET (2:00 Madrid)'), (k4.match(/<p class="next">[\s\S]*?<\/p>/) || [''])[0]);
+  ok('team page: the next game moves on with the calendar on the daily run (vs. Miami, Oct. 24, 8 p.m. ET)',
+     k4.includes('Next game: vs. <a href="https://hoopsmatic.com/standings/heat">Miami</a>, Oct. 24, 8 p.m. ET (2 a.m. Oct. 25 Madrid)'), (k4.match(/<p class="next">[\s\S]*?<\/p>/) || [''])[0]);
 }
 globalThis.fetch = real;
 
@@ -190,7 +190,7 @@ globalThis.fetch = real;
   ok('schedule: wrong season rejected', threw);
   threw = false; try { parseSeasonSchedule({ leagueSchedule: { gameDates: [{ games: [] }] } }, teams, {}); } catch { threw = true; }
   ok('schedule: an empty or partial schedule is rejected (keeps the cache)', threw);
-  ok('tip time: ET and Madrid across the clock change (Nov. 2: 7:30 p.m. ET = 1:30 Madrid)', fmtTipEtMadrid('2026-11-03T00:30:00Z') === '7:30 p.m. ET (1:30 Madrid)' && fmtTipEtMadrid('2026-10-22T23:30:00Z') === '7:30 p.m. ET (1:30 Madrid)', fmtTipEtMadrid('2026-11-03T00:30:00Z'));
+  ok('tip time: ET and Madrid across the clock change (Nov. 2: 7:30 p.m. ET = 1:30 a.m. Nov. 3 Madrid)', fmtTipEtMadrid('2026-11-03T00:30:00Z') === '7:30 p.m. ET (1:30 a.m. Nov. 3 Madrid)' && fmtTipEtMadrid('2026-10-22T23:30:00Z') === '7:30 p.m. ET (1:30 a.m. Oct. 23 Madrid)', fmtTipEtMadrid('2026-11-03T00:30:00Z'));
 }
 
 console.log(failed ? `\n${failed} test(s) FAILED` : '\nall tests passed');

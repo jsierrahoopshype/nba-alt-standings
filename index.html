@@ -199,7 +199,7 @@ table.glog tbody tr{cursor:default}
 <div class="container">
 
 <div class="hdr"><h1>NBA Real Standings</h1></div>
-<p class="subtitle">Every team’s record measured against Vegas, last season, its payroll and its luck. <span class="stamp">Updated Oct. 21, 4:07 a.m. ET (10:07 Madrid)</span></p>
+<p class="subtitle">Every team’s record measured against Vegas, last season, its payroll and its luck. <span class="stamp">Updated Oct. 21, 4:07 a.m. ET (10:07 a.m. Madrid)</span></p>
 
 <section class="block"><nav class="tf" aria-label="Timeframe">
 <div class="chips">
@@ -216,7 +216,7 @@ table.glog tbody tr{cursor:default}
 <p class="tf-note" id="tf-note" hidden></p>
 </nav></section>
 
-<section class="block" id="tf-leaders"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd>Detroit (+0.4 wins vs. Vegas), Philadelphia (+0.4) and Oklahoma City (+0.2)</dd></div><div><dt>Most underachieving</dt><dd>San Antonio (−0.7 wins vs. Vegas), New York (−0.6) and Boston (−0.6)</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd>Philadelphia (+0.5 wins vs. last year), Detroit (+0.3) and Oklahoma City (+0.2)</dd></div><div><dt>Most declined</dt><dd>San Antonio (−0.8 wins vs. last year), Boston (−0.7) and New York (−0.6)</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd>Detroit ($2.40M per win), Philadelphia ($2.57M) and Oklahoma City ($2.64M)</dd></div><div><dt>Worst bang for the buck</dt><dd>Oklahoma City ($2.64M per win), Philadelphia ($2.57M) and Detroit ($2.40M)</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd>Philadelphia (+0.3 wins vs. expected), Detroit (+0.3) and Oklahoma City (+0.2)</dd></div><div><dt>Unluckiest</dt><dd>New York (−0.3 wins vs. expected), Boston (−0.3) and San Antonio (−0.2)</dd></div></dl></div></div></section>
+<section class="block" id="tf-leaders"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd>Detroit (+0.4 wins vs. Vegas), Philadelphia (+0.4) and Oklahoma City (+0.2)</dd></div><div><dt>Most underachieving</dt><dd>San Antonio (−0.7 wins vs. Vegas), New York (−0.6) and Boston (−0.6)</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd>Philadelphia (+0.5 wins vs. last year), Detroit (+0.3) and Oklahoma City (+0.2)</dd></div><div><dt>Most declined</dt><dd>San Antonio (−0.8 wins vs. last year), Boston (−0.7) and New York (−0.6)</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd class="none">After a few more games.</dd></div><div><dt>Worst bang for the buck</dt><dd class="none">After a few more games.</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd>Philadelphia (+0.3 wins vs. expected), Detroit (+0.3) and Oklahoma City (+0.2)</dd></div><div><dt>Unluckiest</dt><dd>New York (−0.3 wins vs. expected), Boston (−0.3) and San Antonio (−0.2)</dd></div></dl></div></div></section>
 
 <section class="block"><div class="block-head"><h2>Biggest movers since yesterday</h2></div>
 <p class="note">Movers appear once there is a previous night to compare against.</p>
@@ -623,29 +623,55 @@ function joinAnd(parts) {
 // "Miami (+4.2 wins vs. Vegas), Portland (+3.1) and LA Lakers (+2.7)". The
 // unit goes on the first team only. `keep` drops teams on the wrong side of
 // zero, so "Most underachieving" never lists a team that is ahead of its line.
-function leaderLine(rows, key, { dir, fmt, unit, keep = () => true, n = 3 }) {
-  const pool = rows.filter((r) => r.m.value[key] !== null && keep(r.m.value[key]));
+// `skip` drops teams already named in the other line of the pair. Returns the
+// sentence (null when no team is left) and the teams it names.
+function leaderLine(rows, key, { dir, fmt, unit, keep = () => true, skip = new Set(), n = 3 }) {
+  const pool = rows.filter((r) => r.m.value[key] !== null && keep(r.m.value[key]) && !skip.has(r.abbr));
   pool.sort((a, b) => {
     const d = dir === 'desc' ? b.m.value[key] - a.m.value[key] : a.m.value[key] - b.m.value[key];
     return d !== 0 ? d : a.short.localeCompare(b.short);
   });
   const top = pool.slice(0, n);
-  if (!top.length) return null;
-  return joinAnd(top.map((r, i) => r.short + ' (' + fmt(r.m.value[key]) + (i === 0 ? unit : '') + ')'));
+  return {
+    text: top.length ? joinAnd(top.map((r, i) => r.short + ' (' + fmt(r.m.value[key]) + (i === 0 ? unit : '') + ')')) : null,
+    abbrs: new Set(top.map((r) => r.abbr)),
+  };
+}
+
+// A Best/Worst pair shows only once this many teams have a number for its
+// metric (a game played; for $ per win, a win). Before that both lines are
+// { text: null, wait: true } and the page says "After a few more games."
+const LEADER_PAIR_MIN = 6;
+
+// One Best/Worst pair. A team named in the first line is never named in the
+// second. With six teams and three per line that already holds; the skip
+// keeps it true if either number changes.
+function leaderPair(rows, key, first, second) {
+  const qualified = rows.filter((r) => r.m.value[key] !== null);
+  if (qualified.length < LEADER_PAIR_MIN) {
+    return [{ label: first.label, text: null, wait: true }, { label: second.label, text: null, wait: true }];
+  }
+  const a = leaderLine(qualified, key, first);
+  const b = leaderLine(qualified, key, { ...second, skip: a.abbrs });
+  return [{ label: first.label, text: a.text }, { label: second.label, text: b.text }];
 }
 
 function leaders(rows) {
   const pos = (v) => round(v, 1) > 0, neg = (v) => round(v, 1) < 0;
   const s = (v) => signed(v);
   return [
-    { label: 'Most overachieving', text: leaderLine(rows, 'vsVegas', { dir: 'desc', fmt: s, unit: ' wins vs. Vegas', keep: pos }) },
-    { label: 'Most underachieving', text: leaderLine(rows, 'vsVegas', { dir: 'asc', fmt: s, unit: ' wins vs. Vegas', keep: neg }) },
-    { label: 'Most improved', text: leaderLine(rows, 'vsLastYear', { dir: 'desc', fmt: s, unit: ' wins vs. last year', keep: pos }) },
-    { label: 'Most declined', text: leaderLine(rows, 'vsLastYear', { dir: 'asc', fmt: s, unit: ' wins vs. last year', keep: neg }) },
-    { label: 'Best bang for the buck', text: leaderLine(rows, 'dollarsPerWin', { dir: 'asc', fmt: fmtMoneyM, unit: ' per win' }) },
-    { label: 'Worst bang for the buck', text: leaderLine(rows, 'dollarsPerWin', { dir: 'desc', fmt: fmtMoneyM, unit: ' per win' }) },
-    { label: 'Luckiest', text: leaderLine(rows, 'luck', { dir: 'desc', fmt: s, unit: ' wins vs. expected', keep: pos }) },
-    { label: 'Unluckiest', text: leaderLine(rows, 'luck', { dir: 'asc', fmt: s, unit: ' wins vs. expected', keep: neg }) },
+    ...leaderPair(rows, 'vsVegas',
+      { label: 'Most overachieving', dir: 'desc', fmt: s, unit: ' wins vs. Vegas', keep: pos },
+      { label: 'Most underachieving', dir: 'asc', fmt: s, unit: ' wins vs. Vegas', keep: neg }),
+    ...leaderPair(rows, 'vsLastYear',
+      { label: 'Most improved', dir: 'desc', fmt: s, unit: ' wins vs. last year', keep: pos },
+      { label: 'Most declined', dir: 'asc', fmt: s, unit: ' wins vs. last year', keep: neg }),
+    ...leaderPair(rows, 'dollarsPerWin',
+      { label: 'Best bang for the buck', dir: 'asc', fmt: fmtMoneyM, unit: ' per win' },
+      { label: 'Worst bang for the buck', dir: 'desc', fmt: fmtMoneyM, unit: ' per win' }),
+    ...leaderPair(rows, 'luck',
+      { label: 'Luckiest', dir: 'desc', fmt: s, unit: ' wins vs. expected', keep: pos },
+      { label: 'Unluckiest', dir: 'asc', fmt: s, unit: ' wins vs. expected', keep: neg }),
   ];
 }
 
@@ -715,40 +741,47 @@ function fmtDay(iso) {
   return m ? AP_MONTHS[Number(m[2]) - 1] + ' ' + Number(m[3]) : '';
 }
 
+// The clock time ("7 p.m.", "7:30 p.m.": AP style, no ":00") and the
+// calendar day ("2026-10-23") of an instant in one time zone.
+function clockIn(d, timeZone) {
+  const parts = new Intl.DateTimeFormat('en-US', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: '2-digit', hour12: true }).formatToParts(d);
+  const get = (t) => (parts.find((p) => p.type === t) || {}).value || '';
+  const min = get('minute').padStart(2, '0');
+  return {
+    time: get('hour') + (min === '00' ? '' : ':' + min) + ' ' + (get('dayPeriod').toLowerCase() === 'am' ? 'a.m.' : 'p.m.'),
+    day: get('year') + '-' + get('month') + '-' + get('day'),
+  };
+}
+
+// "(1 a.m. Oct. 24 Madrid)": the Madrid date only when it is not the ET date.
+function madridPart(d, etDay) {
+  const m = clockIn(d, 'Europe/Madrid');
+  return '(' + m.time + (m.day !== etDay ? ' ' + fmtDay(m.day) : '') + ' Madrid)';
+}
+
 // "7:30 p.m. ET" for an ISO instant.
 function fmtTimeEt(isoUtc) {
   const d = new Date(isoUtc);
   if (Number.isNaN(d.getTime())) return '';
-  const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit', hour12: true }).formatToParts(d);
-  const get = (t) => (parts.find((p) => p.type === t) || {}).value || '';
-  return get('hour') + ':' + get('minute').padStart(2, '0') + ' ' + (get('dayPeriod').toLowerCase() === 'am' ? 'a.m.' : 'p.m.') + ' ET';
+  return clockIn(d, 'America/New_York').time + ' ET';
 }
 
-// "7:30 p.m. ET (1:30 Madrid)" for a tip time.
+// "7 p.m. ET (1 a.m. Oct. 24 Madrid)" for a tip time; the Madrid date shows
+// only when it differs from the ET date.
 function fmtTipEtMadrid(isoUtc) {
-  const et = fmtTimeEt(isoUtc);
-  if (!et) return '';
   const d = new Date(isoUtc);
-  const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Madrid', hour: 'numeric', minute: '2-digit', hourCycle: 'h23' }).formatToParts(d);
-  const get = (t) => (parts.find((p) => p.type === t) || {}).value || '';
-  return et + ' (' + Number(get('hour')) + ':' + get('minute').padStart(2, '0') + ' Madrid)';
+  if (Number.isNaN(d.getTime())) return '';
+  const et = clockIn(d, 'America/New_York');
+  return et.time + ' ET ' + madridPart(d, et.day);
 }
 
-// "Oct. 21, 1:42 a.m. ET (7:42 Madrid)" for an ISO instant.
+// "Oct. 21, 1:42 a.m. ET (7:42 a.m. Madrid)" for an ISO instant, with the
+// Madrid date when it differs: "Oct. 20, 10:15 p.m. ET (4:15 a.m. Oct. 21 Madrid)".
 function fmtUpdated(isoUtc) {
   const d = new Date(isoUtc);
   if (Number.isNaN(d.getTime())) return '';
-  const part = (opts, type) => new Intl.DateTimeFormat('en-US', opts).formatToParts(d).find((p) => p.type === type).value;
-  const et = { timeZone: 'America/New_York' };
-  const month = AP_MONTHS[Number(part({ ...et, month: 'numeric' }, 'month')) - 1];
-  const day = part({ ...et, day: 'numeric' }, 'day');
-  const h12 = part({ ...et, hour: 'numeric', hour12: true }, 'hour');
-  const min = part({ ...et, minute: '2-digit' }, 'minute').padStart(2, '0');
-  const ampm = part({ ...et, hour: 'numeric', hour12: true }, 'dayPeriod').toLowerCase() === 'am' ? 'a.m.' : 'p.m.';
-  const mad = { timeZone: 'Europe/Madrid', hour: 'numeric', minute: '2-digit', hourCycle: 'h23' };
-  const mh = String(Number(part(mad, 'hour')));
-  const mm = part(mad, 'minute').padStart(2, '0');
-  return `${month} ${day}, ${h12}:${min} ${ampm} ET (${mh}:${mm} Madrid)`;
+  const et = clockIn(d, 'America/New_York');
+  return fmtDay(et.day) + ', ' + et.time + ' ET ' + madridPart(d, et.day);
 }
 
 // Sign class for a signed column: by the value as shown, so +0.0 is neutral.
@@ -807,7 +840,7 @@ function leadersHtml(rows) {
   const L = leaders(rows);
   const pairs = [[L[0], L[1]], [L[2], L[3]], [L[4], L[5]], [L[6], L[7]]];
   return '<div class="leaders">' + pairs.map((p) => '<div class="lead"><dl>' + p.map((x) =>
-    `<div><dt>${esc(x.label)}</dt>` + (x.text ? `<dd>${esc(x.text)}</dd>` : '<dd class="none">After the first games.</dd>') + '</div>').join('') + '</dl></div>').join('') + '</div>';
+    `<div><dt>${esc(x.label)}</dt>` + (x.text ? `<dd>${esc(x.text)}</dd>` : `<dd class="none">${x.wait ? 'After a few more games.' : 'After the first games.'}</dd>`) + '</div>').join('') + '</dl></div>').join('') + '</div>';
 }
 
 function moversHtml(list, prevDate, today) {
