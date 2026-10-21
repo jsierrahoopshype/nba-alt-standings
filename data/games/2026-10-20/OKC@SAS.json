@@ -1,0 +1,16 @@
+{
+  "key": "2026-10-20_OKC@SAS",
+  "game_id": "401909090",
+  "id_source": "espn",
+  "date": "2026-10-20",
+  "away": {
+    "abbr": "OKC",
+    "score": 116
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 104
+  },
+  "final_at": "2026-10-21T08:07:48.007Z",
+  "correction": false
+}

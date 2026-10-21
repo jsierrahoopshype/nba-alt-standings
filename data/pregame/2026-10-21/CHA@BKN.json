@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-21_CHA@BKN",
+  "game_id": "401909836",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "tip": "2026-10-21T23:30Z",
+  "saved_at": "2026-10-21T08:07:48.007Z",
+  "away": {
+    "abbr": "CHA",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BKN",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

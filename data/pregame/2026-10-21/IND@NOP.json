@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-21_IND@NOP",
+  "game_id": "401909839",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "tip": "2026-10-22T00:00Z",
+  "saved_at": "2026-10-21T08:07:48.007Z",
+  "away": {
+    "abbr": "IND",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NOP",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-21_SAC@LAC",
+  "game_id": "401909842",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "tip": "2026-10-22T02:30Z",
+  "saved_at": "2026-10-21T08:07:48.007Z",
+  "away": {
+    "abbr": "SAC",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "LAC",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}
