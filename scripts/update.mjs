@@ -5,8 +5,11 @@
 //   2. Pregame archive: every game not yet started gets data/pregame/<date>/
 //      <AWAY>@<HOME>.json, written once and never edited (flag 'wx').
 //      Game log: every final gets data/games/<date>/<AWAY>@<HOME>.json, a
-//      later score correction a new .cN entry (scripts/gamelog.mjs). Dates
-//      counted in data/finals.json with no log entry are fetched and logged.
+//      later score correction a new .cN entry (scripts/gamelog.mjs), each
+//      with its period count. Dates counted in data/finals.json with no log
+//      entry, and dates with a logged game that has no period count, are
+//      fetched again (at most 10 a run); a game logged before entries
+//      carried a period count gets a .periods.json file.
 //   3. If no regular-season game has gone final since the last committed
 //      update (data/finals.json), stop: nothing else is written. --force
 //      skips this check; so does a run whose scoreboards all failed.
@@ -37,7 +40,7 @@ import { etDate, standings, scoreboards, payroll, seasonSchedule, SEASON } from 
 import { standingsReflect } from '../lib/scoreboard.mjs';
 import { addDays } from '../lib/timeframe.mjs';
 import { build } from './build.mjs';
-import { logFinal, readGameLog, missingLogDates } from './gamelog.mjs';
+import { logFinal, readGameLog, missingLogDates, datesMissingPeriods } from './gamelog.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_DATA = join(root, 'data');
@@ -69,7 +72,7 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
   const prev = await readJson(join(dataDir, 'standings.json'));
   const finalsPath = join(dataDir, 'finals.json');
   const finals = await readJson(finalsPath, { dates: {} });
-  const result = { pregame: 0, logged: 0, corrections: 0, newFinals: 0, counted: 0, standingsChanged: false, payrollChanged: false, scheduleChanged: false, snapshots: [], built: false };
+  const result = { pregame: 0, logged: 0, corrections: 0, periods: 0, newFinals: 0, counted: 0, standingsChanged: false, payrollChanged: false, scheduleChanged: false, snapshots: [], built: false };
 
   // ── 0. Schedule: once a day, or when there is no cached copy ──
   const schedPath = join(dataDir, 'schedule_' + SEASON + '.json');
@@ -104,14 +107,17 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
     if (result.pregame) console.log('pregame: archived ' + result.pregame + ' game(s)');
     await logGames(sb.games);
   }
-  // Dates already counted but missing from the game log (at most 10 a run).
-  const missing = missingLogDates(finals, await readGameLog(dataDir)).filter((d) => !dates.includes(d)).slice(0, 10);
+  // Dates already counted but missing from the game log, and dates with a
+  // logged game that has no period count (at most 10 a run).
+  const logNow = await readGameLog(dataDir);
+  const missing = [...new Set([...missingLogDates(finals, logNow), ...datesMissingPeriods(logNow)])].sort()
+    .filter((d) => !dates.includes(d)).slice(0, 10);
   if (missing.length) {
     try { await logGames((await scoreboards(teams, missing)).games); } catch (e) { console.log('game log backfill: ' + e.message); }
   }
   // Anything written so far (or a forced run, which rebuilds so each team
   // page's next game moves on with the calendar) means a rebuild.
-  const wroteLogs = () => result.pregame + result.logged + result.corrections > 0 || result.scheduleChanged || force;
+  const wroteLogs = () => result.pregame + result.logged + result.corrections + result.periods > 0 || result.scheduleChanged || force;
 
   // ── 3. Anything new? ──
   const counted = new Set(Object.values(finals.dates).flat());
@@ -179,8 +185,10 @@ export async function run({ dataDir = DEFAULT_DATA, outDir = root, now = new Dat
       const r = await logFinal(dataDir, g, now.toISOString());
       if (r === 'new') result.logged++;
       if (r === 'correction') { result.corrections++; console.log('game log: score correction for ' + g.key); }
+      if (r === 'periods') result.periods++;
     }
     if (result.logged) console.log('game log: ' + result.logged + ' final(s) logged');
+    if (result.periods) console.log('game log: period count added for ' + result.periods + ' game(s)');
   }
 
   async function rebuild() {

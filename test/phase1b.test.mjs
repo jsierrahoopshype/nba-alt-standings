@@ -181,7 +181,8 @@ ok('team pages: record, conference rank and all 8 metrics match the main table r
   ok('team page: the other 14 West teams, not itself', peers.length === 14 && !peers.includes('https://hoopsmatic.com/standings/lakers') && peers.includes('https://hoopsmatic.com/standings/trail-blazers') && !peers.includes('https://hoopsmatic.com/standings/celtics'));
   const foot = (/<footer class="foot">([\s\S]*?)<\/footer>/.exec(lal) || [])[1] || '';
   ok('team page: the same two-line footer', JSON.stringify(cellText(foot).split('\n').map((x) => x.trim()).filter(Boolean)) === JSON.stringify(['Anything wrong? Email us at hoopshype@hoopshype.com', 'For business inquiries, contact us at ads@hoopshype.com']));
-  ok('team page: 8 charts (8 saved nights), inline SVG, conference rank inverted with 1 at the top', (lal.match(/<figure class="mchart">/g) || []).length === 8 && !/<script/.test(lal)
+  ok('team page: 8 charts (8 saved nights), inline SVG (one inline script: the header tips), conference rank inverted with 1 at the top', (lal.match(/<figure class="mchart">/g) || []).length === 8
+     && (lal.match(/<script/g) || []).length === 1 && !/<script[^>]* src=/.test(lal)
      && /Conference rank<\/h3><svg[\s\S]*?<text class="ax" x="39" y="16\.0" text-anchor="end">1<\/text>/.test(lal));
   ok('team page: game log newest first', (() => { const ds = [...lal.split('class="lb glog"')[1].matchAll(/<tr><td class="left">([^<]+)</g)].map((m) => m[1]); return ds.length > 0 && ds.join() === [...ds].sort((a, b) => Number(b.split(' ')[1]) - Number(a.split(' ')[1])).join(); })());
   ok('team page: game log record column agrees with the standings', (() => { const r = (/<td>(\d+-\d+)<\/td><\/tr>/.exec(lal.split('class="lb glog"')[1]) || [])[1]; return r === (/data-k="record">([^<]*)</.exec(lal) || [])[1]; })());

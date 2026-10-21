@@ -27,9 +27,11 @@ const DASH = '—', MINUS = '−';
 const ex = { w: 12, l: 8, gp: 20, line: 41.5, last_season_wins: 37, payroll: 180e6, pf: 2300, pa: 2200,
   home_w: 7, home_l: 3, road_w: 5, road_l: 5 };
 ok('example: pct 0.6', close(M.pct(ex), 0.6));
-ok('example: vs. Vegas 1.87805', close(M.vsVegas(ex), 12 - 20 * 41.5 / 82));
-ok('example: vs. Last Year 2.97561', close(M.vsLastYear(ex), 12 - 20 * 37 / 82));
-ok('example: $ per win 3,658,536.59', close(M.dollarsPerWin(ex), 180e6 * 20 / 82 / 12, 1e-6));
+// vs. Vegas and vs. Last Year: Pct minus line / 82 (or last season's wins / 82).
+ok('example: vs. Vegas 12/20 - 41.5/82 = 0.0939', close(M.vsVegas(ex), 12 / 20 - 41.5 / 82));
+ok('example: vs. Last Year 12/20 - 37/82 = 0.1488', close(M.vsLastYear(ex), 12 / 20 - 37 / 82));
+// $ per Win: the full payroll over wins, no proration.
+ok('example: $ per win 180M / 12 = 15,000,000', close(M.dollarsPerWin(ex), 180e6 / 12, 1e-6));
 ok('example: pt diff 5', close(M.ptDiff(ex), 5));
 const direct = 20 * 2300 ** 14 / (2300 ** 14 + 2200 ** 14);
 ok('example: expected W equals the PF^14/(PF^14+PA^14) form (13.0149)', close(M.expectedWins(ex), direct, 1e-9) && close(direct, 13.0149415, 1e-6), M.expectedWins(ex));
@@ -37,16 +39,17 @@ ok('example: luck -1.0149', close(M.luck(ex), 12 - direct, 1e-9));
 ok('example: road W - home L = 2', M.roadWMinusHomeL(ex) === 2);
 const tx = M.teamMetrics(ex).text;
 ok('example text: Pct 60.0%', tx.pct === '60.0%', tx.pct);
-ok('example text: vs. Vegas +1.9', tx.vsVegas === '+1.9', tx.vsVegas);
-ok('example text: vs. Last Year +3.0', tx.vsLastYear === '+3.0', tx.vsLastYear);
-ok('example text: $ per Win $3.66M', tx.dollarsPerWin === '$3.66M', tx.dollarsPerWin);
+ok('example text: vs. Vegas +9.4%', tx.vsVegas === '+9.4%', tx.vsVegas);
+ok('example text: vs. Last Year +14.9%', tx.vsLastYear === '+14.9%', tx.vsLastYear);
+ok('example text: $ per Win $15.0M', tx.dollarsPerWin === '$15.0M', tx.dollarsPerWin);
 ok('example text: Pt Diff +5.0', tx.ptDiff === '+5.0', tx.ptDiff);
 ok('example text: Exp. W-L 13-7', tx.expWL === '13-7', tx.expWL);
 ok('example text: Luck -1.0 (minus sign)', tx.luck === MINUS + '1.0', tx.luck);
 ok('example text: Road W - Home L +2', tx.roadMinusHome === '+2', tx.roadMinusHome);
 
 // The spec's own format example: $14.33M.
-ok('format: $14,330,000 -> $14.33M', M.fmtMoneyM(14.33e6) === '$14.33M');
+ok('format: $14,330,000 -> $14.3M, $210,449,999 -> $210.4M', M.fmtMoneyM(14.33e6) === '$14.3M' && M.fmtMoneyM(210449999) === '$210.4M');
+ok('format: percentage points +39.6%, minus sign, 0.0%', M.fmtPctPts(1 - 49.5 / 82) === '+39.6%' && M.fmtPctPts(-0.25) === MINUS + '25.0%' && M.fmtPctPts(0.0004) === '0.0%' && M.fmtPctPts(null) === DASH);
 ok('format: 0.5 -> 50.0%', M.fmtPct(0.5) === '50.0%');
 ok('format: signed 2.3 -> +2.3, -2.3 -> minus 2.3, 0 -> 0.0', M.signed(2.3) === '+2.3' && M.signed(-2.3) === MINUS + '2.3' && M.signed(0) === '0.0');
 ok('format: -0.04 rounds to 0.0, never "-0.0"', M.signed(-0.04) === '0.0', M.signed(-0.04));
@@ -68,8 +71,8 @@ const winless = { w: 0, l: 5, gp: 5, line: 20.5, last_season_wins: 22, payroll: 
 const wl = M.teamMetrics(winless);
 ok('W=0: $ per Win is null and shows the dash', wl.value.dollarsPerWin === null && wl.text.dollarsPerWin === DASH);
 ok('W=0: Pct 0.0%', wl.text.pct === '0.0%', wl.text.pct);
-ok('W=0: vs. Vegas = -5*20.5/82 = -1.25 -> minus 1.3', close(wl.value.vsVegas, -1.25) && wl.text.vsVegas === MINUS + '1.3', wl.text.vsVegas);
-ok('W=0: vs. Last Year = -5*22/82 -> minus 1.3', close(wl.value.vsLastYear, -5 * 22 / 82) && wl.text.vsLastYear === MINUS + '1.3', wl.text.vsLastYear);
+ok('W=0: vs. Vegas = 0 - 20.5/82 = -0.25 -> minus 25.0%', close(wl.value.vsVegas, -0.25) && wl.text.vsVegas === MINUS + '25.0%', wl.text.vsVegas);
+ok('W=0: vs. Last Year = 0 - 22/82 -> minus 26.8%', close(wl.value.vsLastYear, -22 / 82) && wl.text.vsLastYear === MINUS + '26.8%', wl.text.vsLastYear);
 ok('W=0: Pt Diff -20.0', wl.text.ptDiff === MINUS + '20.0', wl.text.ptDiff);
 const e0 = 5 * 500 ** 14 / (500 ** 14 + 600 ** 14);
 ok('W=0: Exp W-L 0-5 (expected ' + e0.toFixed(3) + ')', wl.text.expWL === '0-5', wl.text.expWL);

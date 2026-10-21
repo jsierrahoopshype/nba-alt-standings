@@ -67,7 +67,7 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 
 /* tables: one horizontal scroller per conference, Rank and Team frozen on
    the left. No max-height, so the page is the only vertical scroller. */
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+.table-wrap{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:12px;
   overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.lb{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem}
 table.lb thead th{background:var(--surface-hover);color:var(--text-secondary);text-transform:uppercase;
@@ -92,6 +92,14 @@ table.lb thead th.c-team{text-align:left}
 a.tm:hover{color:var(--accent);text-decoration:none}
 .pos{color:var(--green)}.neg{color:var(--red)}.dash{color:var(--text-secondary)}
 td.pct{font-weight:600;color:var(--text)}
+
+/* column explanations (src/tips.js): one box under the header, on hover or tap */
+.hm-tip{position:fixed;z-index:20;max-width:16rem;background:var(--text);color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:.74rem;line-height:1.35;font-weight:500;text-transform:none;letter-spacing:0;padding:.45rem .6rem;
+  border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.18);pointer-events:none}
+.hm-tip[hidden]{display:none}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+table.glog thead th[data-tip]{cursor:help}
 
 /* charts */
 .charts{display:grid;grid-template-columns:1fr;gap:.8rem}
@@ -216,7 +224,7 @@ table.glog tbody tr{cursor:default}
 <p class="tf-note" id="tf-note" hidden></p>
 </nav></section>
 
-<section class="block" id="tf-leaders"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd>Detroit (+0.4 wins vs. Vegas), Philadelphia (+0.4) and Oklahoma City (+0.2)</dd></div><div><dt>Most underachieving</dt><dd>San Antonio (−0.7 wins vs. Vegas), New York (−0.6) and Boston (−0.6)</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd>Philadelphia (+0.5 wins vs. last year), Detroit (+0.3) and Oklahoma City (+0.2)</dd></div><div><dt>Most declined</dt><dd>San Antonio (−0.8 wins vs. last year), Boston (−0.7) and New York (−0.6)</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd class="none">After a few more games.</dd></div><div><dt>Worst bang for the buck</dt><dd class="none">After a few more games.</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd>Philadelphia (+0.3 wins vs. expected), Detroit (+0.3) and Oklahoma City (+0.2)</dd></div><div><dt>Unluckiest</dt><dd>New York (−0.3 wins vs. expected), Boston (−0.3) and San Antonio (−0.2)</dd></div></dl></div></div></section>
+<section class="block" id="tf-leaders"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd class="none">After a few more games.</dd></div><div><dt>Most underachieving</dt><dd class="none">After a few more games.</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd class="none">After a few more games.</dd></div><div><dt>Most declined</dt><dd class="none">After a few more games.</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd class="none">After a few more games.</dd></div><div><dt>Worst bang for the buck</dt><dd class="none">After a few more games.</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd class="none">After a few more games.</dd></div><div><dt>Unluckiest</dt><dd class="none">After a few more games.</dd></div></dl></div></div></section>
 
 <section class="block"><div class="block-head"><h2>Biggest movers since yesterday</h2></div>
 <p class="note">Movers appear once there is a previous night to compare against.</p>
@@ -224,64 +232,67 @@ table.glog tbody tr{cursor:default}
 
 <div id="tf-tables">
 <section class="block"><div class="block-head"><h2>Eastern Conference</h2></div>
-<div class="table-wrap"><table class="lb" data-sortable aria-label="Eastern Conference"><thead><tr><th scope="col" class="c-rank" data-k="rank" data-t="num" data-first="1" aria-sort="none"><button type="button">Rank<span class="arr"></span></button></th><th scope="col" class="c-team" data-k="team" data-t="str" data-first="1" aria-sort="none"><button type="button">Team<span class="arr"></span></button></th><th scope="col" data-k="w" data-t="num" data-first="-1" aria-sort="none"><button type="button">W<span class="arr"></span></button></th><th scope="col" data-k="l" data-t="num" data-first="-1" aria-sort="none"><button type="button">L<span class="arr"></span></button></th><th scope="col" data-k="pct" data-t="num" data-first="-1" aria-sort="descending"><button type="button">Pct<span class="arr">▼</span></button></th><th scope="col" data-k="vsVegas" data-t="num" data-first="-1" aria-sort="none"><button type="button">vs. Vegas<span class="arr"></span></button></th><th scope="col" data-k="vsLastYear" data-t="num" data-first="-1" aria-sort="none"><button type="button">vs. Last Year<span class="arr"></span></button></th><th scope="col" data-k="dollarsPerWin" data-t="num" data-first="1" aria-sort="none"><button type="button">$ per Win<span class="arr"></span></button></th><th scope="col" data-k="ptDiff" data-t="num" data-first="-1" aria-sort="none"><button type="button">Pt Diff<span class="arr"></span></button></th><th scope="col" data-k="expW" data-t="num" data-first="-1" aria-sort="none"><button type="button">Exp. W-L<span class="arr"></span></button></th><th scope="col" data-k="luck" data-t="num" data-first="-1" aria-sort="none"><button type="button">Luck<span class="arr"></span></button></th><th scope="col" data-k="roadMinusHome" data-t="num" data-first="-1" aria-sort="none"><button type="button">Road W − Home L<span class="arr"></span></button></th></tr></thead><tbody>
-<tr data-o="0"><td class="c-rank" data-v="1">1</td><td class="c-team" data-v="Detroit"><a class="tm" href="https://hoopsmatic.com/standings/pistons" title="Detroit Pistons: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612765.svg" alt="" width="22" height="22" loading="lazy">Detroit</a></td><td data-v="1">1</td><td data-v="0">0</td><td class="pct" data-v="1">100.0%</td><td data-v="0.4085365853658537" class="pos">+0.4</td><td data-v="0.2682926829268293" class="pos">+0.3</td><td data-v="2396766.1463414636">$2.40M</td><td data-v="8" class="pos">+8.0</td><td data-v="1">1-0</td><td data-v="0.27735132041726973" class="pos">+0.3</td><td data-v="0" class="">0</td></tr>
-<tr data-o="1"><td class="c-rank" data-v="2">2</td><td class="c-team" data-v="Philadelphia"><a class="tm" href="https://hoopsmatic.com/standings/76ers" title="Philadelphia 76ers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612755.svg" alt="" width="22" height="22" loading="lazy">Philadelphia</a></td><td data-v="1">1</td><td data-v="0">0</td><td class="pct" data-v="1">100.0%</td><td data-v="0.39634146341463417" class="pos">+0.4</td><td data-v="0.4512195121951219" class="pos">+0.5</td><td data-v="2565863.7073170734">$2.57M</td><td data-v="6" class="pos">+6.0</td><td data-v="1">1-0</td><td data-v="0.3066634324618266" class="pos">+0.3</td><td data-v="1" class="pos">+1</td></tr>
-<tr data-o="2"><td class="c-rank" data-v="3">3</td><td class="c-team" data-v="Boston"><a class="tm" href="https://hoopsmatic.com/standings/celtics" title="Boston Celtics: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612738.svg" alt="" width="22" height="22" loading="lazy">Boston</a></td><td data-v="0">0</td><td data-v="1">1</td><td class="pct" data-v="0">0.0%</td><td data-v="-0.6280487804878049" class="neg">−0.6</td><td data-v="-0.6829268292682927" class="neg">−0.7</td><td data-v="" class="dash">—</td><td data-v="-8" class="neg">−8.0</td><td data-v="0">0-1</td><td data-v="-0.27735132041726945" class="neg">−0.3</td><td data-v="0" class="">0</td></tr>
-<tr data-o="3"><td class="c-rank" data-v="4">4</td><td class="c-team" data-v="New York"><a class="tm" href="https://hoopsmatic.com/standings/knicks" title="New York Knicks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612752.svg" alt="" width="22" height="22" loading="lazy">New York</a></td><td data-v="0">0</td><td data-v="1">1</td><td class="pct" data-v="0">0.0%</td><td data-v="-0.6402439024390244" class="neg">−0.6</td><td data-v="-0.6463414634146342" class="neg">−0.6</td><td data-v="" class="dash">—</td><td data-v="-6" class="neg">−6.0</td><td data-v="0">0-1</td><td data-v="-0.3066634324618264" class="neg">−0.3</td><td data-v="-1" class="neg">−1</td></tr>
-<tr data-o="4"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Atlanta"><a class="tm" href="https://hoopsmatic.com/standings/hawks" title="Atlanta Hawks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612737.svg" alt="" width="22" height="22" loading="lazy">Atlanta</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="5"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Brooklyn"><a class="tm" href="https://hoopsmatic.com/standings/nets" title="Brooklyn Nets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612751.svg" alt="" width="22" height="22" loading="lazy">Brooklyn</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="6"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Charlotte"><a class="tm" href="https://hoopsmatic.com/standings/hornets" title="Charlotte Hornets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612766.svg" alt="" width="22" height="22" loading="lazy">Charlotte</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="7"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Chicago"><a class="tm" href="https://hoopsmatic.com/standings/bulls" title="Chicago Bulls: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612741.svg" alt="" width="22" height="22" loading="lazy">Chicago</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="8"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Cleveland"><a class="tm" href="https://hoopsmatic.com/standings/cavaliers" title="Cleveland Cavaliers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612739.svg" alt="" width="22" height="22" loading="lazy">Cleveland</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="9"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Indiana"><a class="tm" href="https://hoopsmatic.com/standings/pacers" title="Indiana Pacers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612754.svg" alt="" width="22" height="22" loading="lazy">Indiana</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="10"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Miami"><a class="tm" href="https://hoopsmatic.com/standings/heat" title="Miami Heat: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612748.svg" alt="" width="22" height="22" loading="lazy">Miami</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="11"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Milwaukee"><a class="tm" href="https://hoopsmatic.com/standings/bucks" title="Milwaukee Bucks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612749.svg" alt="" width="22" height="22" loading="lazy">Milwaukee</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="12"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Orlando"><a class="tm" href="https://hoopsmatic.com/standings/magic" title="Orlando Magic: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612753.svg" alt="" width="22" height="22" loading="lazy">Orlando</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="13"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Toronto"><a class="tm" href="https://hoopsmatic.com/standings/raptors" title="Toronto Raptors: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612761.svg" alt="" width="22" height="22" loading="lazy">Toronto</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="14"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Washington"><a class="tm" href="https://hoopsmatic.com/standings/wizards" title="Washington Wizards: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612764.svg" alt="" width="22" height="22" loading="lazy">Washington</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<div class="table-wrap"><table class="lb" data-sortable aria-label="Eastern Conference"><thead><tr><th scope="col" class="c-rank" data-k="rank" data-t="num" data-first="1" data-tip="Place in the conference by Pct. Ties: head-to-head, then point differential, then name." aria-sort="none"><button type="button" aria-describedby="tip-East-rank">Rank<span class="arr"></span></button><span class="sr" id="tip-East-rank">Place in the conference by Pct. Ties: head-to-head, then point differential, then name.</span></th><th scope="col" class="c-team" data-k="team" data-t="str" data-first="1" data-tip="Tap a team for its own page." aria-sort="none"><button type="button" aria-describedby="tip-East-team">Team<span class="arr"></span></button><span class="sr" id="tip-East-team">Tap a team for its own page.</span></th><th scope="col" data-k="w" data-t="num" data-first="-1" data-tip="Wins." aria-sort="none"><button type="button" aria-describedby="tip-East-w">W<span class="arr"></span></button><span class="sr" id="tip-East-w">Wins.</span></th><th scope="col" data-k="l" data-t="num" data-first="-1" data-tip="Losses." aria-sort="none"><button type="button" aria-describedby="tip-East-l">L<span class="arr"></span></button><span class="sr" id="tip-East-l">Losses.</span></th><th scope="col" data-k="pct" data-t="num" data-first="-1" data-tip="Winning percentage: wins divided by games played." aria-sort="descending"><button type="button" aria-describedby="tip-East-pct">Pct<span class="arr">▼</span></button><span class="sr" id="tip-East-pct">Winning percentage: wins divided by games played.</span></th><th scope="col" data-k="vsVegas" data-t="num" data-first="-1" data-tip="Pct minus the Pct of the preseason Vegas win total (line ÷ 82)." aria-sort="none"><button type="button" aria-describedby="tip-East-vsVegas">vs. Vegas<span class="arr"></span></button><span class="sr" id="tip-East-vsVegas">Pct minus the Pct of the preseason Vegas win total (line ÷ 82).</span></th><th scope="col" data-k="vsLastYear" data-t="num" data-first="-1" data-tip="Pct minus the Pct of last season’s record (2025-26 wins ÷ 82)." aria-sort="none"><button type="button" aria-describedby="tip-East-vsLastYear">vs. Last Year<span class="arr"></span></button><span class="sr" id="tip-East-vsLastYear">Pct minus the Pct of last season’s record (2025-26 wins ÷ 82).</span></th><th scope="col" data-k="dollarsPerWin" data-t="num" data-first="1" data-tip="Full 2026-27 payroll divided by wins. Lower is better." aria-sort="none"><button type="button" aria-describedby="tip-East-dollarsPerWin">$ per Win<span class="arr"></span></button><span class="sr" id="tip-East-dollarsPerWin">Full 2026-27 payroll divided by wins. Lower is better.</span></th><th scope="col" data-k="ptDiff" data-t="num" data-first="-1" data-tip="Points scored minus points allowed, per game." aria-sort="none"><button type="button" aria-describedby="tip-East-ptDiff">Pt Diff<span class="arr"></span></button><span class="sr" id="tip-East-ptDiff">Points scored minus points allowed, per game.</span></th><th scope="col" data-k="expW" data-t="num" data-first="-1" data-tip="The record the team’s points scored and allowed suggest." aria-sort="none"><button type="button" aria-describedby="tip-East-expW">Exp. W-L<span class="arr"></span></button><span class="sr" id="tip-East-expW">The record the team’s points scored and allowed suggest.</span></th><th scope="col" data-k="luck" data-t="num" data-first="-1" data-tip="Actual wins minus expected wins." aria-sort="none"><button type="button" aria-describedby="tip-East-luck">Luck<span class="arr"></span></button><span class="sr" id="tip-East-luck">Actual wins minus expected wins.</span></th><th scope="col" data-k="roadMinusHome" data-t="num" data-first="-1" data-tip="Road wins minus home losses." aria-sort="none"><button type="button" aria-describedby="tip-East-roadMinusHome">Road W − Home L<span class="arr"></span></button><span class="sr" id="tip-East-roadMinusHome">Road wins minus home losses.</span></th><th scope="col" data-k="last10" data-t="num" data-first="-1" data-tip="Record over the team’s last 10 games (fewer if it has played fewer)." aria-sort="none"><button type="button" aria-describedby="tip-East-last10">Last 10<span class="arr"></span></button><span class="sr" id="tip-East-last10">Record over the team’s last 10 games (fewer if it has played fewer).</span></th><th scope="col" data-k="vs500" data-t="num" data-first="-1" data-tip="Record against teams that are at .500 or better." aria-sort="none"><button type="button" aria-describedby="tip-East-vs500">vs. .500+<span class="arr"></span></button><span class="sr" id="tip-East-vs500">Record against teams that are at .500 or better.</span></th><th scope="col" data-k="regWLT" data-t="num" data-first="-1" data-tip="Record after 48 minutes: a game that went to overtime counts as a tie." aria-sort="none"><button type="button" aria-describedby="tip-East-regWLT">Reg. W-L-T<span class="arr"></span></button><span class="sr" id="tip-East-regWLT">Record after 48 minutes: a game that went to overtime counts as a tie.</span></th></tr></thead><tbody>
+<tr data-o="0"><td class="c-rank" data-v="1">1</td><td class="c-team" data-v="Detroit"><a class="tm" href="https://hoopsmatic.com/standings/pistons" title="Detroit Pistons: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612765.svg" alt="" width="22" height="22" loading="lazy">Detroit</a></td><td data-v="1">1</td><td data-v="0">0</td><td class="pct" data-v="1">100.0%</td><td data-v="0.4085365853658537" class="pos">+40.9%</td><td data-v="0.2682926829268293" class="pos">+26.8%</td><td data-v="196534824">$196.5M</td><td data-v="8" class="pos">+8.0</td><td data-v="1">1-0</td><td data-v="0.27735132041726973" class="pos">+0.3</td><td data-v="0" class="">0</td><td data-v="1">1-0</td><td data-v="">0-0</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="1"><td class="c-rank" data-v="2">2</td><td class="c-team" data-v="Philadelphia"><a class="tm" href="https://hoopsmatic.com/standings/76ers" title="Philadelphia 76ers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612755.svg" alt="" width="22" height="22" loading="lazy">Philadelphia</a></td><td data-v="1">1</td><td data-v="0">0</td><td class="pct" data-v="1">100.0%</td><td data-v="0.39634146341463417" class="pos">+39.6%</td><td data-v="0.4512195121951219" class="pos">+45.1%</td><td data-v="210400824">$210.4M</td><td data-v="6" class="pos">+6.0</td><td data-v="1">1-0</td><td data-v="0.3066634324618266" class="pos">+0.3</td><td data-v="1" class="pos">+1</td><td data-v="1">1-0</td><td data-v="">0-0</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="2"><td class="c-rank" data-v="3">3</td><td class="c-team" data-v="New York"><a class="tm" href="https://hoopsmatic.com/standings/knicks" title="New York Knicks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612752.svg" alt="" width="22" height="22" loading="lazy">New York</a></td><td data-v="0">0</td><td data-v="1">1</td><td class="pct" data-v="0">0.0%</td><td data-v="-0.6402439024390244" class="neg">−64.0%</td><td data-v="-0.6463414634146342" class="neg">−64.6%</td><td data-v="" class="dash">—</td><td data-v="-6" class="neg">−6.0</td><td data-v="0">0-1</td><td data-v="-0.3066634324618264" class="neg">−0.3</td><td data-v="-1" class="neg">−1</td><td data-v="0">0-1</td><td data-v="0">0-1</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="3"><td class="c-rank" data-v="4">4</td><td class="c-team" data-v="Boston"><a class="tm" href="https://hoopsmatic.com/standings/celtics" title="Boston Celtics: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612738.svg" alt="" width="22" height="22" loading="lazy">Boston</a></td><td data-v="0">0</td><td data-v="1">1</td><td class="pct" data-v="0">0.0%</td><td data-v="-0.6280487804878049" class="neg">−62.8%</td><td data-v="-0.6829268292682927" class="neg">−68.3%</td><td data-v="" class="dash">—</td><td data-v="-8" class="neg">−8.0</td><td data-v="0">0-1</td><td data-v="-0.27735132041726945" class="neg">−0.3</td><td data-v="0" class="">0</td><td data-v="0">0-1</td><td data-v="0">0-1</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="4"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Atlanta"><a class="tm" href="https://hoopsmatic.com/standings/hawks" title="Atlanta Hawks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612737.svg" alt="" width="22" height="22" loading="lazy">Atlanta</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="5"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Brooklyn"><a class="tm" href="https://hoopsmatic.com/standings/nets" title="Brooklyn Nets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612751.svg" alt="" width="22" height="22" loading="lazy">Brooklyn</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="6"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Charlotte"><a class="tm" href="https://hoopsmatic.com/standings/hornets" title="Charlotte Hornets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612766.svg" alt="" width="22" height="22" loading="lazy">Charlotte</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="7"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Chicago"><a class="tm" href="https://hoopsmatic.com/standings/bulls" title="Chicago Bulls: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612741.svg" alt="" width="22" height="22" loading="lazy">Chicago</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="8"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Cleveland"><a class="tm" href="https://hoopsmatic.com/standings/cavaliers" title="Cleveland Cavaliers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612739.svg" alt="" width="22" height="22" loading="lazy">Cleveland</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="9"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Indiana"><a class="tm" href="https://hoopsmatic.com/standings/pacers" title="Indiana Pacers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612754.svg" alt="" width="22" height="22" loading="lazy">Indiana</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="10"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Miami"><a class="tm" href="https://hoopsmatic.com/standings/heat" title="Miami Heat: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612748.svg" alt="" width="22" height="22" loading="lazy">Miami</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="11"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Milwaukee"><a class="tm" href="https://hoopsmatic.com/standings/bucks" title="Milwaukee Bucks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612749.svg" alt="" width="22" height="22" loading="lazy">Milwaukee</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="12"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Orlando"><a class="tm" href="https://hoopsmatic.com/standings/magic" title="Orlando Magic: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612753.svg" alt="" width="22" height="22" loading="lazy">Orlando</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="13"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Toronto"><a class="tm" href="https://hoopsmatic.com/standings/raptors" title="Toronto Raptors: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612761.svg" alt="" width="22" height="22" loading="lazy">Toronto</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="14"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Washington"><a class="tm" href="https://hoopsmatic.com/standings/wizards" title="Washington Wizards: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612764.svg" alt="" width="22" height="22" loading="lazy">Washington</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
 </tbody></table></div>
 </section>
 <section class="block"><div class="block-head"><h2>Western Conference</h2></div>
-<div class="table-wrap"><table class="lb" data-sortable aria-label="Western Conference"><thead><tr><th scope="col" class="c-rank" data-k="rank" data-t="num" data-first="1" aria-sort="none"><button type="button">Rank<span class="arr"></span></button></th><th scope="col" class="c-team" data-k="team" data-t="str" data-first="1" aria-sort="none"><button type="button">Team<span class="arr"></span></button></th><th scope="col" data-k="w" data-t="num" data-first="-1" aria-sort="none"><button type="button">W<span class="arr"></span></button></th><th scope="col" data-k="l" data-t="num" data-first="-1" aria-sort="none"><button type="button">L<span class="arr"></span></button></th><th scope="col" data-k="pct" data-t="num" data-first="-1" aria-sort="descending"><button type="button">Pct<span class="arr">▼</span></button></th><th scope="col" data-k="vsVegas" data-t="num" data-first="-1" aria-sort="none"><button type="button">vs. Vegas<span class="arr"></span></button></th><th scope="col" data-k="vsLastYear" data-t="num" data-first="-1" aria-sort="none"><button type="button">vs. Last Year<span class="arr"></span></button></th><th scope="col" data-k="dollarsPerWin" data-t="num" data-first="1" aria-sort="none"><button type="button">$ per Win<span class="arr"></span></button></th><th scope="col" data-k="ptDiff" data-t="num" data-first="-1" aria-sort="none"><button type="button">Pt Diff<span class="arr"></span></button></th><th scope="col" data-k="expW" data-t="num" data-first="-1" aria-sort="none"><button type="button">Exp. W-L<span class="arr"></span></button></th><th scope="col" data-k="luck" data-t="num" data-first="-1" aria-sort="none"><button type="button">Luck<span class="arr"></span></button></th><th scope="col" data-k="roadMinusHome" data-t="num" data-first="-1" aria-sort="none"><button type="button">Road W − Home L<span class="arr"></span></button></th></tr></thead><tbody>
-<tr data-o="0"><td class="c-rank" data-v="1">1</td><td class="c-team" data-v="Oklahoma City"><a class="tm" href="https://hoopsmatic.com/standings/thunder" title="Oklahoma City Thunder: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612760.svg" alt="" width="22" height="22" loading="lazy">Oklahoma City</a></td><td data-v="1">1</td><td data-v="0">0</td><td class="pct" data-v="1">100.0%</td><td data-v="0.23780487804878048" class="pos">+0.2</td><td data-v="0.2195121951219512" class="pos">+0.2</td><td data-v="2639107.780487805">$2.64M</td><td data-v="12" class="pos">+12.0</td><td data-v="1">1-0</td><td data-v="0.17817077939614068" class="pos">+0.2</td><td data-v="1" class="pos">+1</td></tr>
-<tr data-o="1"><td class="c-rank" data-v="2">2</td><td class="c-team" data-v="San Antonio"><a class="tm" href="https://hoopsmatic.com/standings/spurs" title="San Antonio Spurs: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612759.svg" alt="" width="22" height="22" loading="lazy">San Antonio</a></td><td data-v="0">0</td><td data-v="1">1</td><td class="pct" data-v="0">0.0%</td><td data-v="-0.7378048780487805" class="neg">−0.7</td><td data-v="-0.7560975609756098" class="neg">−0.8</td><td data-v="" class="dash">—</td><td data-v="-12" class="neg">−12.0</td><td data-v="0">0-1</td><td data-v="-0.17817077939614065" class="neg">−0.2</td><td data-v="-1" class="neg">−1</td></tr>
-<tr data-o="2"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Dallas"><a class="tm" href="https://hoopsmatic.com/standings/mavericks" title="Dallas Mavericks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612742.svg" alt="" width="22" height="22" loading="lazy">Dallas</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="3"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Denver"><a class="tm" href="https://hoopsmatic.com/standings/nuggets" title="Denver Nuggets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612743.svg" alt="" width="22" height="22" loading="lazy">Denver</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="4"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Golden State"><a class="tm" href="https://hoopsmatic.com/standings/warriors" title="Golden State Warriors: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612744.svg" alt="" width="22" height="22" loading="lazy">Golden State</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="5"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Houston"><a class="tm" href="https://hoopsmatic.com/standings/rockets" title="Houston Rockets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612745.svg" alt="" width="22" height="22" loading="lazy">Houston</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="6"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="LA Clippers"><a class="tm" href="https://hoopsmatic.com/standings/clippers" title="LA Clippers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612746.svg" alt="" width="22" height="22" loading="lazy">LA Clippers</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="7"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="LA Lakers"><a class="tm" href="https://hoopsmatic.com/standings/lakers" title="Los Angeles Lakers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612747.svg" alt="" width="22" height="22" loading="lazy">LA Lakers</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="8"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Memphis"><a class="tm" href="https://hoopsmatic.com/standings/grizzlies" title="Memphis Grizzlies: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612763.svg" alt="" width="22" height="22" loading="lazy">Memphis</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="9"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Minnesota"><a class="tm" href="https://hoopsmatic.com/standings/timberwolves" title="Minnesota Timberwolves: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612750.svg" alt="" width="22" height="22" loading="lazy">Minnesota</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="10"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="New Orleans"><a class="tm" href="https://hoopsmatic.com/standings/pelicans" title="New Orleans Pelicans: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612740.svg" alt="" width="22" height="22" loading="lazy">New Orleans</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="11"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Phoenix"><a class="tm" href="https://hoopsmatic.com/standings/suns" title="Phoenix Suns: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612756.svg" alt="" width="22" height="22" loading="lazy">Phoenix</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="12"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Portland"><a class="tm" href="https://hoopsmatic.com/standings/trail-blazers" title="Portland Trail Blazers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612757.svg" alt="" width="22" height="22" loading="lazy">Portland</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="13"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Sacramento"><a class="tm" href="https://hoopsmatic.com/standings/kings" title="Sacramento Kings: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612758.svg" alt="" width="22" height="22" loading="lazy">Sacramento</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
-<tr data-o="14"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Utah"><a class="tm" href="https://hoopsmatic.com/standings/jazz" title="Utah Jazz: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612762.svg" alt="" width="22" height="22" loading="lazy">Utah</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<div class="table-wrap"><table class="lb" data-sortable aria-label="Western Conference"><thead><tr><th scope="col" class="c-rank" data-k="rank" data-t="num" data-first="1" data-tip="Place in the conference by Pct. Ties: head-to-head, then point differential, then name." aria-sort="none"><button type="button" aria-describedby="tip-West-rank">Rank<span class="arr"></span></button><span class="sr" id="tip-West-rank">Place in the conference by Pct. Ties: head-to-head, then point differential, then name.</span></th><th scope="col" class="c-team" data-k="team" data-t="str" data-first="1" data-tip="Tap a team for its own page." aria-sort="none"><button type="button" aria-describedby="tip-West-team">Team<span class="arr"></span></button><span class="sr" id="tip-West-team">Tap a team for its own page.</span></th><th scope="col" data-k="w" data-t="num" data-first="-1" data-tip="Wins." aria-sort="none"><button type="button" aria-describedby="tip-West-w">W<span class="arr"></span></button><span class="sr" id="tip-West-w">Wins.</span></th><th scope="col" data-k="l" data-t="num" data-first="-1" data-tip="Losses." aria-sort="none"><button type="button" aria-describedby="tip-West-l">L<span class="arr"></span></button><span class="sr" id="tip-West-l">Losses.</span></th><th scope="col" data-k="pct" data-t="num" data-first="-1" data-tip="Winning percentage: wins divided by games played." aria-sort="descending"><button type="button" aria-describedby="tip-West-pct">Pct<span class="arr">▼</span></button><span class="sr" id="tip-West-pct">Winning percentage: wins divided by games played.</span></th><th scope="col" data-k="vsVegas" data-t="num" data-first="-1" data-tip="Pct minus the Pct of the preseason Vegas win total (line ÷ 82)." aria-sort="none"><button type="button" aria-describedby="tip-West-vsVegas">vs. Vegas<span class="arr"></span></button><span class="sr" id="tip-West-vsVegas">Pct minus the Pct of the preseason Vegas win total (line ÷ 82).</span></th><th scope="col" data-k="vsLastYear" data-t="num" data-first="-1" data-tip="Pct minus the Pct of last season’s record (2025-26 wins ÷ 82)." aria-sort="none"><button type="button" aria-describedby="tip-West-vsLastYear">vs. Last Year<span class="arr"></span></button><span class="sr" id="tip-West-vsLastYear">Pct minus the Pct of last season’s record (2025-26 wins ÷ 82).</span></th><th scope="col" data-k="dollarsPerWin" data-t="num" data-first="1" data-tip="Full 2026-27 payroll divided by wins. Lower is better." aria-sort="none"><button type="button" aria-describedby="tip-West-dollarsPerWin">$ per Win<span class="arr"></span></button><span class="sr" id="tip-West-dollarsPerWin">Full 2026-27 payroll divided by wins. Lower is better.</span></th><th scope="col" data-k="ptDiff" data-t="num" data-first="-1" data-tip="Points scored minus points allowed, per game." aria-sort="none"><button type="button" aria-describedby="tip-West-ptDiff">Pt Diff<span class="arr"></span></button><span class="sr" id="tip-West-ptDiff">Points scored minus points allowed, per game.</span></th><th scope="col" data-k="expW" data-t="num" data-first="-1" data-tip="The record the team’s points scored and allowed suggest." aria-sort="none"><button type="button" aria-describedby="tip-West-expW">Exp. W-L<span class="arr"></span></button><span class="sr" id="tip-West-expW">The record the team’s points scored and allowed suggest.</span></th><th scope="col" data-k="luck" data-t="num" data-first="-1" data-tip="Actual wins minus expected wins." aria-sort="none"><button type="button" aria-describedby="tip-West-luck">Luck<span class="arr"></span></button><span class="sr" id="tip-West-luck">Actual wins minus expected wins.</span></th><th scope="col" data-k="roadMinusHome" data-t="num" data-first="-1" data-tip="Road wins minus home losses." aria-sort="none"><button type="button" aria-describedby="tip-West-roadMinusHome">Road W − Home L<span class="arr"></span></button><span class="sr" id="tip-West-roadMinusHome">Road wins minus home losses.</span></th><th scope="col" data-k="last10" data-t="num" data-first="-1" data-tip="Record over the team’s last 10 games (fewer if it has played fewer)." aria-sort="none"><button type="button" aria-describedby="tip-West-last10">Last 10<span class="arr"></span></button><span class="sr" id="tip-West-last10">Record over the team’s last 10 games (fewer if it has played fewer).</span></th><th scope="col" data-k="vs500" data-t="num" data-first="-1" data-tip="Record against teams that are at .500 or better." aria-sort="none"><button type="button" aria-describedby="tip-West-vs500">vs. .500+<span class="arr"></span></button><span class="sr" id="tip-West-vs500">Record against teams that are at .500 or better.</span></th><th scope="col" data-k="regWLT" data-t="num" data-first="-1" data-tip="Record after 48 minutes: a game that went to overtime counts as a tie." aria-sort="none"><button type="button" aria-describedby="tip-West-regWLT">Reg. W-L-T<span class="arr"></span></button><span class="sr" id="tip-West-regWLT">Record after 48 minutes: a game that went to overtime counts as a tie.</span></th></tr></thead><tbody>
+<tr data-o="0"><td class="c-rank" data-v="1">1</td><td class="c-team" data-v="Oklahoma City"><a class="tm" href="https://hoopsmatic.com/standings/thunder" title="Oklahoma City Thunder: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612760.svg" alt="" width="22" height="22" loading="lazy">Oklahoma City</a></td><td data-v="1">1</td><td data-v="0">0</td><td class="pct" data-v="1">100.0%</td><td data-v="0.23780487804878048" class="pos">+23.8%</td><td data-v="0.2195121951219512" class="pos">+22.0%</td><td data-v="216406838">$216.4M</td><td data-v="12" class="pos">+12.0</td><td data-v="1">1-0</td><td data-v="0.17817077939614068" class="pos">+0.2</td><td data-v="1" class="pos">+1</td><td data-v="1">1-0</td><td data-v="">0-0</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="1"><td class="c-rank" data-v="2">2</td><td class="c-team" data-v="San Antonio"><a class="tm" href="https://hoopsmatic.com/standings/spurs" title="San Antonio Spurs: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612759.svg" alt="" width="22" height="22" loading="lazy">San Antonio</a></td><td data-v="0">0</td><td data-v="1">1</td><td class="pct" data-v="0">0.0%</td><td data-v="-0.7378048780487805" class="neg">−73.8%</td><td data-v="-0.7560975609756098" class="neg">−75.6%</td><td data-v="" class="dash">—</td><td data-v="-12" class="neg">−12.0</td><td data-v="0">0-1</td><td data-v="-0.17817077939614065" class="neg">−0.2</td><td data-v="-1" class="neg">−1</td><td data-v="0">0-1</td><td data-v="0">0-1</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="2"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Dallas"><a class="tm" href="https://hoopsmatic.com/standings/mavericks" title="Dallas Mavericks: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612742.svg" alt="" width="22" height="22" loading="lazy">Dallas</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="3"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Denver"><a class="tm" href="https://hoopsmatic.com/standings/nuggets" title="Denver Nuggets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612743.svg" alt="" width="22" height="22" loading="lazy">Denver</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="4"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Golden State"><a class="tm" href="https://hoopsmatic.com/standings/warriors" title="Golden State Warriors: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612744.svg" alt="" width="22" height="22" loading="lazy">Golden State</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="5"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Houston"><a class="tm" href="https://hoopsmatic.com/standings/rockets" title="Houston Rockets: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612745.svg" alt="" width="22" height="22" loading="lazy">Houston</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="6"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="LA Clippers"><a class="tm" href="https://hoopsmatic.com/standings/clippers" title="LA Clippers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612746.svg" alt="" width="22" height="22" loading="lazy">LA Clippers</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="7"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="LA Lakers"><a class="tm" href="https://hoopsmatic.com/standings/lakers" title="Los Angeles Lakers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612747.svg" alt="" width="22" height="22" loading="lazy">LA Lakers</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="8"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Memphis"><a class="tm" href="https://hoopsmatic.com/standings/grizzlies" title="Memphis Grizzlies: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612763.svg" alt="" width="22" height="22" loading="lazy">Memphis</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="9"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Minnesota"><a class="tm" href="https://hoopsmatic.com/standings/timberwolves" title="Minnesota Timberwolves: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612750.svg" alt="" width="22" height="22" loading="lazy">Minnesota</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="10"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="New Orleans"><a class="tm" href="https://hoopsmatic.com/standings/pelicans" title="New Orleans Pelicans: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612740.svg" alt="" width="22" height="22" loading="lazy">New Orleans</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="11"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Phoenix"><a class="tm" href="https://hoopsmatic.com/standings/suns" title="Phoenix Suns: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612756.svg" alt="" width="22" height="22" loading="lazy">Phoenix</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="12"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Portland"><a class="tm" href="https://hoopsmatic.com/standings/trail-blazers" title="Portland Trail Blazers: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612757.svg" alt="" width="22" height="22" loading="lazy">Portland</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="13"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Sacramento"><a class="tm" href="https://hoopsmatic.com/standings/kings" title="Sacramento Kings: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612758.svg" alt="" width="22" height="22" loading="lazy">Sacramento</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
+<tr data-o="14"><td class="c-rank" data-v="">—</td><td class="c-team" data-v="Utah"><a class="tm" href="https://hoopsmatic.com/standings/jazz" title="Utah Jazz: record vs. Vegas, point differential and luck"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612762.svg" alt="" width="22" height="22" loading="lazy">Utah</a></td><td data-v="0">0</td><td data-v="0">0</td><td class="pct" data-v="">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td><td data-v="" class="dash">—</td></tr>
 </tbody></table></div>
 </section>
 </div>
 
 <section class="block"><div class="block-head"><h2>Payroll vs. win percentage</h2><span class="sub">Dashed lines: .500 and league-average payroll</span></div>
-<div class="charts" id="tf-charts"><figure class="chart"><h3>Eastern Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-East-t"><title id="chart-East-t">Eastern Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><g><title>Boston Celtics: 0.0% (0-1), $202.19M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612738.svg" x="221.8" y="267.0" width="26" height="26"/></g><g><title>New York Knicks: 0.0% (0-1), $226.38M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612752.svg" x="312.2" y="267.0" width="26" height="26"/></g><g><title>Detroit Pistons: 100.0% (1-0), $196.53M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612765.svg" x="200.7" y="-1.0" width="26" height="26"/></g><g><title>Philadelphia 76ers: 100.0% (1-0), $210.40M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612755.svg" x="252.5" y="-1.0" width="26" height="26"/></g></svg></figure><figure class="chart"><h3>Western Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-West-t"><title id="chart-West-t">Western Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><g><title>San Antonio Spurs: 0.0% (0-1), $201.15M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612759.svg" x="218.0" y="267.0" width="26" height="26"/></g><g><title>Oklahoma City Thunder: 100.0% (1-0), $216.41M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612760.svg" x="274.9" y="-1.0" width="26" height="26"/></g></svg></figure></div>
+<div class="charts" id="tf-charts"><figure class="chart"><h3>Eastern Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-East-t"><title id="chart-East-t">Eastern Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><g><title>New York Knicks: 0.0% (0-1), $226.38M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612752.svg" x="312.2" y="267.0" width="26" height="26"/></g><g><title>Boston Celtics: 0.0% (0-1), $202.19M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612738.svg" x="221.8" y="267.0" width="26" height="26"/></g><g><title>Detroit Pistons: 100.0% (1-0), $196.53M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612765.svg" x="200.7" y="-1.0" width="26" height="26"/></g><g><title>Philadelphia 76ers: 100.0% (1-0), $210.40M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612755.svg" x="252.5" y="-1.0" width="26" height="26"/></g></svg></figure><figure class="chart"><h3>Western Conference</h3><svg viewBox="0 0 400 320" role="img" aria-labelledby="chart-West-t"><title id="chart-West-t">Western Conference: payroll against win percentage</title><line class="grid" x1="40" x2="376" y1="280" y2="280"/><text class="ax" x="34" y="284" text-anchor="end">0%</text><line class="grid" x1="40" x2="376" y1="213" y2="213"/><text class="ax" x="34" y="217" text-anchor="end">25%</text><text class="ax" x="34" y="150" text-anchor="end">50%</text><line class="grid" x1="40" x2="376" y1="79" y2="79"/><text class="ax" x="34" y="83" text-anchor="end">75%</text><line class="grid" x1="40" x2="376" y1="12" y2="12"/><text class="ax" x="34" y="16" text-anchor="end">100%</text><line class="grid" x1="77.33333333333333" x2="77.33333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="77.33333333333333" y="295" text-anchor="middle">$160M</text><line class="grid" x1="152" x2="152" y1="12" y2="280" opacity=".5"/><text class="ax" x="152" y="295" text-anchor="middle">$180M</text><line class="grid" x1="226.66666666666669" x2="226.66666666666669" y1="12" y2="280" opacity=".5"/><text class="ax" x="226.66666666666669" y="295" text-anchor="middle">$200M</text><line class="grid" x1="301.3333333333333" x2="301.3333333333333" y1="12" y2="280" opacity=".5"/><text class="ax" x="301.3333333333333" y="295" text-anchor="middle">$220M</text><line class="grid" x1="376" x2="376" y1="12" y2="280" opacity=".5"/><text class="ax" x="376" y="295" text-anchor="middle">$240M</text><text class="ax" x="208" y="314" text-anchor="middle">2026-27 payroll</text><line class="ref" x1="40" x2="376" y1="146" y2="146"/><text class="reflbl" x="374" y="142" text-anchor="end">.500</text><line class="ref" x1="230.59448053333332" x2="230.59448053333332" y1="12" y2="280"/><text class="reflbl" x="234.59448053333332" y="23">avg $201.1M</text><g><title>San Antonio Spurs: 0.0% (0-1), $201.15M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612759.svg" x="218.0" y="267.0" width="26" height="26"/></g><g><title>Oklahoma City Thunder: 100.0% (1-0), $216.41M payroll</title><image href="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612760.svg" x="274.9" y="-1.0" width="26" height="26"/></g></svg></figure></div>
 </section>
 
 <section class="method block" id="methodology">
 <h2>How it works</h2>
 <p>The standings are rebuilt after every game goes final. Every number below is worked out from the games played so far, so a team is compared with where it should be today, not with where it should finish in April.</p>
 <dl>
-<dt>W, L and Pct</dt><dd>Wins, losses and winning percentage (wins divided by games played). Each conference is ranked by Pct, with more wins breaking ties.</dd>
-<dt>vs. Vegas</dt><dd>Wins above or below the pace of the team’s preseason win total. A team with a 41.5-win line is expected to win 41.5 of 82 games, so after 20 games it should have about 10.1 wins. At 12-8 it is +1.9; at 8-12 it is −2.1.</dd>
+<dt>W, L and Pct</dt><dd>Wins, losses and winning percentage (wins divided by games played). Each conference is ranked by Pct. Teams on the same Pct are split by their winning percentage in the games among just those teams (when each of them has played at least one of the others), then by point differential per game, then by name. A team that has not played yet is not ranked.</dd>
+<dt>vs. Vegas</dt><dd>How far the team’s winning percentage is above or below the one its preseason win total stands for, in percentage points. A 49.5-win line is 49.5 of 82 games, or 60.4%, so a team at 1-0 (100%) is +39.6% and a team at 10-10 (50%) is −10.4%.</dd>
 <dt>The Vegas lines</dt><dd>Consensus win totals from six sportsbooks, compiled by Boyd’s Bets and frozen as of Oct. 17, 2026, just before opening night. They never change during the season. The 30 lines add up to 1,237 wins, but an 82-game season only has 1,230 to hand out (every game has one winner), so the books were 7 wins too generous across the league, about a quarter of a win per team.</dd>
-<dt>vs. Last Year</dt><dd>The same pace math, using each team’s 2025-26 win total instead of the line.</dd>
-<dt>$ per Win</dt><dd>The team’s 2026-27 payroll (every salary on its books in Salary Season Finder, including its share of players paid by more than one team), prorated to the games played and divided by wins. Lower is better. A team without a win shows a dash. The team pages’ $ per Win charts and the As of and Since views use the payroll saved with each night (for Since, the night you pick).</dd>
+<dt>vs. Last Year</dt><dd>The same comparison with the team’s 2025-26 record instead of the line: 45 wins last season is 45 of 82, or 54.9%, so a team at 1-0 now is +45.1%.</dd>
+<dt>$ per Win</dt><dd>The team’s full 2026-27 payroll (every salary on its books in Salary Season Finder, including its share of players paid by more than one team) divided by its wins so far. It starts high and comes down with every win: a $210 million payroll is $210.0M per win after one win and $5.0M after 42. Lower is better. A team without a win shows a dash. The team pages’ $ per Win charts and the As of and Since views use the payroll saved with each night (for Since, the night you pick).</dd>
 <dt>Pt Diff</dt><dd>Average scoring margin per game: points scored minus points allowed, divided by games played.</dd>
 <dt>Exp. W-L</dt><dd>The record a team’s scoring suggests, using the Pythagorean formula with exponent 14: expected wins = games × PF¹⁴ / (PF¹⁴ + PA¹⁴), rounded to whole wins.</dd>
 <dt>Luck</dt><dd>Actual wins minus expected wins. A positive number means the team has won more than its point differential says it should, usually by winning close games.</dd>
 <dt>Road W − Home L</dt><dd>Road wins minus home losses. The old rule of thumb for a contender is to win at home and steal some on the road; a positive number means the road wins are outpacing the home slip-ups.</dd>
+<dt>Last 10</dt><dd>The team’s record over its last 10 games, or all of them if it has played fewer.</dd>
+<dt>vs. .500+</dt><dd>The team’s record against teams that are at .500 or better now (for As of, as they stood that night).</dd>
+<dt>Reg. W-L-T</dt><dd>The record after 48 minutes. A game that went to overtime counts as a tie, whoever won it.</dd>
 <dt>Biggest movers</dt><dd>The teams whose vs. Vegas number changed most since the standings saved after the previous night of games.</dd>
-<dt>Timeframes</dt><dd>Season shows the whole season. The standings are saved once every game of a night is final, and you can look back from any saved night. As of shows the standings exactly as they were that night. Since shows only the games played after that night: wins, losses, points and home and road records are the current ones minus that night’s, and every column is worked out again from those, with payroll prorated to the games in the window. Last 7 days and Last 15 days count back from the latest night with games. If a night was not saved, the nearest earlier one is used and the page says so.</dd>
+<dt>Timeframes</dt><dd>Season shows the whole season. The standings are saved once every game of a night is final, and you can look back from any saved night. As of shows the standings exactly as they were that night. Since shows only the games played after that night: wins, losses, points and home and road records are the current ones minus that night’s, and every column is worked out again from those, with the full payroll divided by the wins in the window. Last 10, vs. .500+ and Reg. W-L-T use the games in the view. Last 7 days and Last 15 days count back from the latest night with games. If a night was not saved, the nearest earlier one is used and the page says so.</dd>
 </dl>
 </section>
 
@@ -291,7 +302,7 @@ table.glog tbody tr{cursor:default}
 </footer>
 
 </div>
-<script type="application/json" id="hm-data">{"pageUrl":"https://hoopsmatic.com/standings","gameDate":"2026-10-20","teams":[{"abbr":"ATL","nba_id":1610612737,"conf":"East","short":"Atlanta","name":"Atlanta Hawks","ssf_slug":"hawks"},{"abbr":"BOS","nba_id":1610612738,"conf":"East","short":"Boston","name":"Boston Celtics","ssf_slug":"celtics"},{"abbr":"BKN","nba_id":1610612751,"conf":"East","short":"Brooklyn","name":"Brooklyn Nets","ssf_slug":"nets"},{"abbr":"CHA","nba_id":1610612766,"conf":"East","short":"Charlotte","name":"Charlotte Hornets","ssf_slug":"hornets"},{"abbr":"CHI","nba_id":1610612741,"conf":"East","short":"Chicago","name":"Chicago Bulls","ssf_slug":"bulls"},{"abbr":"CLE","nba_id":1610612739,"conf":"East","short":"Cleveland","name":"Cleveland Cavaliers","ssf_slug":"cavaliers"},{"abbr":"DET","nba_id":1610612765,"conf":"East","short":"Detroit","name":"Detroit Pistons","ssf_slug":"pistons"},{"abbr":"IND","nba_id":1610612754,"conf":"East","short":"Indiana","name":"Indiana Pacers","ssf_slug":"pacers"},{"abbr":"MIA","nba_id":1610612748,"conf":"East","short":"Miami","name":"Miami Heat","ssf_slug":"heat"},{"abbr":"MIL","nba_id":1610612749,"conf":"East","short":"Milwaukee","name":"Milwaukee Bucks","ssf_slug":"bucks"},{"abbr":"NYK","nba_id":1610612752,"conf":"East","short":"New York","name":"New York Knicks","ssf_slug":"knicks"},{"abbr":"ORL","nba_id":1610612753,"conf":"East","short":"Orlando","name":"Orlando Magic","ssf_slug":"magic"},{"abbr":"PHI","nba_id":1610612755,"conf":"East","short":"Philadelphia","name":"Philadelphia 76ers","ssf_slug":"76ers"},{"abbr":"TOR","nba_id":1610612761,"conf":"East","short":"Toronto","name":"Toronto Raptors","ssf_slug":"raptors"},{"abbr":"WAS","nba_id":1610612764,"conf":"East","short":"Washington","name":"Washington Wizards","ssf_slug":"wizards"},{"abbr":"DAL","nba_id":1610612742,"conf":"West","short":"Dallas","name":"Dallas Mavericks","ssf_slug":"mavericks"},{"abbr":"DEN","nba_id":1610612743,"conf":"West","short":"Denver","name":"Denver Nuggets","ssf_slug":"nuggets"},{"abbr":"GSW","nba_id":1610612744,"conf":"West","short":"Golden State","name":"Golden State Warriors","ssf_slug":"warriors"},{"abbr":"HOU","nba_id":1610612745,"conf":"West","short":"Houston","name":"Houston Rockets","ssf_slug":"rockets"},{"abbr":"LAC","nba_id":1610612746,"conf":"West","short":"LA Clippers","name":"LA Clippers","ssf_slug":"clippers"},{"abbr":"LAL","nba_id":1610612747,"conf":"West","short":"LA Lakers","name":"Los Angeles Lakers","ssf_slug":"lakers"},{"abbr":"MEM","nba_id":1610612763,"conf":"West","short":"Memphis","name":"Memphis Grizzlies","ssf_slug":"grizzlies"},{"abbr":"MIN","nba_id":1610612750,"conf":"West","short":"Minnesota","name":"Minnesota Timberwolves","ssf_slug":"timberwolves"},{"abbr":"NOP","nba_id":1610612740,"conf":"West","short":"New Orleans","name":"New Orleans Pelicans","ssf_slug":"pelicans"},{"abbr":"OKC","nba_id":1610612760,"conf":"West","short":"Oklahoma City","name":"Oklahoma City Thunder","ssf_slug":"thunder"},{"abbr":"PHX","nba_id":1610612756,"conf":"West","short":"Phoenix","name":"Phoenix Suns","ssf_slug":"suns"},{"abbr":"POR","nba_id":1610612757,"conf":"West","short":"Portland","name":"Portland Trail Blazers","ssf_slug":"trail-blazers"},{"abbr":"SAC","nba_id":1610612758,"conf":"West","short":"Sacramento","name":"Sacramento Kings","ssf_slug":"kings"},{"abbr":"SAS","nba_id":1610612759,"conf":"West","short":"San Antonio","name":"San Antonio Spurs","ssf_slug":"spurs"},{"abbr":"UTA","nba_id":1610612762,"conf":"West","short":"Utah","name":"Utah Jazz","ssf_slug":"jazz"}],"lines":{"teams":{"NYK":{"line":52.5,"last_season_wins":53},"BOS":{"line":51.5,"last_season_wins":56},"PHI":{"line":49.5,"last_season_wins":45},"CLE":{"line":48.5,"last_season_wins":52},"DET":{"line":48.5,"last_season_wins":60},"MIA":{"line":46.5,"last_season_wins":43},"TOR":{"line":46.5,"last_season_wins":46},"IND":{"line":44.5,"last_season_wins":19},"ATL":{"line":43.5,"last_season_wins":46},"ORL":{"line":43.5,"last_season_wins":45},"CHA":{"line":38.5,"last_season_wins":44},"WAS":{"line":34.5,"last_season_wins":17},"CHI":{"line":29.5,"last_season_wins":31},"MIL":{"line":25.5,"last_season_wins":32},"BKN":{"line":24.5,"last_season_wins":20},"OKC":{"line":62.5,"last_season_wins":64},"SAS":{"line":60.5,"last_season_wins":62},"DEN":{"line":48.5,"last_season_wins":54},"HOU":{"line":48.5,"last_season_wins":52},"MIN":{"line":48.5,"last_season_wins":49},"LAL":{"line":45.5,"last_season_wins":53},"POR":{"line":41.5,"last_season_wins":42},"PHX":{"line":38.5,"last_season_wins":45},"UTA":{"line":37.5,"last_season_wins":22},"GSW":{"line":37.5,"last_season_wins":37},"DAL":{"line":33.5,"last_season_wins":26},"MEM":{"line":29.5,"last_season_wins":25},"LAC":{"line":28.5,"last_season_wins":42},"NOP":{"line":28.5,"last_season_wins":26},"SAC":{"line":20.5,"last_season_wins":22}}},"payroll":{"payroll":{"ATL":200206158,"BOS":202186160,"BKN":162093004,"CHA":172768756,"CHI":167806729,"CLE":212477757,"DET":196534824,"IND":209838686,"MIA":209018830,"MIL":191002986,"NYK":226384237,"ORL":223461006,"PHI":210400824,"TOR":204155760,"WAS":197115893,"DAL":190423858,"DEN":224166279,"GSW":226301961,"HOU":204227285,"LAC":185194198,"LAL":207230816,"MEM":176150419,"MIN":218203961,"NOP":198893985,"OKC":216406838,"PHX":217583270,"POR":194130118,"SAC":199894616,"SAS":201153591,"UTA":186149985}},"current":[[0,0,0,0,0,0,0,0],[0,1,113,121,0,0,0,1],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[1,0,121,113,1,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,1,100,106,0,1,0,0],[0,0,0,0,0,0,0,0],[1,0,106,100,0,0,1,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[1,0,116,104,0,0,1,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,1,104,116,0,1,0,0],[0,0,0,0,0,0,0,0]],"nightsPath":"data/nights.json","nightsVersion":"c90460fb8799cb3c"}</script>
+<script type="application/json" id="hm-data">{"pageUrl":"https://hoopsmatic.com/standings","gameDate":"2026-10-20","teams":[{"abbr":"ATL","nba_id":1610612737,"conf":"East","short":"Atlanta","name":"Atlanta Hawks","ssf_slug":"hawks"},{"abbr":"BOS","nba_id":1610612738,"conf":"East","short":"Boston","name":"Boston Celtics","ssf_slug":"celtics"},{"abbr":"BKN","nba_id":1610612751,"conf":"East","short":"Brooklyn","name":"Brooklyn Nets","ssf_slug":"nets"},{"abbr":"CHA","nba_id":1610612766,"conf":"East","short":"Charlotte","name":"Charlotte Hornets","ssf_slug":"hornets"},{"abbr":"CHI","nba_id":1610612741,"conf":"East","short":"Chicago","name":"Chicago Bulls","ssf_slug":"bulls"},{"abbr":"CLE","nba_id":1610612739,"conf":"East","short":"Cleveland","name":"Cleveland Cavaliers","ssf_slug":"cavaliers"},{"abbr":"DET","nba_id":1610612765,"conf":"East","short":"Detroit","name":"Detroit Pistons","ssf_slug":"pistons"},{"abbr":"IND","nba_id":1610612754,"conf":"East","short":"Indiana","name":"Indiana Pacers","ssf_slug":"pacers"},{"abbr":"MIA","nba_id":1610612748,"conf":"East","short":"Miami","name":"Miami Heat","ssf_slug":"heat"},{"abbr":"MIL","nba_id":1610612749,"conf":"East","short":"Milwaukee","name":"Milwaukee Bucks","ssf_slug":"bucks"},{"abbr":"NYK","nba_id":1610612752,"conf":"East","short":"New York","name":"New York Knicks","ssf_slug":"knicks"},{"abbr":"ORL","nba_id":1610612753,"conf":"East","short":"Orlando","name":"Orlando Magic","ssf_slug":"magic"},{"abbr":"PHI","nba_id":1610612755,"conf":"East","short":"Philadelphia","name":"Philadelphia 76ers","ssf_slug":"76ers"},{"abbr":"TOR","nba_id":1610612761,"conf":"East","short":"Toronto","name":"Toronto Raptors","ssf_slug":"raptors"},{"abbr":"WAS","nba_id":1610612764,"conf":"East","short":"Washington","name":"Washington Wizards","ssf_slug":"wizards"},{"abbr":"DAL","nba_id":1610612742,"conf":"West","short":"Dallas","name":"Dallas Mavericks","ssf_slug":"mavericks"},{"abbr":"DEN","nba_id":1610612743,"conf":"West","short":"Denver","name":"Denver Nuggets","ssf_slug":"nuggets"},{"abbr":"GSW","nba_id":1610612744,"conf":"West","short":"Golden State","name":"Golden State Warriors","ssf_slug":"warriors"},{"abbr":"HOU","nba_id":1610612745,"conf":"West","short":"Houston","name":"Houston Rockets","ssf_slug":"rockets"},{"abbr":"LAC","nba_id":1610612746,"conf":"West","short":"LA Clippers","name":"LA Clippers","ssf_slug":"clippers"},{"abbr":"LAL","nba_id":1610612747,"conf":"West","short":"LA Lakers","name":"Los Angeles Lakers","ssf_slug":"lakers"},{"abbr":"MEM","nba_id":1610612763,"conf":"West","short":"Memphis","name":"Memphis Grizzlies","ssf_slug":"grizzlies"},{"abbr":"MIN","nba_id":1610612750,"conf":"West","short":"Minnesota","name":"Minnesota Timberwolves","ssf_slug":"timberwolves"},{"abbr":"NOP","nba_id":1610612740,"conf":"West","short":"New Orleans","name":"New Orleans Pelicans","ssf_slug":"pelicans"},{"abbr":"OKC","nba_id":1610612760,"conf":"West","short":"Oklahoma City","name":"Oklahoma City Thunder","ssf_slug":"thunder"},{"abbr":"PHX","nba_id":1610612756,"conf":"West","short":"Phoenix","name":"Phoenix Suns","ssf_slug":"suns"},{"abbr":"POR","nba_id":1610612757,"conf":"West","short":"Portland","name":"Portland Trail Blazers","ssf_slug":"trail-blazers"},{"abbr":"SAC","nba_id":1610612758,"conf":"West","short":"Sacramento","name":"Sacramento Kings","ssf_slug":"kings"},{"abbr":"SAS","nba_id":1610612759,"conf":"West","short":"San Antonio","name":"San Antonio Spurs","ssf_slug":"spurs"},{"abbr":"UTA","nba_id":1610612762,"conf":"West","short":"Utah","name":"Utah Jazz","ssf_slug":"jazz"}],"lines":{"teams":{"NYK":{"line":52.5,"last_season_wins":53},"BOS":{"line":51.5,"last_season_wins":56},"PHI":{"line":49.5,"last_season_wins":45},"CLE":{"line":48.5,"last_season_wins":52},"DET":{"line":48.5,"last_season_wins":60},"MIA":{"line":46.5,"last_season_wins":43},"TOR":{"line":46.5,"last_season_wins":46},"IND":{"line":44.5,"last_season_wins":19},"ATL":{"line":43.5,"last_season_wins":46},"ORL":{"line":43.5,"last_season_wins":45},"CHA":{"line":38.5,"last_season_wins":44},"WAS":{"line":34.5,"last_season_wins":17},"CHI":{"line":29.5,"last_season_wins":31},"MIL":{"line":25.5,"last_season_wins":32},"BKN":{"line":24.5,"last_season_wins":20},"OKC":{"line":62.5,"last_season_wins":64},"SAS":{"line":60.5,"last_season_wins":62},"DEN":{"line":48.5,"last_season_wins":54},"HOU":{"line":48.5,"last_season_wins":52},"MIN":{"line":48.5,"last_season_wins":49},"LAL":{"line":45.5,"last_season_wins":53},"POR":{"line":41.5,"last_season_wins":42},"PHX":{"line":38.5,"last_season_wins":45},"UTA":{"line":37.5,"last_season_wins":22},"GSW":{"line":37.5,"last_season_wins":37},"DAL":{"line":33.5,"last_season_wins":26},"MEM":{"line":29.5,"last_season_wins":25},"LAC":{"line":28.5,"last_season_wins":42},"NOP":{"line":28.5,"last_season_wins":26},"SAC":{"line":20.5,"last_season_wins":22}}},"payroll":{"payroll":{"ATL":200206158,"BOS":202186160,"BKN":162093004,"CHA":172768756,"CHI":167806729,"CLE":212477757,"DET":196534824,"IND":209838686,"MIA":209018830,"MIL":191002986,"NYK":226384237,"ORL":223461006,"PHI":210400824,"TOR":204155760,"WAS":197115893,"DAL":190423858,"DEN":224166279,"GSW":226301961,"HOU":204227285,"LAC":185194198,"LAL":207230816,"MEM":176150419,"MIN":218203961,"NOP":198893985,"OKC":216406838,"PHX":217583270,"POR":194130118,"SAC":199894616,"SAS":201153591,"UTA":186149985}},"current":[[0,0,0,0,0,0,0,0],[0,1,113,121,0,0,0,1],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[1,0,121,113,1,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,1,100,106,0,1,0,0],[0,0,0,0,0,0,0,0],[1,0,106,100,0,0,1,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[1,0,116,104,0,0,1,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,1,104,116,0,1,0,0],[0,0,0,0,0,0,0,0]],"nightsPath":"data/nights.json","nightsVersion":"0800f0538ee725a0"}</script>
 <script>
 // Tap a column header to sort that conference's table by it; tap again to
 // flip the direction. Numbers start high-to-low (Rank and $ per Win start
@@ -348,6 +359,47 @@ table.glog tbody tr{cursor:default}
   bind();
 })();
 
+// Column explanations: every table header with a data-tip shows it in a
+// small box under the header, on hover (desktop) and on tap (mobile; the tap
+// still sorts a sortable table). One box for the page, fixed to the viewport
+// so the tables' horizontal scroller cannot clip it. Listeners sit on the
+// document, so tables redrawn by src/views.js need nothing re-bound.
+(function () {
+  var box = document.createElement('div');
+  box.className = 'hm-tip';
+  box.setAttribute('role', 'tooltip');
+  box.hidden = true;
+  document.body.appendChild(box);
+  var current = null, timer = null;
+  var hover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+
+  function show(th, ms) {
+    var text = th.getAttribute('data-tip');
+    if (!text) return;
+    current = th;
+    box.textContent = text;
+    box.hidden = false;
+    var r = th.getBoundingClientRect(), w = box.offsetWidth, vw = document.documentElement.clientWidth;
+    var left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), vw - w - 8);
+    box.style.left = left + 'px';
+    box.style.top = (r.bottom + 6) + 'px';
+    clearTimeout(timer);
+    if (ms) timer = setTimeout(hide, ms);
+  }
+  function hide() { clearTimeout(timer); box.hidden = true; current = null; }
+  function tipOf(el) { return el && el.closest ? el.closest('th[data-tip]') : null; }
+
+  if (hover) {
+    document.addEventListener('mouseover', function (e) { var th = tipOf(e.target); if (th && th !== current) show(th); else if (!th && current) hide(); });
+  }
+  // A tap (or click) shows the explanation for a few seconds.
+  document.addEventListener('click', function (e) { var th = tipOf(e.target); if (th) show(th, 4000); else hide(); });
+  document.addEventListener('focusin', function (e) { var th = tipOf(e.target); if (th) show(th); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  window.addEventListener('scroll', hide, true);
+  window.addEventListener('resize', hide);
+})();
+
 </script>
 <script>
 (function () {
@@ -378,17 +430,19 @@ function pct(t) {
   return hasGames(t) ? t.w / t.gp : null;
 }
 
-// Wins above the pace of a full-season total, over the games played so far.
+// Winning percentage minus the winning percentage a full-season win total
+// stands for (total / 82), as a fraction: 1-0 against a 49.5-win line is
+// 1 - 0.6037 = +0.396, shown as "+39.6%".
 function vsPace(t, total) {
-  return hasGames(t) && num(total) ? t.w - t.gp * (total / SEASON_GAMES) : null;
+  return hasGames(t) && num(total) ? t.w / t.gp - total / SEASON_GAMES : null;
 }
 const vsVegas = (t) => vsPace(t, t.line);
 const vsLastYear = (t) => vsPace(t, t.last_season_wins);
 
-// Payroll prorated to the games played, per win. No wins, no number.
+// The full 2026-27 payroll divided by wins (no proration). No wins, no number.
 function dollarsPerWin(t) {
   if (!hasGames(t) || !num(t.payroll) || !num(t.w) || t.w <= 0) return null;
-  return t.payroll * (t.gp / SEASON_GAMES) / t.w;
+  return t.payroll / t.w;
 }
 
 function ptDiff(t) {
@@ -432,7 +486,9 @@ function signed(x, d = 1) {
 }
 
 const fmtPct = (x) => (x === null || !num(x) ? DASH : round(x * 100, 1).toFixed(1) + '%');
-const fmtMoneyM = (x) => (x === null || !num(x) ? DASH : '$' + round(x / 1e6, 2).toFixed(2) + 'M');
+// A difference of two percentages, in percentage points: "+39.6%", "−4.0%".
+const fmtPctPts = (x) => (x === null || !num(x) ? DASH : signed(x * 100) + '%');
+const fmtMoneyM = (x) => (x === null || !num(x) ? DASH : '$' + round(x / 1e6, 1).toFixed(1) + 'M');
 const fmtRecord = (r) => (r ? r.w + '-' + r.l : DASH);
 const fmtSignedInt = (x) => (x === null || !num(x) ? DASH : signed(x, 0));
 
@@ -454,8 +510,8 @@ function teamMetrics(t) {
     value: v,
     text: {
       pct: fmtPct(v.pct),
-      vsVegas: signed(v.vsVegas),
-      vsLastYear: signed(v.vsLastYear),
+      vsVegas: fmtPctPts(v.vsVegas),
+      vsLastYear: fmtPctPts(v.vsLastYear),
       dollarsPerWin: fmtMoneyM(v.dollarsPerWin),
       ptDiff: signed(v.ptDiff),
       expWL: fmtRecord(exp),
@@ -568,6 +624,90 @@ function payrollFor(tf, payrolls, current, order) {
   return { payroll: unpackPayroll(payrolls[tf.used], order) };
 }
 
+// ── lib/games.mjs ──
+// Games from the log, for what the standings alone cannot say: the
+// head-to-head tiebreaker, Last 10, vs. .500+ and the regulation record.
+// Pure functions shared by the build, the page script (bundled by
+// scripts/build.mjs) and the tests.
+//
+// A game here: { date, away, home, as, hs, periods } with team abbreviations,
+// the away and home scores, and the number of periods played (4 in
+// regulation, 5 or more after overtime; null when the log has no count).
+
+
+const REGULATION_PERIODS = 4;
+const known = (p) => typeof p === 'number' && Number.isFinite(p) && p >= REGULATION_PERIODS;
+
+// The game log's latest entries (scripts/gamelog.mjs readGameLog) in this
+// shape, oldest first.
+function fromLog(log) {
+  return log.map((e) => ({ date: e.date, away: e.away.abbr, home: e.home.abbr, as: e.away.score, hs: e.home.score,
+    periods: known(e.periods) ? e.periods : null }))
+    .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : (a.away + a.home).localeCompare(b.away + b.home)));
+}
+
+// Compact form for data/nights.json: [date, away index, home index, away
+// score, home score, periods] in teams order.
+const packGames = (games, order) => games.map((g) => [g.date, order.indexOf(g.away), order.indexOf(g.home), g.as, g.hs, g.periods]);
+const unpackGames = (packed, order) => (packed || []).map((p) => ({ date: p[0], away: order[p[1]], home: order[p[2]], as: p[3], hs: p[4], periods: known(p[5]) ? p[5] : null }));
+
+// The games a timeframe covers: the season, every game through the As of
+// night, or every game after the Since night (the whole season when no night
+// was saved before it).
+function gamesForTimeframe(tf, games) {
+  if (tf.kind === 'asof') return tf.used ? games.filter((g) => g.date <= tf.used) : [];
+  if (tf.kind === 'since') return tf.used ? games.filter((g) => g.date > tf.used) : games;
+  return games;
+}
+
+// The standings that say which teams are at .500 or better: the season as
+// it stands at the end of the view. For Season and Since that is now; for
+// As of, that night.
+const refStandingsFor = (tf, standings, current) => (tf.kind === 'since' ? current : standings);
+
+// A W-L or W-L-T record as a sort value: winning percentage with a tie as
+// half a win. null with no games.
+function recordValue(r) {
+  if (!r) return null;
+  const n = r.w + r.l + (r.t || 0);
+  return n ? (r.w + (r.t || 0) / 2) / n : null;
+}
+const recordText = (r, withTies = false) => (r ? r.w + '-' + r.l + (withTies ? '-' + r.t : '') : DASH);
+
+// Per team, from the games in a view: its record against each opponent
+// (vs, for the head-to-head tiebreaker), over its last 10 games, against
+// teams at .500 or better in `ref` (standings rows), and in regulation
+// (W-L-T, a game that went past 4 periods is a tie; a game without a period
+// count is left out of this one record). A team with no games gets null for
+// all three records.
+function gameStats(games, ref) {
+  const out = {};
+  const get = (a) => (out[a] = out[a] || { vs: {}, results: [], vs500: { w: 0, l: 0 }, reg: { w: 0, l: 0, t: 0 }, regGames: 0 });
+  const above500 = (a) => { const r = ref && ref[a]; return !!r && r.gp > 0 && r.w * 2 >= r.gp; };
+  for (const g of games) {
+    if (g.hs === g.as) continue;                    // no NBA game ends level; a bad row counts for nothing
+    for (const [us, them, won] of [[g.home, g.away, g.hs > g.as], [g.away, g.home, g.as > g.hs]]) {
+      const s = get(us);
+      const h = (s.vs[them] = s.vs[them] || { w: 0, l: 0 });
+      won ? h.w++ : h.l++;
+      s.results.push(won);
+      if (above500(them)) won ? s.vs500.w++ : s.vs500.l++;
+      if (g.periods !== null) {
+        s.regGames++;
+        if (g.periods > REGULATION_PERIODS) s.reg.t++;
+        else won ? s.reg.w++ : s.reg.l++;
+      }
+    }
+  }
+  for (const s of Object.values(out)) {
+    const last = s.results.slice(-10);
+    s.last10 = { w: last.filter(Boolean).length, l: last.filter((x) => !x).length };
+    if (!s.regGames) s.reg = null;
+    delete s.results; delete s.regGames;
+  }
+  return out;
+}
+
 // ── lib/model.mjs ──
 // Joins standings, lines and payroll into one row per team, ranks each
 // conference, and works out the leader lines and the movers strip.
@@ -575,7 +715,12 @@ function payrollFor(tf, payrolls, current, order) {
 
 const CONFERENCES = ['East', 'West'];
 
-function buildRows(teams, standings, lines, payroll) {
+// games: the games the view covers (lib/games.mjs shape), for the
+// head-to-head tiebreaker and the Last 10, vs. .500+ and Reg. W-L-T columns;
+// without them those columns show a dash and ties skip head-to-head.
+// ref: the standings rows that say who is at .500 or better (default: these).
+function buildRows(teams, standings, lines, payroll, games = null, ref = null) {
+  const gs = games ? gameStats(games, ref || standings.teams) : {};
   return teams.map((t) => {
     const s = standings.teams[t.abbr];
     const l = lines.teams[t.abbr];
@@ -589,22 +734,72 @@ function buildRows(teams, standings, lines, payroll) {
       last_season_wins: l.last_season_wins,
       payroll: Number.isFinite(p) && p > 0 ? p : null,
     };
-    return { ...row, m: teamMetrics(row) };
+    const m = teamMetrics(row);
+    const g = gs[t.abbr] || null;
+    const played = g !== null;
+    // The three game-log records sit with the other metrics, so the table,
+    // the team page and the sort all read them the same way.
+    m.value.last10 = played ? recordValue(g.last10) : null;
+    m.value.vs500 = played ? recordValue(g.vs500) : null;
+    m.value.regWLT = played ? recordValue(g.reg) : null;
+    m.text.last10 = played ? recordText(g.last10) : DASH;
+    m.text.vs500 = played ? recordText(g.vs500) : DASH;
+    m.text.regWLT = played && g.reg ? recordText(g.reg, true) : DASH;
+    return { ...row, m, vs: played ? g.vs : {} };
   });
 }
 
-// Standings order: win percentage, then more wins, then fewer losses, then
-// name. A team that has not played yet has no rank and sorts last.
+// Splits rows (already in order) into runs that share a key, in order.
+function runs(rows, key, same = (a, b) => a === b) {
+  const out = [];
+  for (const r of rows) {
+    const k = key(r), last = out[out.length - 1];
+    if (last && same(last.k, k)) last.rows.push(r); else out.push({ k, rows: [r] });
+  }
+  return out.map((x) => x.rows);
+}
+
+// Puts teams that are level in order: (a) winning percentage in the games
+// among just these teams, when every one of them has played at least one of
+// the others; (b) point differential per game; (c) team name. When (a) or (b)
+// splits the group, each smaller group that is still level starts again at
+// (a). worstFirst turns (a) and (b) around for lists that start at the
+// bottom ("Most underachieving"); the name stays A-Z.
+function orderTied(group, { worstFirst = false } = {}) {
+  if (group.length < 2) return group;
+  const dir = worstFirst ? 1 : -1;
+  const split = (val) => {
+    const sorted = [...group].sort((a, b) => {
+      const x = val(a), y = val(b);
+      if ((x === null) !== (y === null)) return x === null ? 1 : -1;
+      return x === y ? 0 : (x - y) * dir;
+    });
+    return runs(sorted, val);
+  };
+  const ids = new Set(group.map((r) => r.abbr));
+  const h2h = (r) => {
+    let w = 0, l = 0;
+    for (const o of ids) if (o !== r.abbr && r.vs && r.vs[o]) { w += r.vs[o].w; l += r.vs[o].l; }
+    return w + l ? w / (w + l) : null;
+  };
+  if (group.every((r) => h2h(r) !== null)) {
+    const parts = split(h2h);
+    if (parts.length > 1) return parts.flatMap((p) => orderTied(p, { worstFirst }));
+  }
+  const parts = split((r) => r.m.value.ptDiff);
+  if (parts.length > 1) return parts.flatMap((p) => orderTied(p, { worstFirst }));
+  return [...group].sort((a, b) => a.short.localeCompare(b.short));
+}
+
+// Standings order: win percentage, with teams on the same percentage put in
+// order by orderTied() (head-to-head, point differential, name). A team that
+// has not played yet has no rank and sorts last, A-Z, without moving anyone.
 function rankConference(rows) {
-  const sorted = [...rows].sort((a, b) => {
-    const pa = a.m.value.pct, pb = b.m.value.pct;
-    if ((pa === null) !== (pb === null)) return pa === null ? 1 : -1;
-    if (pa !== null && pb !== pa) return pb - pa;
-    if (b.w !== a.w) return b.w - a.w;
-    if (a.l !== b.l) return a.l - b.l;
-    return a.short.localeCompare(b.short);
-  });
-  return sorted.map((r) => ({ ...r, rank: r.m.value.pct === null ? null : sorted.indexOf(r) + 1 }));
+  const played = rows.filter((r) => r.m.value.pct !== null)
+    .sort((a, b) => b.w * a.gp - a.w * b.gp);               // Pct, high to low, in whole numbers
+  const ordered = runs(played, (r) => r, (a, b) => a.w * b.gp === b.w * a.gp).flatMap((g) => orderTied(g));
+  const unplayed = rows.filter((r) => r.m.value.pct === null).sort((a, b) => a.short.localeCompare(b.short));
+  return [...ordered.map((r, i) => ({ ...r, rank: i + 1 })), ...unplayed.map((r) => ({ ...r, rank: null }))];
 }
 
 function byConference(rows) {
@@ -620,52 +815,56 @@ function joinAnd(parts) {
 }
 
 // The three teams at one end of a metric, best first, as one sentence:
-// "Miami (+4.2 wins vs. Vegas), Portland (+3.1) and LA Lakers (+2.7)". The
+// "Miami (+14.2% vs. Vegas), Portland (+9.1%) and LA Lakers (+6.7%)". The
 // unit goes on the first team only. `keep` drops teams on the wrong side of
 // zero, so "Most underachieving" never lists a team that is ahead of its line.
-// `skip` drops teams already named in the other line of the pair. Returns the
+// `skip` drops teams already named in the other line of the pair. Teams on
+// the same number are put in order by orderTied(), turned around for the
+// second line of a pair (`worst`), which starts from the bottom. Returns the
 // sentence (null when no team is left) and the teams it names.
-function leaderLine(rows, key, { dir, fmt, unit, keep = () => true, skip = new Set(), n = 3 }) {
-  const pool = rows.filter((r) => r.m.value[key] !== null && keep(r.m.value[key]) && !skip.has(r.abbr));
-  pool.sort((a, b) => {
-    const d = dir === 'desc' ? b.m.value[key] - a.m.value[key] : a.m.value[key] - b.m.value[key];
-    return d !== 0 ? d : a.short.localeCompare(b.short);
-  });
-  const top = pool.slice(0, n);
+function leaderLine(rows, key, { dir, fmt, unit, keep = () => true, skip = new Set(), worst = false, n = 3 }) {
+  const val = (r) => r.m.value[key];
+  const pool = rows.filter((r) => val(r) !== null && keep(val(r)) && !skip.has(r.abbr))
+    .sort((a, b) => (dir === 'desc' ? val(b) - val(a) : val(a) - val(b)));
+  const top = runs(pool, val, (a, b) => Math.abs(a - b) < 1e-12).flatMap((g) => orderTied(g, { worstFirst: worst })).slice(0, n);
   return {
     text: top.length ? joinAnd(top.map((r, i) => r.short + ' (' + fmt(r.m.value[key]) + (i === 0 ? unit : '') + ')')) : null,
     abbrs: new Set(top.map((r) => r.abbr)),
   };
 }
 
-// A Best/Worst pair shows only once this many teams have a number for its
-// metric (a game played; for $ per win, a win). Before that both lines are
-// { text: null, wait: true } and the page says "After a few more games."
+// A team counts for the leader lines once it has played LEADER_MIN_GAMES
+// games and has a number for the metric (for $ per win, a win). A Best/Worst
+// pair shows only once LEADER_PAIR_MIN teams count. Before that both lines
+// are { text: null, wait: true } and the page says "After a few more games."
+const LEADER_MIN_GAMES = 5;
 const LEADER_PAIR_MIN = 6;
 
 // One Best/Worst pair. A team named in the first line is never named in the
 // second. With six teams and three per line that already holds; the skip
 // keeps it true if either number changes.
 function leaderPair(rows, key, first, second) {
-  const qualified = rows.filter((r) => r.m.value[key] !== null);
+  const qualified = rows.filter((r) => r.gp >= LEADER_MIN_GAMES && r.m.value[key] !== null);
   if (qualified.length < LEADER_PAIR_MIN) {
     return [{ label: first.label, text: null, wait: true }, { label: second.label, text: null, wait: true }];
   }
   const a = leaderLine(qualified, key, first);
-  const b = leaderLine(qualified, key, { ...second, skip: a.abbrs });
+  const b = leaderLine(qualified, key, { ...second, skip: a.abbrs, worst: true });
   return [{ label: first.label, text: a.text }, { label: second.label, text: b.text }];
 }
 
 function leaders(rows) {
   const pos = (v) => round(v, 1) > 0, neg = (v) => round(v, 1) < 0;
+  // vs. Vegas and vs. Last Year are fractions shown in percentage points.
+  const posPts = (v) => pos(v * 100), negPts = (v) => neg(v * 100);
   const s = (v) => signed(v);
   return [
     ...leaderPair(rows, 'vsVegas',
-      { label: 'Most overachieving', dir: 'desc', fmt: s, unit: ' wins vs. Vegas', keep: pos },
-      { label: 'Most underachieving', dir: 'asc', fmt: s, unit: ' wins vs. Vegas', keep: neg }),
+      { label: 'Most overachieving', dir: 'desc', fmt: fmtPctPts, unit: ' vs. Vegas', keep: posPts },
+      { label: 'Most underachieving', dir: 'asc', fmt: fmtPctPts, unit: ' vs. Vegas', keep: negPts }),
     ...leaderPair(rows, 'vsLastYear',
-      { label: 'Most improved', dir: 'desc', fmt: s, unit: ' wins vs. last year', keep: pos },
-      { label: 'Most declined', dir: 'asc', fmt: s, unit: ' wins vs. last year', keep: neg }),
+      { label: 'Most improved', dir: 'desc', fmt: fmtPctPts, unit: ' vs. last year', keep: posPts },
+      { label: 'Most declined', dir: 'asc', fmt: fmtPctPts, unit: ' vs. last year', keep: negPts }),
     ...leaderPair(rows, 'dollarsPerWin',
       { label: 'Best bang for the buck', dir: 'asc', fmt: fmtMoneyM, unit: ' per win' },
       { label: 'Worst bang for the buck', dir: 'desc', fmt: fmtMoneyM, unit: ' per win' }),
@@ -696,7 +895,7 @@ function movers(rows, prev, { n = 6 } = {}) {
 function moverText(m) {
   // A feed correction can take a game away; say so rather than "won -1".
   const games = m.dw < 0 || m.dl < 0 ? 'record revised' : m.dw && m.dl ? 'went ' + m.dw + '-' + m.dl : m.dw ? (m.dw === 1 ? 'won' : 'won ' + m.dw) : (m.dl === 1 ? 'lost' : 'lost ' + m.dl);
-  return { delta: signed(m.delta) + ' vs. Vegas', games, record: m.w + '-' + m.l };
+  return { delta: fmtPctPts(m.delta) + ' vs. Vegas', games, record: m.w + '-' + m.l };
 }
 
 function leagueAveragePayroll(rows) {
@@ -791,19 +990,24 @@ function signCls(v, d = 1) {
 }
 
 // first: the direction of the first tap (1 = low to high).
+// tip: the one-line explanation shown when a reader taps (mobile) or hovers
+// over (desktop) the header; src/tips.js shows it.
 const COLUMNS = [
-  { k: 'rank', label: 'Rank', t: 'num', first: 1 },
-  { k: 'team', label: 'Team', t: 'str', first: 1 },
-  { k: 'w', label: 'W', t: 'num', first: -1 },
-  { k: 'l', label: 'L', t: 'num', first: -1 },
-  { k: 'pct', label: 'Pct', t: 'num', first: -1 },
-  { k: 'vsVegas', label: 'vs. Vegas', t: 'num', first: -1 },
-  { k: 'vsLastYear', label: 'vs. Last Year', t: 'num', first: -1 },
-  { k: 'dollarsPerWin', label: '$ per Win', t: 'num', first: 1 },
-  { k: 'ptDiff', label: 'Pt Diff', t: 'num', first: -1 },
-  { k: 'expW', label: 'Exp. W-L', t: 'num', first: -1 },
-  { k: 'luck', label: 'Luck', t: 'num', first: -1 },
-  { k: 'roadMinusHome', label: 'Road W − Home L', t: 'num', first: -1 },
+  { k: 'rank', label: 'Rank', t: 'num', first: 1, tip: 'Place in the conference by Pct. Ties: head-to-head, then point differential, then name.' },
+  { k: 'team', label: 'Team', t: 'str', first: 1, tip: 'Tap a team for its own page.' },
+  { k: 'w', label: 'W', t: 'num', first: -1, tip: 'Wins.' },
+  { k: 'l', label: 'L', t: 'num', first: -1, tip: 'Losses.' },
+  { k: 'pct', label: 'Pct', t: 'num', first: -1, tip: 'Winning percentage: wins divided by games played.' },
+  { k: 'vsVegas', label: 'vs. Vegas', t: 'num', first: -1, tip: 'Pct minus the Pct of the preseason Vegas win total (line ÷ 82).' },
+  { k: 'vsLastYear', label: 'vs. Last Year', t: 'num', first: -1, tip: 'Pct minus the Pct of last season’s record (2025-26 wins ÷ 82).' },
+  { k: 'dollarsPerWin', label: '$ per Win', t: 'num', first: 1, tip: 'Full 2026-27 payroll divided by wins. Lower is better.' },
+  { k: 'ptDiff', label: 'Pt Diff', t: 'num', first: -1, tip: 'Points scored minus points allowed, per game.' },
+  { k: 'expW', label: 'Exp. W-L', t: 'num', first: -1, tip: 'The record the team’s points scored and allowed suggest.' },
+  { k: 'luck', label: 'Luck', t: 'num', first: -1, tip: 'Actual wins minus expected wins.' },
+  { k: 'roadMinusHome', label: 'Road W − Home L', t: 'num', first: -1, tip: 'Road wins minus home losses.' },
+  { k: 'last10', label: 'Last 10', t: 'num', first: -1, tip: 'Record over the team’s last 10 games (fewer if it has played fewer).' },
+  { k: 'vs500', label: 'vs. .500+', t: 'num', first: -1, tip: 'Record against teams that are at .500 or better.' },
+  { k: 'regWLT', label: 'Reg. W-L-T', t: 'num', first: -1, tip: 'Record after 48 minutes: a game that went to overtime counts as a tie.' },
 ];
 
 function cell(r, k) {
@@ -820,6 +1024,10 @@ function cell(r, k) {
     case 'dollarsPerWin': return `<td data-v="${dv(v.dollarsPerWin)}"${v.dollarsPerWin === null ? ' class="dash"' : ''}>${t.dollarsPerWin}</td>`;
     case 'expW': return `<td data-v="${dv(v.expW)}"${v.expW === null ? ' class="dash"' : ''}>${t.expWL}</td>`;
     case 'roadMinusHome': return `<td data-v="${dv(v.roadMinusHome)}" class="${signCls(v.roadMinusHome, 0)}">${t.roadMinusHome}</td>`;
+    // In percentage points on the page, so the sign class goes by that.
+    case 'vsVegas': case 'vsLastYear': return `<td data-v="${dv(v[k])}" class="${signCls(v[k] === null ? null : v[k] * 100)}">${t[k]}</td>`;
+    // Records: sorted by their winning percentage (a tie as half a win).
+    case 'last10': case 'vs500': case 'regWLT': return `<td data-v="${dv(v[k])}"${t[k] === DASH ? ' class="dash"' : ''}>${t[k]}</td>`;
     default: return `<td data-v="${dv(v[k])}" class="${signCls(v[k])}">${t[k]}</td>`;
   }
 }
@@ -829,7 +1037,9 @@ function tableHtml(conf, rows) {
     const cls = c.k === 'rank' ? ' class="c-rank"' : c.k === 'team' ? ' class="c-team"' : '';
     const sort = c.k === 'pct' ? 'descending' : 'none';
     const arr = c.k === 'pct' ? '▼' : '';
-    return `<th scope="col"${cls} data-k="${c.k}" data-t="${c.t}" data-first="${c.first}" aria-sort="${sort}"><button type="button">${esc(c.label)}<span class="arr">${arr}</span></button></th>`;
+    const id = 'tip-' + conf + '-' + c.k;
+    return `<th scope="col"${cls} data-k="${c.k}" data-t="${c.t}" data-first="${c.first}" data-tip="${esc(c.tip)}" aria-sort="${sort}">`
+      + `<button type="button" aria-describedby="${id}">${esc(c.label)}<span class="arr">${arr}</span></button><span class="sr" id="${id}">${esc(c.tip)}</span></th>`;
   }).join('');
   const body = rows.map((r, i) => `<tr data-o="${i}">` + COLUMNS.map((c) => cell(r, c.k)).join('') + '</tr>').join('\n');
   return `<div class="table-wrap"><table class="lb" data-sortable aria-label="${conf}ern Conference">`
@@ -849,7 +1059,7 @@ function moversHtml(list, prevDate, today) {
   if (!list.length) return `<p class="note">No games since the ${esc(since)} update.</p>`;
   return '<div class="movers">' + list.map((m) => {
     const t = moverText(m);
-    const cls = round(m.delta, 1) > 0 ? 'pos' : round(m.delta, 1) < 0 ? 'neg' : '';
+    const cls = round(m.delta * 100, 1) > 0 ? 'pos' : round(m.delta * 100, 1) < 0 ? 'neg' : '';
     return `<div class="mover"><img src="${logoUrl(m)}" alt="" width="28" height="28" loading="lazy">`
       + `<span><span class="nm">${esc(m.short)} <span class="d ${cls}">${esc(t.delta)}</span></span>`
       + `<span class="det">${esc(t.games)}, now ${esc(t.record)}</span></span></div>`;
@@ -949,19 +1159,20 @@ function timeframeLabel(tf, standings) {
   return { label, note };
 }
 
-// Everything that follows the timeframe, for one set of standings.
-function timeframeParts(teams, standings, lines, payroll) {
-  const rows = buildRows(teams, { teams: standings }, lines, payroll);
+// Everything that follows the timeframe, for one set of standings and the
+// games it covers (ref: the standings that say who is at .500 or better).
+function timeframeParts(teams, standings, lines, payroll, games = null, ref = null) {
+  const rows = buildRows(teams, { teams: standings }, lines, payroll, games, ref);
   const conferences = byConference(rows);
   return { leaders: leadersHtml(rows), tables: tablesHtml(conferences), charts: chartsHtml(rows, conferences) };
 }
 
-window.HM = { unpackTeams, resolveTimeframe, standingsFor, timeframeLabel, timeframeParts, fmtDay, payrollFor };
+window.HM = { unpackTeams, resolveTimeframe, standingsFor, timeframeLabel, timeframeParts, fmtDay, payrollFor, unpackGames, gamesForTimeframe, refStandingsFor };
 })();
 // Timeframes in the browser: ?asof=YYYY-MM-DD, ?since=YYYY-MM-DD,
 // ?since=last7 and ?since=last15. The build renders the season; for any of
 // these the leader lines, tables and charts are drawn again from the saved
-// nights in data/nights.json (fetched only then), with the same functions the build uses
+// nights and the game log in data/nights.json (fetched only then), with the same functions the build uses
 // (window.HM, bundled from lib/ by scripts/build.mjs). These views are
 // marked noindex,follow with a canonical to themselves; the plain page is
 // left exactly as built.
@@ -1021,9 +1232,14 @@ window.HM = { unpackTeams, resolveTimeframe, standingsFor, timeframeLabel, timef
       var t2 = HM.resolveTimeframe(params, { dates: N.dates, gameDate: D.gameDate });
       var snaps = {};
       N.dates.forEach(function (d) { snaps[d] = HM.unpackTeams(N.snapshots[d], N.order); });
-      var standings = HM.standingsFor(t2, HM.unpackTeams(D.current, order), snaps);
+      var current = HM.unpackTeams(D.current, order);
+      var standings = HM.standingsFor(t2, current, snaps);
+      // The logged games this view covers, for the tiebreaker and the Last 10,
+      // vs. .500+ and Reg. W-L-T columns; .500 or better as of the view's end.
+      var games = HM.gamesForTimeframe(t2, HM.unpackGames(N.games, N.order));
       // $ per Win with the payroll saved with the night this view uses.
-      var parts = HM.timeframeParts(D.teams, standings, D.lines, HM.payrollFor(t2, N.payrolls, D.payroll, N.order));
+      var parts = HM.timeframeParts(D.teams, standings, D.lines, HM.payrollFor(t2, N.payrolls, D.payroll, N.order),
+        games, HM.refStandingsFor(t2, standings, current));
       document.getElementById('tf-leaders').innerHTML = parts.leaders;
       document.getElementById('tf-tables').innerHTML = parts.tables;
       document.getElementById('tf-charts').innerHTML = parts.charts;

@@ -61,9 +61,9 @@ async function scratch() {
   const current = { payroll: flat(100e6) };
   const nr = nightRowsFor(snaps, teams, lines, current);
   const s = teamSeries('NYK', nr);
-  // $ per Win = payroll * GP/82 / W: 100M*2/82/2 = 1.2195M, 200M*2/82/2 = 2.439M.
-  ok('charts: a night saved without payroll uses the current one (Oct. 20: $1.22M per win)', Math.abs(s[0].dollarsPerWin - 100e6 * 2 / 82 / 2) < 1 && !nr[0].ownPayroll);
-  ok('charts: a night with its own payroll uses it (Oct. 21: $2.44M per win, not $1.22M)', Math.abs(s[1].dollarsPerWin - 200e6 * 2 / 82 / 2) < 1 && nr[1].ownPayroll);
+  // $ per Win = full payroll / W: 100M/2 = 50M, 200M/2 = 100M.
+  ok('charts: a night saved without payroll uses the current one (Oct. 20: $50.0M per win)', Math.abs(s[0].dollarsPerWin - 100e6 / 2) < 1 && !nr[0].ownPayroll);
+  ok('charts: a night with its own payroll uses it (Oct. 21: $100.0M per win, not $50.0M)', Math.abs(s[1].dollarsPerWin - 200e6 / 2) < 1 && nr[1].ownPayroll);
 
   const N = JSON.parse(nightsJson(snaps, order));
   ok('nights.json: payrolls only for the nights that have one, in team order', Object.keys(N.payrolls).join() === '2026-10-21' && N.payrolls['2026-10-21'][order.indexOf('NYK')] === 200e6);
