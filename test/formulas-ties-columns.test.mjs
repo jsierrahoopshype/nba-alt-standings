@@ -7,7 +7,8 @@
 //   2. leader lines count a team only after 5 games
 //   3. equal Pct: head-to-head among the tied teams, then point differential
 //      per game, then name; for tables, team-page ranks and leader lines
-//   4. Last 10, vs. .500+ and Reg. W-L-T from the game log, with the period
+//   4. Last 10 and vs. .500+ from the game log (Reg. W-L-T was removed on
+//      Oct. 21; the log still stores each game's period count), with the period
 //      count stored in the log and backfilled for games logged without one
 //   5. a one-line explanation on every column header
 // Run: node test/formulas-ties-columns.test.mjs
@@ -208,13 +209,13 @@ const eastOrder = (games) => byConference(rowsOf(games)).East.filter((r) => r.ra
   const rows = buildRows(teams, { teams: standingsFrom(reg) }, lines, payroll, reg);
   const t = tableHtml('West', byConference(rows).West);
   const heads = [...t.matchAll(/<th [^>]*data-k="([^"]+)"/g)].map((m) => m[1]);
-  ok('table: Last 10, vs. .500+ and Reg. W-L-T are the last three columns', heads.slice(-3).join() === 'last10,vs500,regWLT' && heads.length === 15, heads);
-  ok('table: the new headers sort (button, numeric, high first) and only Rank and Team are frozen', ['last10', 'vs500', 'regWLT'].every((k) => new RegExp('<th scope="col" data-k="' + k + '" data-t="num" data-first="-1"[^>]*><button type="button"').test(t))
+  ok('table: Last 10 and vs. .500+ are the last two columns, no Reg. W-L-T', heads.slice(-2).join() === 'last10,vs500' && heads.length === 14 && !t.includes('Reg. W-L-T') && !t.includes('regWLT'), heads);
+  ok('table: the new headers sort (button, numeric, high first) and only Rank and Team are frozen', ['last10', 'vs500'].every((k) => new RegExp('<th scope="col" data-k="' + k + '" data-t="num" data-first="-1"[^>]*><button type="button"').test(t))
      && (t.match(/<th [^>]*class="c-(?:rank|team)"/g) || []).length === 2);
   const dal = t.split('<tr data-o').find((x) => x.includes('/standings/mavericks"'));
-  ok('table: Dallas row 3-2 in its last 10, Reg. W-L-T 1-1-2 with data-v 0.5', /<td data-v="0\.6">3-2<\/td>/.test(dal) && /<td data-v="0\.5">1-1-2<\/td>/.test(dal), dal);
+  ok('table: Dallas row 3-2 in its last 10 (data-v 0.6), no regulation record cell', /<td data-v="0\.6">3-2<\/td>/.test(dal) && !/1-1-2/.test(dal), dal);
   const atl = t.split('<tr data-o').length;
-  ok('table: a team with no games shows dashes in the three', /<td data-v="" class="dash">—<\/td><td data-v="" class="dash">—<\/td><td data-v="" class="dash">—<\/td><\/tr>/.test(t) && atl > 1);
+  ok('table: a team with no games shows dashes in the two', /<td data-v="" class="dash">—<\/td><td data-v="" class="dash">—<\/td><\/tr>/.test(t) && atl > 1);
 
   // Windows and the reference standings.
   const gs = [G('2026-10-20', 'A', 'B', 1, 2), G('2026-10-21', 'A', 'B', 1, 2), G('2026-10-22', 'A', 'B', 1, 2)];
@@ -301,7 +302,7 @@ const eastOrder = (games) => byConference(rowsOf(games)).East.filter((r) => r.ra
   ok('update run: the backfill alone rebuilds the pages', r.built === true);
   const nyk = await readFile(join(dir, 'knicks/index.html'), 'utf8');
   const stat = (k) => (new RegExp('<div class="stat" data-k="' + k + '"><span class="lbl">[^<]*</span><span class="num">([^<]*)<').exec(nyk) || [])[1];
-  ok('team page: New York shows Last 10 0-1, vs. .500+ 0-0, Reg. W-L-T 0-1-0', stat('last10') === '0-1' && stat('vs500') === '0-0' && stat('regWLT') === '0-1-0', [stat('last10'), stat('vs500'), stat('regWLT')]);
+  ok('team page: New York shows Last 10 0-1, vs. .500+ 0-0, and no Reg. W-L-T', stat('last10') === '0-1' && stat('vs500') === '0-0' && stat('regWLT') === undefined && !nyk.includes('Reg. W-L-T'), [stat('last10'), stat('vs500'), stat('regWLT')]);
 }
 
 // ── Pages: the build end to end, from a scratch log ──
@@ -323,14 +324,14 @@ const eastOrder = (games) => byConference(rowsOf(games)).East.filter((r) => r.ra
   ok('page: New York 3rd and Boston 4th in the East table', /data-v="3">3<\/td><td class="c-team" data-v="New York"/.test(all.index) && /data-v="4">4<\/td><td class="c-team" data-v="Boston"/.test(all.index));
   ok('team pages: New York 3rd in the East / 4th in the NBA, Boston 4th / 5th', cell(page('knicks'), 'confRank') === '3rd in the East' && cell(page('knicks'), 'leagueRank') === '4th in the NBA'
      && cell(page('celtics'), 'confRank') === '4th in the East' && cell(page('celtics'), 'leagueRank') === '5th in the NBA', [cell(page('knicks'), 'confRank'), cell(page('celtics'), 'leagueRank')]);
-  ok('team page: Philadelphia +39.6%, +45.1%, $210.4M, Last 10 1-0, Reg. W-L-T 1-0-0', stat(page('76ers'), 'vsVegas') === '+39.6%' && stat(page('76ers'), 'vsLastYear') === '+45.1%'
-     && stat(page('76ers'), 'dollarsPerWin') === '$210.4M' && stat(page('76ers'), 'last10') === '1-0' && stat(page('76ers'), 'regWLT') === '1-0-0');
+  ok('team page: Philadelphia +39.6%, +45.1%, $210.4M, Last 10 1-0, no Reg. W-L-T', stat(page('76ers'), 'vsVegas') === '+39.6%' && stat(page('76ers'), 'vsLastYear') === '+45.1%'
+     && stat(page('76ers'), 'dollarsPerWin') === '$210.4M' && stat(page('76ers'), 'last10') === '1-0' && stat(page('76ers'), 'regWLT') === undefined && !page('76ers').includes('Reg. W-L-T'));
   const N = JSON.parse(all.nights);
   ok('nights.json: carries every logged game for the date views', JSON.stringify(unpackGames(N.games, N.order)) === JSON.stringify(fromLog(await readGameLog(data))) && N.games.length === 3);
 
   // ── 5. Explanations on every header ──
   const ths = [...all.index.matchAll(/<table class="lb"[\s\S]*?<\/thead>/g)].flatMap((m) => [...m[0].matchAll(/<th [^>]*>[\s\S]*?<\/th>/g)].map((x) => x[0]));
-  ok('tips: all 30 headers of the two tables carry a one-line explanation', ths.length === 30 && ths.every((h) => {
+  ok('tips: all 28 headers of the two tables carry a one-line explanation', ths.length === 28 && ths.every((h) => {
     const tip = (/data-tip="([^"]+)"/.exec(h) || [])[1];
     return tip && tip.length > 4 && tip.length < 110 && !tip.includes('\n') && h.includes('<span class="sr" id="') && h.includes('aria-describedby=');
   }), ths.find((h) => !/data-tip="[^"]+"/.test(h)));

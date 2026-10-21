@@ -19,3 +19,4 @@ jobs:
       - run: node test/phase1c.test.mjs
       - run: node test/leaders-ranks-times.test.mjs
       - run: node test/formulas-ties-columns.test.mjs
+      - run: node test/win-pct-charts.test.mjs

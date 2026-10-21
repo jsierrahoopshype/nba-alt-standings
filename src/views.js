@@ -63,8 +63,8 @@
       N.dates.forEach(function (d) { snaps[d] = HM.unpackTeams(N.snapshots[d], N.order); });
       var current = HM.unpackTeams(D.current, order);
       var standings = HM.standingsFor(t2, current, snaps);
-      // The logged games this view covers, for the tiebreaker and the Last 10,
-      // vs. .500+ and Reg. W-L-T columns; .500 or better as of the view's end.
+      // The logged games this view covers, for the tiebreaker and the Last 10
+      // and vs. .500+ columns; .500 or better as of the view's end.
       var games = HM.gamesForTimeframe(t2, HM.unpackGames(N.games, N.order));
       // $ per Win with the payroll saved with the night this view uses.
       var parts = HM.timeframeParts(D.teams, standings, D.lines, HM.payrollFor(t2, N.payrolls, D.payroll, N.order),
