@@ -4,9 +4,10 @@
 //      each final's period count
 //   2. team-page charts that match the table: "Win % vs. Vegas" (win % per
 //      night against a flat dashed line at the preseason line / 82) in place
-//      of "Wins vs. Vegas pace", and "vs. Last Year" in the same style
-//      against 2025-26 wins / 82; the methodology says the Vegas number is
-//      frozen before opening night and never updated
+//      of "Wins vs. Vegas pace" (and no separate vs. Vegas chart), and
+//      "Win % vs. Last Year" in the same style against 2025-26 wins / 82; the
+//      methodology says the Vegas number is frozen before opening night and
+//      never updated
 // Run: node test/win-pct-charts.test.mjs
 
 import { readFile, mkdtemp, cp, writeFile } from 'node:fs/promises';
@@ -98,7 +99,8 @@ const REG = /Reg\. W-L-T|regWLT|48 minutes|counts as a tie/;
   const series = teamSeries('PHI', nightRowsFor(nights, teams, lines, payroll, acc));
   const html = teamChartsHtml(series);
   const chart = (title) => { const i = html.indexOf('<h3>' + title + '</h3>'); return i < 0 ? null : html.slice(i, html.indexOf('</figure>', i)); };
-  ok('charts: "Wins vs. Vegas pace" replaced by "Win % vs. Vegas", still 8 charts', chart('Wins vs. Vegas pace') === null && chart('Win % vs. Vegas') !== null && (html.match(/<figure class="mchart">/g) || []).length === 8);
+  ok('charts: "Wins vs. Vegas pace" replaced by "Win % vs. Vegas", and no separate "vs. Vegas" chart: 7 charts', chart('Wins vs. Vegas pace') === null && chart('Win % vs. Vegas') !== null
+     && chart('vs. Vegas') === null && (html.match(/<figure class="mchart">/g) || []).length === 7);
   // The box: 170 tall, 12 top and 26 bottom margins, so y = 12 + (1 - pct / 100) * 132 on a 0-100% axis.
   const y = (pct) => (12 + (1 - pct / 100) * 132).toFixed(1);
   const path = (c, cls) => ((new RegExp('<path class="ln ' + cls + '" d="([^"]*)"').exec(c) || [])[1] || '').split(/[ML]/).map((p) => p.trim()).filter(Boolean).map((p) => p.split(' ')[1]);
@@ -108,11 +110,13 @@ const REG = /Reg\. W-L-T|regWLT|48 minutes|counts as a tie/;
   ok('Win % vs. Vegas: the legend names it "Preseason Vegas line: 60.4%"', vegas.includes('<span class="key b">Preseason Vegas line: 60.4%</span>') && vegas.includes('<span class="key a">Win %</span>'));
   ok('Win % vs. Vegas: the win % line night by night (100, 100, 66.7, 75, 60, 66.7)', JSON.stringify(path(vegas, 'a')) === JSON.stringify([100, 100, 200 / 3, 75, 60, 200 / 3].map(y)), path(vegas, 'a'));
   ok('Win % vs. Vegas: y axis in %, 0% to 100%', /<text class="ax"[^>]*>100%<\/text>/.test(vegas) && /<text class="ax"[^>]*>0%<\/text>/.test(vegas));
-  const last = chart('vs. Last Year');
+  const last = chart('Win % vs. Last Year');
   // 45 / 82 = 54.88% -> y 71.6.
-  ok('vs. Last Year: win % against a flat dashed line at 54.9% (45 / 82), legend "2025-26: 54.9%"', JSON.stringify(path(last, 'b')) === JSON.stringify(Array(6).fill(y(45 / 82 * 100)))
+  ok('Win % vs. Last Year: renamed, win % against a flat dashed line at 54.9% (45 / 82), legend "2025-26: 54.9%"', chart('vs. Last Year') === null && last !== null && JSON.stringify(path(last, 'b')) === JSON.stringify(Array(6).fill(y(45 / 82 * 100)))
      && JSON.stringify(path(last, 'a')) === JSON.stringify(path(vegas, 'a')) && last.includes('<span class="key b">2025-26: 54.9%</span>') && /<text class="ax"[^>]*>100%<\/text>/.test(last), path(last, 'b'));
-  ok('the vs. Vegas chart in percentage points is still there', chart('vs. Vegas') !== null && /<text class="ax"[^>]*>[+−]\d+\.\d%<\/text>/.test(chart('vs. Vegas')));
+  const titles = [...html.matchAll(/<h3>([^<]+)<\/h3>/g)].map((m) => m[1]);
+  ok('charts in order: Win % vs. Vegas, Win % vs. Last Year, $ per Win, Pt Diff, expected wins, Road W − Home L, Conference rank',
+     JSON.stringify(titles) === JSON.stringify(['Win % vs. Vegas', 'Win % vs. Last Year', '$ per Win', 'Pt Diff', 'Actual vs. expected wins (the gap is Luck)', 'Road W − Home L', 'Conference rank']), titles);
   ok('series: win % and the two fixed marks per night, no pace', series.every((p) => p.vegasPct === 49.5 / 82 && p.lastPct === 45 / 82 && !('pace' in p)) && series[2].pct === 2 / 3);
 
   const meth = methodologyHtml(lines);

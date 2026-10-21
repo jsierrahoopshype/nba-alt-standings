@@ -105,8 +105,8 @@ const OPENING = [G('2026-10-20', 'BOS', 'DET', 113, 121), G('2026-10-20', 'PHI',
   }
   const series = teamSeries('PHI', nightRowsFor(nights, teams, lines, payroll, acc));
   const charts = teamChartsHtml(series);
-  const vsChart = charts.split('<h3>vs. Vegas</h3>')[1].split('</figure>')[0];
-  ok('team chart: vs. Vegas drawn in percentage points, axis labels with %', /<text class="ax"[^>]*>\+\d+\.\d%<\/text>/.test(vsChart) && !/<text class="ax"[^>]*>\+0\.\d<\/text>/.test(vsChart), vsChart.slice(0, 300));
+  const vsChart = charts.split('<h3>Win % vs. Vegas</h3>')[1].split('</figure>')[0];
+  ok('team chart: the vs. Vegas gap is drawn as win % against the line, axis labels with %', /<text class="ax"[^>]*>100%<\/text>/.test(vsChart) && !charts.includes('<h3>vs. Vegas</h3>'), vsChart.slice(0, 300));
   const dpw = charts.split('<h3>$ per Win</h3>')[1].split('</figure>')[0];
   // Philadelphia won all 6: $210.4M / 6 = $35.1M at the end; the axis tops out above $200M after one win.
   ok('team chart: $ per Win is full payroll / wins (first night $210.4M, 6th $35.1M)', Math.abs(series[0].dollarsPerWin - payroll.payroll.PHI) < 1 && Math.abs(series[5].dollarsPerWin - payroll.payroll.PHI / 6) < 1 && /\$2\d\d\.\dM/.test(dpw), [series[0].dollarsPerWin, series[5].dollarsPerWin]);
