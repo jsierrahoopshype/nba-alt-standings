@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_ATL@ORL",
+  "game_id": "401909834",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "ATL",
+    "score": 132
+  },
+  "home": {
+    "abbr": "ORL",
+    "score": 125
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T02:29:16.463Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_CHA@BKN",
+  "game_id": "401909836",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "CHA",
+    "score": 110
+  },
+  "home": {
+    "abbr": "BKN",
+    "score": 103
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T02:29:16.463Z",
+  "correction": false
+}

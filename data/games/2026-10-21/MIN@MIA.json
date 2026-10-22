@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_MIN@MIA",
+  "game_id": "401909091",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "MIN",
+    "score": 131
+  },
+  "home": {
+    "abbr": "MIA",
+    "score": 106
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T02:29:16.463Z",
+  "correction": false
+}

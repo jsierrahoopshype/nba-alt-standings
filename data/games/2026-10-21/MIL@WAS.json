@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_MIL@WAS",
+  "game_id": "401909835",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "MIL",
+    "score": 116
+  },
+  "home": {
+    "abbr": "WAS",
+    "score": 128
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T02:29:16.463Z",
+  "correction": false
+}
