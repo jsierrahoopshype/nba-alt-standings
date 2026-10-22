@@ -175,7 +175,7 @@ for (const [name, full] of [['committed page', page], ['mid-season sample', samp
   ok(name + ': H1 "NBA Real Standings", no eyebrow before it', /<div class="hdr"><h1>NBA Real Standings<\/h1><\/div>/.test(html) && !/class="(?:brand|eyebrow|kicker)/.test(html));
   const foot = html.match(/<footer class="foot">([\s\S]*?)<\/footer>/);
   const footText = foot ? foot[1].replace(/<[^>]+>/g, '').split('\n').map((s) => s.trim()).filter(Boolean) : [];
-  ok(name + ': footer is exactly the two lines', JSON.stringify(footText) === JSON.stringify(['Anything wrong? Email us at hoopshype@hoopshype.com', 'For business inquiries, contact us at ads@hoopshype.com']) && count(/<footer/g) === 1, footText);
+  ok(name + ': footer is exactly the two lines', JSON.stringify(footText) === JSON.stringify(['Anything wrong? Email us at hoopsmatic@hoopsmatic.com', 'For business inquiries, contact us at ads@hoopsmatic.com']) && count(/<footer/g) === 1, footText);
   // Copy = the visible text outside table cells (where the dash is the
   // requested empty-value marker), styles and scripts.
   const copy = html.replace(/<style>[\s\S]*?<\/style>|<script>[\s\S]*?<\/script>|<td\b[^>]*>[\s\S]*?<\/td>|<dd class="none">[\s\S]*?<\/dd>/g, '');
