@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_IND@NOP",
+  "game_id": "401909839",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "IND",
+    "score": 123
+  },
+  "home": {
+    "abbr": "NOP",
+    "score": 120
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T07:51:40.961Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_DAL@HOU",
+  "game_id": "401909840",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "DAL",
+    "score": 110
+  },
+  "home": {
+    "abbr": "HOU",
+    "score": 128
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T07:51:40.961Z",
+  "correction": false
+}

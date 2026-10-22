@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_SAC@LAC",
+  "game_id": "401909842",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "SAC",
+    "score": 96
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 121
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T07:51:40.961Z",
+  "correction": false
+}

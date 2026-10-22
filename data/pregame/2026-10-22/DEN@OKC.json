@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-22_DEN@OKC",
+  "game_id": "401909094",
+  "id_source": "espn",
+  "date": "2026-10-22",
+  "tip": "2026-10-23T01:30Z",
+  "saved_at": "2026-10-22T07:51:40.961Z",
+  "away": {
+    "abbr": "DEN",
+    "w": 0,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "OKC",
+    "w": 1,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

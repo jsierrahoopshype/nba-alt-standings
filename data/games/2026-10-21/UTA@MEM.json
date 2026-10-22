@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-21_UTA@MEM",
+  "game_id": "401909838",
+  "id_source": "espn",
+  "date": "2026-10-21",
+  "away": {
+    "abbr": "UTA",
+    "score": 103
+  },
+  "home": {
+    "abbr": "MEM",
+    "score": 123
+  },
+  "periods": 4,
+  "final_at": "2026-10-22T07:51:40.961Z",
+  "correction": false
+}
