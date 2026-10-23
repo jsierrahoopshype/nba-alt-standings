@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-22_CLE@PHI",
+  "game_id": "401909093",
+  "id_source": "espn",
+  "date": "2026-10-22",
+  "away": {
+    "abbr": "CLE",
+    "score": 106
+  },
+  "home": {
+    "abbr": "PHI",
+    "score": 114
+  },
+  "periods": 4,
+  "final_at": "2026-10-23T02:34:19.735Z",
+  "correction": false
+}
