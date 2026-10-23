@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-23_NYK@BOS",
+  "game_id": "401909095",
+  "id_source": "espn",
+  "date": "2026-10-23",
+  "tip": "2026-10-23T23:00Z",
+  "saved_at": "2026-10-23T08:05:57.946Z",
+  "away": {
+    "abbr": "NYK",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BOS",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

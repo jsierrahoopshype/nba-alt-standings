@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-23_NOP@UTA",
+  "game_id": "401909849",
+  "id_source": "espn",
+  "date": "2026-10-23",
+  "tip": "2026-10-24T01:30Z",
+  "saved_at": "2026-10-23T08:05:57.946Z",
+  "away": {
+    "abbr": "NOP",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "UTA",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

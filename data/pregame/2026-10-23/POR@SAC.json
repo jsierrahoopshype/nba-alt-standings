@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-23_POR@SAC",
+  "game_id": "401909852",
+  "id_source": "espn",
+  "date": "2026-10-23",
+  "tip": "2026-10-24T02:00Z",
+  "saved_at": "2026-10-23T08:05:57.946Z",
+  "away": {
+    "abbr": "POR",
+    "w": 1,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}
