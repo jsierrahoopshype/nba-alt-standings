@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-24_WAS@CHI",
+  "game_id": "401909857",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "tip": "2026-10-25T00:00Z",
+  "saved_at": "2026-10-24T07:45:38.174Z",
+  "away": {
+    "abbr": "WAS",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHI",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

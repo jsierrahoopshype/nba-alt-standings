@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-24_BKN@CLE",
+  "game_id": "401909854",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "tip": "2026-10-24T23:30Z",
+  "saved_at": "2026-10-24T07:45:38.174Z",
+  "away": {
+    "abbr": "BKN",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CLE",
+    "w": 0,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-24_SAS@DAL",
+  "game_id": "401909858",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "tip": "2026-10-25T00:00Z",
+  "saved_at": "2026-10-24T07:45:38.174Z",
+  "away": {
+    "abbr": "SAS",
+    "w": 0,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DAL",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

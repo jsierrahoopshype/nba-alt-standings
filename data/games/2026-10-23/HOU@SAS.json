@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-23_HOU@SAS",
+  "game_id": "401909096",
+  "id_source": "espn",
+  "date": "2026-10-23",
+  "away": {
+    "abbr": "HOU",
+    "score": 114
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 110
+  },
+  "periods": 4,
+  "final_at": "2026-10-24T07:45:38.174Z",
+  "correction": false
+}

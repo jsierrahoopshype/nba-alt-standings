@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-24_MIA@CHA",
+  "game_id": "401909853",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "tip": "2026-10-24T22:00Z",
+  "saved_at": "2026-10-24T07:45:38.174Z",
+  "away": {
+    "abbr": "MIA",
+    "w": 0,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHA",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

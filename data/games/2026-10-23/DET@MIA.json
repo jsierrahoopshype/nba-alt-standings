@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-23_DET@MIA",
+  "game_id": "401909847",
+  "id_source": "espn",
+  "date": "2026-10-23",
+  "away": {
+    "abbr": "DET",
+    "score": 128
+  },
+  "home": {
+    "abbr": "MIA",
+    "score": 111
+  },
+  "periods": 4,
+  "final_at": "2026-10-24T07:45:38.174Z",
+  "correction": false
+}
