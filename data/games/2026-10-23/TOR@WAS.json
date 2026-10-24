@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-23_TOR@WAS",
+  "game_id": "401909846",
+  "id_source": "espn",
+  "date": "2026-10-23",
+  "away": {
+    "abbr": "TOR",
+    "score": 112
+  },
+  "home": {
+    "abbr": "WAS",
+    "score": 102
+  },
+  "periods": 4,
+  "final_at": "2026-10-24T02:32:23.674Z",
+  "correction": false
+}
