@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-24_MIL@PHI",
+  "game_id": "401909855",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "away": {
+    "abbr": "MIL",
+    "score": 116
+  },
+  "home": {
+    "abbr": "PHI",
+    "score": 127
+  },
+  "periods": 4,
+  "final_at": "2026-10-25T02:19:47.764Z",
+  "correction": false
+}
