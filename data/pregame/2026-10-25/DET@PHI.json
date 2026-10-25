@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-25_DET@PHI",
+  "game_id": "401909866",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "tip": "2026-10-25T23:30Z",
+  "saved_at": "2026-10-25T07:43:20.190Z",
+  "away": {
+    "abbr": "DET",
+    "w": 2,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHI",
+    "w": 3,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

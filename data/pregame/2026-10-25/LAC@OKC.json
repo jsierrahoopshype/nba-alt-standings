@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-25_LAC@OKC",
+  "game_id": "401909865",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "tip": "2026-10-25T23:00Z",
+  "saved_at": "2026-10-25T07:43:20.190Z",
+  "away": {
+    "abbr": "LAC",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "OKC",
+    "w": 2,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

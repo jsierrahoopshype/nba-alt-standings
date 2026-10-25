@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-24_BKN@CLE",
+  "game_id": "401909854",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "away": {
+    "abbr": "BKN",
+    "score": 121
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 125
+  },
+  "periods": 4,
+  "final_at": "2026-10-25T07:43:20.190Z",
+  "correction": false
+}

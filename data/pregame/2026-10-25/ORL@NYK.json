@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-25_ORL@NYK",
+  "game_id": "401909863",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "tip": "2026-10-25T23:00Z",
+  "saved_at": "2026-10-25T07:43:20.190Z",
+  "away": {
+    "abbr": "ORL",
+    "w": 0,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NYK",
+    "w": 0,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

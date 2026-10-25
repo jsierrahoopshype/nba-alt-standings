@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-24_NOP@DEN",
+  "game_id": "401909859",
+  "id_source": "espn",
+  "date": "2026-10-24",
+  "away": {
+    "abbr": "NOP",
+    "score": 135
+  },
+  "home": {
+    "abbr": "DEN",
+    "score": 141
+  },
+  "periods": 5,
+  "final_at": "2026-10-25T07:43:20.190Z",
+  "correction": false
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-25_TOR@MIN",
+  "game_id": "401909864",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "tip": "2026-10-25T23:00Z",
+  "saved_at": "2026-10-25T07:43:20.190Z",
+  "away": {
+    "abbr": "TOR",
+    "w": 2,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIN",
+    "w": 2,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

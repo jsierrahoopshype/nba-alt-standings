@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-25_IND@BKN",
+  "game_id": "401909862",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "tip": "2026-10-25T22:00Z",
+  "saved_at": "2026-10-25T07:43:20.190Z",
+  "away": {
+    "abbr": "IND",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BKN",
+    "w": 0,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}
