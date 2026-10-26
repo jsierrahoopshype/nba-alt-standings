@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-25_ORL@NYK",
+  "game_id": "401909863",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "away": {
+    "abbr": "ORL",
+    "score": 111
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 102
+  },
+  "periods": 4,
+  "final_at": "2026-10-26T02:19:51.725Z",
+  "correction": false
+}
