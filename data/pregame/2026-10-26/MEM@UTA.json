@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_MEM@UTA",
+  "game_id": "401909875",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-27T01:00Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "MEM",
+    "w": 3,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "UTA",
+    "w": 1,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

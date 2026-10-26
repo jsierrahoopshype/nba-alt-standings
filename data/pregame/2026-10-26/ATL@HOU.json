@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_ATL@HOU",
+  "game_id": "401909874",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-27T00:30Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "ATL",
+    "w": 2,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "HOU",
+    "w": 3,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

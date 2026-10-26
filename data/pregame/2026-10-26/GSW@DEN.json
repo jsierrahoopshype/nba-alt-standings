@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_GSW@DEN",
+  "game_id": "401909876",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-27T02:00Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "GSW",
+    "w": 0,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DEN",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

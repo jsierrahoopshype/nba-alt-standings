@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_DAL@MIA",
+  "game_id": "401909871",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-26T23:30Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "DAL",
+    "w": 1,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIA",
+    "w": 0,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

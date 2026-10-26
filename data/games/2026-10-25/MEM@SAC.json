@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-25_MEM@SAC",
+  "game_id": "401909867",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "away": {
+    "abbr": "MEM",
+    "score": 123
+  },
+  "home": {
+    "abbr": "SAC",
+    "score": 112
+  },
+  "periods": 4,
+  "final_at": "2026-10-26T07:58:54.795Z",
+  "correction": false
+}

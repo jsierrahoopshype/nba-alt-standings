@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_PHX@OKC",
+  "game_id": "401909873",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-27T00:00Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "PHX",
+    "w": 1,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "OKC",
+    "w": 3,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

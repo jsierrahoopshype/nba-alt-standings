@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_WAS@CHA",
+  "game_id": "401909868",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-26T23:00Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "WAS",
+    "w": 2,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHA",
+    "w": 2,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

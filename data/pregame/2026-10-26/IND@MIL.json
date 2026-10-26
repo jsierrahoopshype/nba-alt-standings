@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-26_IND@MIL",
+  "game_id": "401909872",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "tip": "2026-10-27T00:00Z",
+  "saved_at": "2026-10-26T07:58:54.795Z",
+  "away": {
+    "abbr": "IND",
+    "w": 2,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 0,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}
