@@ -2,7 +2,7 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "70ac23989e8a882f",
+      "hash": "11924f1dea635bed",
       "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/hawks": {
@@ -14,7 +14,7 @@
       "lastmod": "2026-10-23"
     },
     "https://hoopsmatic.com/standings/nets": {
-      "hash": "c1849156476105e5",
+      "hash": "072d9ece8a04190f",
       "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/hornets": {
@@ -34,8 +34,8 @@
       "lastmod": "2026-10-24"
     },
     "https://hoopsmatic.com/standings/pacers": {
-      "hash": "8930b87e4c1a79c3",
-      "lastmod": "2026-10-23"
+      "hash": "ecfa12f2cf6ab2c4",
+      "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/heat": {
       "hash": "20dbfe331d695634",
@@ -86,8 +86,8 @@
       "lastmod": "2026-10-24"
     },
     "https://hoopsmatic.com/standings/lakers": {
-      "hash": "f3190689330b6457",
-      "lastmod": "2026-10-24"
+      "hash": "6d255ef43c419f0a",
+      "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/grizzlies": {
       "hash": "e06361041eaf4def",
@@ -122,8 +122,8 @@
       "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/jazz": {
-      "hash": "5650760ad91a856b",
-      "lastmod": "2026-10-24"
+      "hash": "ef9ec0f830af8547",
+      "lastmod": "2026-10-25"
     }
   }
 }

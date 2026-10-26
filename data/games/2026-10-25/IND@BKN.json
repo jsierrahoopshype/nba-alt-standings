@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-25_IND@BKN",
+  "game_id": "401909862",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "away": {
+    "abbr": "IND",
+    "score": 136
+  },
+  "home": {
+    "abbr": "BKN",
+    "score": 109
+  },
+  "periods": 4,
+  "final_at": "2026-10-26T01:27:51.446Z",
+  "correction": false
+}

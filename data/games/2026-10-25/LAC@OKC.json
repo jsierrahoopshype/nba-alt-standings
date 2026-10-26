@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-25_LAC@OKC",
+  "game_id": "401909865",
+  "id_source": "espn",
+  "date": "2026-10-25",
+  "away": {
+    "abbr": "LAC",
+    "score": 101
+  },
+  "home": {
+    "abbr": "OKC",
+    "score": 108
+  },
+  "periods": 4,
+  "final_at": "2026-10-26T01:27:51.446Z",
+  "correction": false
+}
