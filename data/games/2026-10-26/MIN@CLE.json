@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-26_MIN@CLE",
+  "game_id": "401909869",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "away": {
+    "abbr": "MIN",
+    "score": 125
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 127
+  },
+  "periods": 5,
+  "final_at": "2026-10-27T02:55:34.209Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-26_PHX@OKC",
+  "game_id": "401909873",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "away": {
+    "abbr": "PHX",
+    "score": 114
+  },
+  "home": {
+    "abbr": "OKC",
+    "score": 125
+  },
+  "periods": 4,
+  "final_at": "2026-10-27T02:55:34.209Z",
+  "correction": false
+}

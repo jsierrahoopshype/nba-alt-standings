@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-26_IND@MIL",
+  "game_id": "401909872",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "away": {
+    "abbr": "IND",
+    "score": 102
+  },
+  "home": {
+    "abbr": "MIL",
+    "score": 110
+  },
+  "periods": 4,
+  "final_at": "2026-10-27T02:55:34.209Z",
+  "correction": false
+}
