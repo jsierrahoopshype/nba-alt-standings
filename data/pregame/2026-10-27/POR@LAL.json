@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-27_POR@LAL",
+  "game_id": "401909880",
+  "id_source": "espn",
+  "date": "2026-10-27",
+  "tip": "2026-10-28T03:00Z",
+  "saved_at": "2026-10-27T08:31:05.670Z",
+  "away": {
+    "abbr": "POR",
+    "w": 2,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "LAL",
+    "w": 3,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

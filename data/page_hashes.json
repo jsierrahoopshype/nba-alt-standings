@@ -2,12 +2,12 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "898eedf278621189",
-      "lastmod": "2026-10-26"
+      "hash": "6e68920ad5604128",
+      "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/hawks": {
-      "hash": "7103e4af71457e02",
-      "lastmod": "2026-10-25"
+      "hash": "645791f0fef78ade",
+      "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/celtics": {
       "hash": "659b9b260882500d",
@@ -70,16 +70,16 @@
       "lastmod": "2026-10-26"
     },
     "https://hoopsmatic.com/standings/nuggets": {
-      "hash": "2ecce4260a3c82d3",
-      "lastmod": "2026-10-25"
+      "hash": "94affbbbf39e1cc6",
+      "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/warriors": {
-      "hash": "d2acc8d1e881ed6b",
-      "lastmod": "2026-10-25"
+      "hash": "69d9aea4eb9f6de7",
+      "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/rockets": {
-      "hash": "a6a2d4a15fd531ae",
-      "lastmod": "2026-10-25"
+      "hash": "86fce1d627a3c6b4",
+      "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/clippers": {
       "hash": "94f48799bc4d941b",
@@ -90,8 +90,8 @@
       "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/grizzlies": {
-      "hash": "7f604f9ed09030d7",
-      "lastmod": "2026-10-26"
+      "hash": "e96cde0262aed8d5",
+      "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/timberwolves": {
       "hash": "11659c034616a312",
@@ -122,8 +122,8 @@
       "lastmod": "2026-10-25"
     },
     "https://hoopsmatic.com/standings/jazz": {
-      "hash": "ef9ec0f830af8547",
-      "lastmod": "2026-10-25"
+      "hash": "b7396fcb4086f7c8",
+      "lastmod": "2026-10-27"
     }
   }
 }

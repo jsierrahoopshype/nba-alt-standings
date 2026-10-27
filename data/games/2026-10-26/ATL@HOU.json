@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-26_ATL@HOU",
+  "game_id": "401909874",
+  "id_source": "espn",
+  "date": "2026-10-26",
+  "away": {
+    "abbr": "ATL",
+    "score": 110
+  },
+  "home": {
+    "abbr": "HOU",
+    "score": 120
+  },
+  "periods": 4,
+  "final_at": "2026-10-27T08:31:05.670Z",
+  "correction": false
+}
