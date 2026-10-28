@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-28_MIA@ATL",
+  "game_id": "401909881",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "tip": "2026-10-28T23:00Z",
+  "saved_at": "2026-10-28T09:55:05.266Z",
+  "away": {
+    "abbr": "MIA",
+    "w": 0,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ATL",
+    "w": 2,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

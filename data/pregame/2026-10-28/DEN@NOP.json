@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-28_DEN@NOP",
+  "game_id": "401909889",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "tip": "2026-10-29T00:00Z",
+  "saved_at": "2026-10-28T09:55:05.266Z",
+  "away": {
+    "abbr": "DEN",
+    "w": 1,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NOP",
+    "w": 0,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

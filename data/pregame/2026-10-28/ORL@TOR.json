@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-28_ORL@TOR",
+  "game_id": "401909885",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "tip": "2026-10-28T23:30Z",
+  "saved_at": "2026-10-28T09:55:05.266Z",
+  "away": {
+    "abbr": "ORL",
+    "w": 1,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "TOR",
+    "w": 2,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

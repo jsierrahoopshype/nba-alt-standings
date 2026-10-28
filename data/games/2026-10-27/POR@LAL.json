@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-27_POR@LAL",
+  "game_id": "401909880",
+  "id_source": "espn",
+  "date": "2026-10-27",
+  "away": {
+    "abbr": "POR",
+    "score": 136
+  },
+  "home": {
+    "abbr": "LAL",
+    "score": 129
+  },
+  "periods": 4,
+  "final_at": "2026-10-28T09:55:05.266Z",
+  "correction": false
+}

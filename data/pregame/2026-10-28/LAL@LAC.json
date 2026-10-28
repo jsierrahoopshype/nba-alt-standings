@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-28_LAL@LAC",
+  "game_id": "401909892",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "tip": "2026-10-29T02:30Z",
+  "saved_at": "2026-10-28T09:55:05.266Z",
+  "away": {
+    "abbr": "LAL",
+    "w": 3,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "LAC",
+    "w": 1,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

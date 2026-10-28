@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-28_HOU@MIL",
+  "game_id": "401909887",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "tip": "2026-10-29T00:00Z",
+  "saved_at": "2026-10-28T09:55:05.266Z",
+  "away": {
+    "abbr": "HOU",
+    "w": 4,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}
