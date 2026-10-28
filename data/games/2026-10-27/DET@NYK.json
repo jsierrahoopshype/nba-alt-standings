@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-27_DET@NYK",
+  "game_id": "401909878",
+  "id_source": "espn",
+  "date": "2026-10-27",
+  "away": {
+    "abbr": "DET",
+    "score": 97
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 111
+  },
+  "periods": 4,
+  "final_at": "2026-10-28T03:04:25.180Z",
+  "correction": false
+}

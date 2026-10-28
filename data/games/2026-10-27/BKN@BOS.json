@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-27_BKN@BOS",
+  "game_id": "401909877",
+  "id_source": "espn",
+  "date": "2026-10-27",
+  "away": {
+    "abbr": "BKN",
+    "score": 124
+  },
+  "home": {
+    "abbr": "BOS",
+    "score": 125
+  },
+  "periods": 5,
+  "final_at": "2026-10-28T03:04:25.180Z",
+  "correction": false
+}
