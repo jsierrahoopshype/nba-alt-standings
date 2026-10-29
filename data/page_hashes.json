@@ -2,8 +2,8 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "9220f8f53dd4891a",
-      "lastmod": "2026-10-28"
+      "hash": "206c411859627f47",
+      "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/hawks": {
       "hash": "1990c929c57a3e43",
@@ -66,8 +66,8 @@
       "lastmod": "2026-10-28"
     },
     "https://hoopsmatic.com/standings/mavericks": {
-      "hash": "a8e828ac2d04e551",
-      "lastmod": "2026-10-26"
+      "hash": "e31b4a8c9139452c",
+      "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/nuggets": {
       "hash": "05a791060d6bd1c5",
@@ -82,12 +82,12 @@
       "lastmod": "2026-10-28"
     },
     "https://hoopsmatic.com/standings/clippers": {
-      "hash": "94f48799bc4d941b",
-      "lastmod": "2026-10-25"
+      "hash": "b38929e1788585d6",
+      "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/lakers": {
-      "hash": "df7e72d8831e175d",
-      "lastmod": "2026-10-28"
+      "hash": "22bb1ea316a02153",
+      "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/grizzlies": {
       "hash": "e96cde0262aed8d5",
@@ -102,8 +102,8 @@
       "lastmod": "2026-10-28"
     },
     "https://hoopsmatic.com/standings/thunder": {
-      "hash": "625b84efa29b797a",
-      "lastmod": "2026-10-26"
+      "hash": "991cadcbb1a21931",
+      "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/suns": {
       "hash": "364da2748c6a4966",
@@ -118,12 +118,12 @@
       "lastmod": "2026-10-27"
     },
     "https://hoopsmatic.com/standings/spurs": {
-      "hash": "cca57982ef5a5909",
-      "lastmod": "2026-10-27"
+      "hash": "1e06f25dd7ee6158",
+      "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/jazz": {
-      "hash": "b7396fcb4086f7c8",
-      "lastmod": "2026-10-27"
+      "hash": "1837daa0d955da39",
+      "lastmod": "2026-10-29"
     }
   }
 }

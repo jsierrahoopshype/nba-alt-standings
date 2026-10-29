@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-29_SAC@NOP",
+  "game_id": "401909894",
+  "id_source": "espn",
+  "date": "2026-10-29",
+  "tip": "2026-10-30T00:00Z",
+  "saved_at": "2026-10-29T10:21:02.946Z",
+  "away": {
+    "abbr": "SAC",
+    "w": 0,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NOP",
+    "w": 0,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_LAL@LAC",
+  "game_id": "401909892",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "LAL",
+    "score": 103
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 87
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T10:21:02.946Z",
+  "correction": false
+}

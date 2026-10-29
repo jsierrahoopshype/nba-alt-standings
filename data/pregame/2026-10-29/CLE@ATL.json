@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-29_CLE@ATL",
+  "game_id": "401909893",
+  "id_source": "espn",
+  "date": "2026-10-29",
+  "tip": "2026-10-30T00:00Z",
+  "saved_at": "2026-10-29T10:21:02.946Z",
+  "away": {
+    "abbr": "CLE",
+    "w": 3,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ATL",
+    "w": 2,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

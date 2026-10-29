@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_OKC@DAL",
+  "game_id": "401909891",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "OKC",
+    "score": 96
+  },
+  "home": {
+    "abbr": "DAL",
+    "score": 120
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T10:21:02.946Z",
+  "correction": false
+}

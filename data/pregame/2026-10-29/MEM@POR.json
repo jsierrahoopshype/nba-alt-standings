@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-29_MEM@POR",
+  "game_id": "401909895",
+  "id_source": "espn",
+  "date": "2026-10-29",
+  "tip": "2026-10-30T02:00Z",
+  "saved_at": "2026-10-29T10:21:02.946Z",
+  "away": {
+    "abbr": "MEM",
+    "w": 4,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "POR",
+    "w": 3,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

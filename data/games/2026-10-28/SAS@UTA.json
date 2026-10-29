@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_SAS@UTA",
+  "game_id": "401909890",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "SAS",
+    "score": 117
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 111
+  },
+  "periods": 5,
+  "final_at": "2026-10-29T10:21:02.946Z",
+  "correction": false
+}
