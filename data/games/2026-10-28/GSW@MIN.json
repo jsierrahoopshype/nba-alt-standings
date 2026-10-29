@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_GSW@MIN",
+  "game_id": "401909888",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "GSW",
+    "score": 119
+  },
+  "home": {
+    "abbr": "MIN",
+    "score": 114
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T03:30:38.484Z",
+  "correction": false
+}

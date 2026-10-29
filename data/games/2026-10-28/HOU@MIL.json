@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_HOU@MIL",
+  "game_id": "401909887",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "HOU",
+    "score": 132
+  },
+  "home": {
+    "abbr": "MIL",
+    "score": 100
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T03:30:38.484Z",
+  "correction": false
+}

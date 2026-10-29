@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_MIA@ATL",
+  "game_id": "401909881",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "MIA",
+    "score": 129
+  },
+  "home": {
+    "abbr": "ATL",
+    "score": 117
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T03:30:38.484Z",
+  "correction": false
+}

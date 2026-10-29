@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_WAS@CLE",
+  "game_id": "401909882",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "WAS",
+    "score": 111
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 121
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T03:30:38.484Z",
+  "correction": false
+}

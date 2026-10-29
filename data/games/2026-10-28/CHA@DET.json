@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_CHA@DET",
+  "game_id": "401909883",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "CHA",
+    "score": 89
+  },
+  "home": {
+    "abbr": "DET",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T03:30:38.484Z",
+  "correction": false
+}

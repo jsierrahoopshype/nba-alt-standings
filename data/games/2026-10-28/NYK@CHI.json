@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-28_NYK@CHI",
+  "game_id": "401909886",
+  "id_source": "espn",
+  "date": "2026-10-28",
+  "away": {
+    "abbr": "NYK",
+    "score": 133
+  },
+  "home": {
+    "abbr": "CHI",
+    "score": 127
+  },
+  "periods": 4,
+  "final_at": "2026-10-29T03:30:38.484Z",
+  "correction": false
+}
