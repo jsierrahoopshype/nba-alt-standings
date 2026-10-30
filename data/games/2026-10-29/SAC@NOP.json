@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-29_SAC@NOP",
+  "game_id": "401909894",
+  "id_source": "espn",
+  "date": "2026-10-29",
+  "away": {
+    "abbr": "SAC",
+    "score": 120
+  },
+  "home": {
+    "abbr": "NOP",
+    "score": 132
+  },
+  "periods": 4,
+  "final_at": "2026-10-30T03:33:27.595Z",
+  "correction": false
+}
