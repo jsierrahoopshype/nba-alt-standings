@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-30_CHI@BOS",
+  "game_id": "401909278",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "tip": "2026-10-30T23:30Z",
+  "saved_at": "2026-10-30T10:35:52.307Z",
+  "away": {
+    "abbr": "CHI",
+    "w": 1,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BOS",
+    "w": 3,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

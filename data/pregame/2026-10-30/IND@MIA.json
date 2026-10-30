@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-30_IND@MIA",
+  "game_id": "401909282",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "tip": "2026-10-31T00:00Z",
+  "saved_at": "2026-10-30T10:35:52.307Z",
+  "away": {
+    "abbr": "IND",
+    "w": 2,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIA",
+    "w": 1,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

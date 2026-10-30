@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-30_DET@BKN",
+  "game_id": "401909279",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "tip": "2026-10-30T23:30Z",
+  "saved_at": "2026-10-30T10:35:52.307Z",
+  "away": {
+    "abbr": "DET",
+    "w": 4,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BKN",
+    "w": 0,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

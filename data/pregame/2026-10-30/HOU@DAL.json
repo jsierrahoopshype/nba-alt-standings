@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-30_HOU@DAL",
+  "game_id": "401909283",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "tip": "2026-10-31T00:00Z",
+  "saved_at": "2026-10-30T10:35:52.307Z",
+  "away": {
+    "abbr": "HOU",
+    "w": 5,
+    "l": 0,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DAL",
+    "w": 3,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

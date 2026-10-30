@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-29_MEM@POR",
+  "game_id": "401909895",
+  "id_source": "espn",
+  "date": "2026-10-29",
+  "away": {
+    "abbr": "MEM",
+    "score": 124
+  },
+  "home": {
+    "abbr": "POR",
+    "score": 103
+  },
+  "periods": 4,
+  "final_at": "2026-10-30T10:35:52.307Z",
+  "correction": false
+}
