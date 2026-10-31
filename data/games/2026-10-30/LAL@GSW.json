@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-30_LAL@GSW",
+  "game_id": "401909285",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "away": {
+    "abbr": "LAL",
+    "score": 95
+  },
+  "home": {
+    "abbr": "GSW",
+    "score": 112
+  },
+  "periods": 4,
+  "final_at": "2026-10-31T09:52:05.378Z",
+  "correction": false
+}

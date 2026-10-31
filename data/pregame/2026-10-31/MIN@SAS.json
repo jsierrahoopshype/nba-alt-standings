@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-31_MIN@SAS",
+  "game_id": "401909901",
+  "id_source": "espn",
+  "date": "2026-10-31",
+  "tip": "2026-11-01T00:00Z",
+  "saved_at": "2026-10-31T09:52:05.378Z",
+  "away": {
+    "abbr": "MIN",
+    "w": 4,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAS",
+    "w": 3,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

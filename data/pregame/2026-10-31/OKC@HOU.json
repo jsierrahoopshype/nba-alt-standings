@@ -1,0 +1,20 @@
+{
+  "key": "2026-10-31_OKC@HOU",
+  "game_id": "401909902",
+  "id_source": "espn",
+  "date": "2026-10-31",
+  "tip": "2026-11-01T00:30Z",
+  "saved_at": "2026-10-31T09:52:05.378Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 4,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "HOU",
+    "w": 5,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}
