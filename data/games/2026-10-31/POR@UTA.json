@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-31_POR@UTA",
+  "game_id": "401909896",
+  "id_source": "espn",
+  "date": "2026-10-31",
+  "away": {
+    "abbr": "POR",
+    "score": 112
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 90
+  },
+  "periods": 4,
+  "final_at": "2026-10-31T22:58:18.451Z",
+  "correction": false
+}
