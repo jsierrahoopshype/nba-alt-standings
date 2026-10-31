@@ -2,7 +2,7 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "bdae0fea67161ede",
+      "hash": "4a51cf2b6ee39f37",
       "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/hawks": {
@@ -10,64 +10,64 @@
       "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/celtics": {
-      "hash": "5a3af0029350ddbf",
-      "lastmod": "2026-10-27"
+      "hash": "53ab0911c85d2796",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/nets": {
-      "hash": "0e92b9374f0caed4",
-      "lastmod": "2026-10-27"
+      "hash": "dfbedd75b8ceb429",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/hornets": {
-      "hash": "9583666b451541c6",
-      "lastmod": "2026-10-28"
+      "hash": "805679945a21f8ab",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/bulls": {
-      "hash": "57732773d32942c3",
-      "lastmod": "2026-10-28"
+      "hash": "5380b5e1466d747b",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/cavaliers": {
       "hash": "7962bfa5a3a89564",
       "lastmod": "2026-10-29"
     },
     "https://hoopsmatic.com/standings/pistons": {
-      "hash": "5d53177b96deb1fa",
-      "lastmod": "2026-10-28"
+      "hash": "5dfc29a160b8b11a",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/pacers": {
-      "hash": "42bb95b8c5710f1d",
-      "lastmod": "2026-10-28"
+      "hash": "a1d494a6a16eebaf",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/heat": {
-      "hash": "e82e05e5ac6444fc",
-      "lastmod": "2026-10-28"
+      "hash": "f4728c8f2ec2e0fd",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/bucks": {
       "hash": "34ed2d2e20e3f14f",
       "lastmod": "2026-10-28"
     },
     "https://hoopsmatic.com/standings/knicks": {
-      "hash": "e062da2db0f3f087",
-      "lastmod": "2026-10-28"
+      "hash": "685f524c308f936b",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/magic": {
-      "hash": "d3ac07b9da71a9f3",
-      "lastmod": "2026-10-28"
+      "hash": "b8f92ae15b988a42",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/76ers": {
-      "hash": "44f68f2ef0444fb5",
-      "lastmod": "2026-10-28"
+      "hash": "e79a845b5c6c5e8c",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/raptors": {
-      "hash": "4cbe06cdf6d8006e",
-      "lastmod": "2026-10-28"
+      "hash": "ce40d41ddbd7335c",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/wizards": {
-      "hash": "b977bee7bab16a33",
-      "lastmod": "2026-10-28"
+      "hash": "5f04addb5abbdf00",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/mavericks": {
-      "hash": "e31b4a8c9139452c",
-      "lastmod": "2026-10-29"
+      "hash": "8f32105cf8a1c551",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/nuggets": {
       "hash": "05a791060d6bd1c5",
@@ -78,12 +78,12 @@
       "lastmod": "2026-10-28"
     },
     "https://hoopsmatic.com/standings/rockets": {
-      "hash": "64e2290219974cbd",
-      "lastmod": "2026-10-28"
+      "hash": "da8cddad464f0f85",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/clippers": {
-      "hash": "b38929e1788585d6",
-      "lastmod": "2026-10-29"
+      "hash": "8169e6c0bda89896",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/lakers": {
       "hash": "22bb1ea316a02153",
@@ -94,8 +94,8 @@
       "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/timberwolves": {
-      "hash": "0466db4552582b8c",
-      "lastmod": "2026-10-28"
+      "hash": "edc36ee261b6354a",
+      "lastmod": "2026-10-30"
     },
     "https://hoopsmatic.com/standings/pelicans": {
       "hash": "ad5ada4732e0d160",

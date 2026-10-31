@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-30_IND@MIA",
+  "game_id": "401909282",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "away": {
+    "abbr": "IND",
+    "score": 125
+  },
+  "home": {
+    "abbr": "MIA",
+    "score": 145
+  },
+  "periods": 4,
+  "final_at": "2026-10-31T03:18:12.331Z",
+  "correction": false
+}

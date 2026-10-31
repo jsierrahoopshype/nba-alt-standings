@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-30_CHI@BOS",
+  "game_id": "401909278",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "away": {
+    "abbr": "CHI",
+    "score": 111
+  },
+  "home": {
+    "abbr": "BOS",
+    "score": 125
+  },
+  "periods": 4,
+  "final_at": "2026-10-31T03:18:12.331Z",
+  "correction": false
+}

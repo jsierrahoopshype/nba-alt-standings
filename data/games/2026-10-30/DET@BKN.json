@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-30_DET@BKN",
+  "game_id": "401909279",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "away": {
+    "abbr": "DET",
+    "score": 110
+  },
+  "home": {
+    "abbr": "BKN",
+    "score": 94
+  },
+  "periods": 4,
+  "final_at": "2026-10-31T03:18:12.331Z",
+  "correction": false
+}

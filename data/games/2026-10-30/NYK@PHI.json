@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-30_NYK@PHI",
+  "game_id": "401909280",
+  "id_source": "espn",
+  "date": "2026-10-30",
+  "away": {
+    "abbr": "NYK",
+    "score": 93
+  },
+  "home": {
+    "abbr": "PHI",
+    "score": 98
+  },
+  "periods": 4,
+  "final_at": "2026-10-31T03:18:12.331Z",
+  "correction": false
+}
