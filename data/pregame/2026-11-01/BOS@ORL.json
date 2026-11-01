@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-01_BOS@ORL",
+  "game_id": "401909903",
+  "id_source": "espn",
+  "date": "2026-11-01",
+  "tip": "2026-11-01T20:30Z",
+  "saved_at": "2026-11-01T10:42:02.082Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 4,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ORL",
+    "w": 2,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}
