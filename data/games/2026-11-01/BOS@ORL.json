@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-01_BOS@ORL",
+  "game_id": "401909903",
+  "id_source": "espn",
+  "date": "2026-11-01",
+  "away": {
+    "abbr": "BOS",
+    "score": 108
+  },
+  "home": {
+    "abbr": "ORL",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-11-01T23:44:18.682Z",
+  "correction": false
+}
