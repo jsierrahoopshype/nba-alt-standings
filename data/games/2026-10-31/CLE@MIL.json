@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-31_CLE@MIL",
+  "game_id": "401909900",
+  "id_source": "espn",
+  "date": "2026-10-31",
+  "away": {
+    "abbr": "CLE",
+    "score": 136
+  },
+  "home": {
+    "abbr": "MIL",
+    "score": 111
+  },
+  "periods": 4,
+  "final_at": "2026-11-01T03:16:15.659Z",
+  "correction": false
+}

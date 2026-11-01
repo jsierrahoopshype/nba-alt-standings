@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-31_MIN@SAS",
+  "game_id": "401909901",
+  "id_source": "espn",
+  "date": "2026-10-31",
+  "away": {
+    "abbr": "MIN",
+    "score": 111
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 121
+  },
+  "periods": 4,
+  "final_at": "2026-11-01T03:16:15.659Z",
+  "correction": false
+}

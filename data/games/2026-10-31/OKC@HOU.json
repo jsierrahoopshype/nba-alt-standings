@@ -1,0 +1,17 @@
+{
+  "key": "2026-10-31_OKC@HOU",
+  "game_id": "401909902",
+  "id_source": "espn",
+  "date": "2026-10-31",
+  "away": {
+    "abbr": "OKC",
+    "score": 98
+  },
+  "home": {
+    "abbr": "HOU",
+    "score": 119
+  },
+  "periods": 4,
+  "final_at": "2026-11-01T03:16:15.659Z",
+  "correction": false
+}
