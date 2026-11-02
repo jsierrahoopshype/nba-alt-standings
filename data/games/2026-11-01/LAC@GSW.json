@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-01_LAC@GSW",
+  "game_id": "401909905",
+  "id_source": "espn",
+  "date": "2026-11-01",
+  "away": {
+    "abbr": "LAC",
+    "score": 112
+  },
+  "home": {
+    "abbr": "GSW",
+    "score": 124
+  },
+  "periods": 4,
+  "final_at": "2026-11-02T11:30:53.400Z",
+  "correction": false
+}

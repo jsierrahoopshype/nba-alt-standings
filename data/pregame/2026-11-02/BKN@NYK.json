@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-02_BKN@NYK",
+  "game_id": "401909910",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "tip": "2026-11-03T00:30Z",
+  "saved_at": "2026-11-02T11:30:53.400Z",
+  "away": {
+    "abbr": "BKN",
+    "w": 1,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NYK",
+    "w": 2,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-02_CHI@PHI",
+  "game_id": "401909912",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "tip": "2026-11-03T00:30Z",
+  "saved_at": "2026-11-02T11:30:53.400Z",
+  "away": {
+    "abbr": "CHI",
+    "w": 1,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHI",
+    "w": 6,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-02_NOP@MEM",
+  "game_id": "401909914",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "tip": "2026-11-03T01:00Z",
+  "saved_at": "2026-11-02T11:30:53.400Z",
+  "away": {
+    "abbr": "NOP",
+    "w": 2,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MEM",
+    "w": 6,
+    "l": 0,
+    "record_source": "ESPN"
+  }
+}

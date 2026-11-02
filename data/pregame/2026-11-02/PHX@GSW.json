@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-02_PHX@GSW",
+  "game_id": "401909919",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "tip": "2026-11-03T03:00Z",
+  "saved_at": "2026-11-02T11:30:53.400Z",
+  "away": {
+    "abbr": "PHX",
+    "w": 1,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "GSW",
+    "w": 4,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-02_BOS@HOU",
+  "game_id": "401909916",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "tip": "2026-11-03T01:30Z",
+  "saved_at": "2026-11-02T11:30:53.400Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 5,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "HOU",
+    "w": 6,
+    "l": 1,
+    "record_source": "ESPN"
+  }
+}
