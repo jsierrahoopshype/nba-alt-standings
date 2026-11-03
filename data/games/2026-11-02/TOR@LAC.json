@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_TOR@LAC",
+  "game_id": "401909920",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "TOR",
+    "score": 125
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 118
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T12:31:14.509Z",
+  "correction": false
+}

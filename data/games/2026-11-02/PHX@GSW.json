@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_PHX@GSW",
+  "game_id": "401909919",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "PHX",
+    "score": 113
+  },
+  "home": {
+    "abbr": "GSW",
+    "score": 116
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T12:31:14.509Z",
+  "correction": false
+}
