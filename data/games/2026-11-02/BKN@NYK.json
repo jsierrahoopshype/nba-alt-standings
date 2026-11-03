@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_BKN@NYK",
+  "game_id": "401909910",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "BKN",
+    "score": 90
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 103
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T03:59:12.546Z",
+  "correction": false
+}

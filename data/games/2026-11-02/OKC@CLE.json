@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_OKC@CLE",
+  "game_id": "401909907",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "OKC",
+    "score": 117
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 112
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T03:59:12.546Z",
+  "correction": false
+}

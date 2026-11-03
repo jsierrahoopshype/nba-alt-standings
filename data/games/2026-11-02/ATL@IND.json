@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_ATL@IND",
+  "game_id": "401909909",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "ATL",
+    "score": 108
+  },
+  "home": {
+    "abbr": "IND",
+    "score": 104
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T03:59:12.546Z",
+  "correction": false
+}
