@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_POR@DEN",
+  "game_id": "401909918",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "POR",
+    "score": 118
+  },
+  "home": {
+    "abbr": "DEN",
+    "score": 110
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T04:36:47.884Z",
+  "correction": false
+}

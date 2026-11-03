@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-02_UTA@SAS",
+  "game_id": "401909917",
+  "id_source": "espn",
+  "date": "2026-11-02",
+  "away": {
+    "abbr": "UTA",
+    "score": 97
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 119
+  },
+  "periods": 4,
+  "final_at": "2026-11-03T04:36:47.884Z",
+  "correction": false
+}
