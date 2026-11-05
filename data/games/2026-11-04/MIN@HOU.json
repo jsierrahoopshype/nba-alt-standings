@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-04_MIN@HOU",
+  "game_id": "401909930",
+  "id_source": "espn",
+  "date": "2026-11-04",
+  "away": {
+    "abbr": "MIN",
+    "score": 117
+  },
+  "home": {
+    "abbr": "HOU",
+    "score": 107
+  },
+  "periods": 4,
+  "final_at": "2026-11-05T04:16:03.379Z",
+  "correction": false
+}

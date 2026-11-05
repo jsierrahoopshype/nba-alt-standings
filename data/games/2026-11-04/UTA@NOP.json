@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-04_UTA@NOP",
+  "game_id": "401909928",
+  "id_source": "espn",
+  "date": "2026-11-04",
+  "away": {
+    "abbr": "UTA",
+    "score": 113
+  },
+  "home": {
+    "abbr": "NOP",
+    "score": 120
+  },
+  "periods": 5,
+  "final_at": "2026-11-05T04:16:03.379Z",
+  "correction": false
+}
