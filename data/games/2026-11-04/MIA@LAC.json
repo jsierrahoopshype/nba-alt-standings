@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-04_MIA@LAC",
+  "game_id": "401909935",
+  "id_source": "espn",
+  "date": "2026-11-04",
+  "away": {
+    "abbr": "MIA",
+    "score": 117
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 116
+  },
+  "periods": 5,
+  "final_at": "2026-11-05T12:36:47.469Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-04_TOR@DEN",
+  "game_id": "401909931",
+  "id_source": "espn",
+  "date": "2026-11-04",
+  "away": {
+    "abbr": "TOR",
+    "score": 109
+  },
+  "home": {
+    "abbr": "DEN",
+    "score": 128
+  },
+  "periods": 4,
+  "final_at": "2026-11-05T12:36:47.469Z",
+  "correction": false
+}

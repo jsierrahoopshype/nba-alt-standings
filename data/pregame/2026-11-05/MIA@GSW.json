@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-05_MIA@GSW",
+  "game_id": "401909937",
+  "id_source": "espn",
+  "date": "2026-11-05",
+  "tip": "2026-11-06T03:00Z",
+  "saved_at": "2026-11-05T12:36:47.469Z",
+  "away": {
+    "abbr": "MIA",
+    "w": 3,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "GSW",
+    "w": 5,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

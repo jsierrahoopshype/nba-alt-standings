@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-04_DAL@SAS",
+  "game_id": "401909933",
+  "id_source": "espn",
+  "date": "2026-11-04",
+  "away": {
+    "abbr": "DAL",
+    "score": 111
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 112
+  },
+  "periods": 4,
+  "final_at": "2026-11-05T12:36:47.469Z",
+  "correction": false
+}

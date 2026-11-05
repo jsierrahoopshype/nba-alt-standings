@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-05_ORL@PHX",
+  "game_id": "401909936",
+  "id_source": "espn",
+  "date": "2026-11-05",
+  "tip": "2026-11-06T02:00Z",
+  "saved_at": "2026-11-05T12:36:47.469Z",
+  "away": {
+    "abbr": "ORL",
+    "w": 2,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHX",
+    "w": 1,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-04_POR@PHX",
+  "game_id": "401909932",
+  "id_source": "espn",
+  "date": "2026-11-04",
+  "away": {
+    "abbr": "POR",
+    "score": 132
+  },
+  "home": {
+    "abbr": "PHX",
+    "score": 119
+  },
+  "periods": 4,
+  "final_at": "2026-11-05T12:36:47.469Z",
+  "correction": false
+}
