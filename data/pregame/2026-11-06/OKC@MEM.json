@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-06_OKC@MEM",
+  "game_id": "401909291",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "tip": "2026-11-07T01:00Z",
+  "saved_at": "2026-11-06T12:19:59.159Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 6,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MEM",
+    "w": 6,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

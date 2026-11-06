@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-05_ORL@PHX",
+  "game_id": "401909936",
+  "id_source": "espn",
+  "date": "2026-11-05",
+  "away": {
+    "abbr": "ORL",
+    "score": 104
+  },
+  "home": {
+    "abbr": "PHX",
+    "score": 117
+  },
+  "periods": 4,
+  "final_at": "2026-11-06T12:19:59.159Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-05_MIA@GSW",
+  "game_id": "401909937",
+  "id_source": "espn",
+  "date": "2026-11-05",
+  "away": {
+    "abbr": "MIA",
+    "score": 100
+  },
+  "home": {
+    "abbr": "GSW",
+    "score": 120
+  },
+  "periods": 4,
+  "final_at": "2026-11-06T12:19:59.159Z",
+  "correction": false
+}

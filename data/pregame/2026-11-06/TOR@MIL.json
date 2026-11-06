@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-06_TOR@MIL",
+  "game_id": "401909292",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "tip": "2026-11-07T01:00Z",
+  "saved_at": "2026-11-06T12:19:59.159Z",
+  "away": {
+    "abbr": "TOR",
+    "w": 4,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

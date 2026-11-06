@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-06_SAS@SAC",
+  "game_id": "401909295",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "tip": "2026-11-07T03:00Z",
+  "saved_at": "2026-11-06T12:19:59.159Z",
+  "away": {
+    "abbr": "SAS",
+    "w": 6,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 1,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

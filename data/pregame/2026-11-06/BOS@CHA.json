@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-06_BOS@CHA",
+  "game_id": "401909288",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "tip": "2026-11-07T00:00Z",
+  "saved_at": "2026-11-06T12:19:59.159Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 6,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHA",
+    "w": 3,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

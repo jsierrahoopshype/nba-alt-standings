@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-06_MIN@NOP",
+  "game_id": "401909293",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "tip": "2026-11-07T01:00Z",
+  "saved_at": "2026-11-06T12:19:59.159Z",
+  "away": {
+    "abbr": "MIN",
+    "w": 6,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NOP",
+    "w": 4,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

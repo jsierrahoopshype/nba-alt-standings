@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-06_PHI@CLE",
+  "game_id": "401909289",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "tip": "2026-11-07T00:30Z",
+  "saved_at": "2026-11-06T12:19:59.159Z",
+  "away": {
+    "abbr": "PHI",
+    "w": 8,
+    "l": 1,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CLE",
+    "w": 4,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}
