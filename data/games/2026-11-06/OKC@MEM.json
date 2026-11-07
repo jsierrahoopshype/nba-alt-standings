@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-06_OKC@MEM",
+  "game_id": "401909291",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "away": {
+    "abbr": "OKC",
+    "score": 128
+  },
+  "home": {
+    "abbr": "MEM",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-11-07T03:45:11.996Z",
+  "correction": false
+}

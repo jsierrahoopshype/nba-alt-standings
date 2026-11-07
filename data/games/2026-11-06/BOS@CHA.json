@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-06_BOS@CHA",
+  "game_id": "401909288",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "away": {
+    "abbr": "BOS",
+    "score": 119
+  },
+  "home": {
+    "abbr": "CHA",
+    "score": 80
+  },
+  "periods": 4,
+  "final_at": "2026-11-07T03:45:11.996Z",
+  "correction": false
+}
