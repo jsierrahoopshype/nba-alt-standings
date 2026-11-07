@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-07_BKN@ATL",
+  "game_id": "401909939",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "tip": "2026-11-08T00:30Z",
+  "saved_at": "2026-11-07T10:47:59.699Z",
+  "away": {
+    "abbr": "BKN",
+    "w": 2,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ATL",
+    "w": 6,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

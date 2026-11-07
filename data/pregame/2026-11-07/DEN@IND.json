@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-07_DEN@IND",
+  "game_id": "401909938",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "tip": "2026-11-07T22:00Z",
+  "saved_at": "2026-11-07T10:47:59.699Z",
+  "away": {
+    "abbr": "DEN",
+    "w": 4,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "IND",
+    "w": 3,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

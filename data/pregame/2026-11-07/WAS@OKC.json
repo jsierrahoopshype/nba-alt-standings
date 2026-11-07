@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-07_WAS@OKC",
+  "game_id": "401909941",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "tip": "2026-11-08T01:00Z",
+  "saved_at": "2026-11-07T10:47:59.699Z",
+  "away": {
+    "abbr": "WAS",
+    "w": 4,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "OKC",
+    "w": 7,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

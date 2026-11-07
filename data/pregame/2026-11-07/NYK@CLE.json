@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-07_NYK@CLE",
+  "game_id": "401909940",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "tip": "2026-11-08T01:00Z",
+  "saved_at": "2026-11-07T10:47:59.699Z",
+  "away": {
+    "abbr": "NYK",
+    "w": 4,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CLE",
+    "w": 5,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

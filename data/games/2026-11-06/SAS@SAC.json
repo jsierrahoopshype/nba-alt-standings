@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-06_SAS@SAC",
+  "game_id": "401909295",
+  "id_source": "espn",
+  "date": "2026-11-06",
+  "away": {
+    "abbr": "SAS",
+    "score": 124
+  },
+  "home": {
+    "abbr": "SAC",
+    "score": 109
+  },
+  "periods": 4,
+  "final_at": "2026-11-07T10:47:59.699Z",
+  "correction": false
+}
