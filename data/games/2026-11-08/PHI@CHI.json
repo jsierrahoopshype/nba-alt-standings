@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-08_PHI@CHI",
+  "game_id": "401909945",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "away": {
+    "abbr": "PHI",
+    "score": 127
+  },
+  "home": {
+    "abbr": "CHI",
+    "score": 121
+  },
+  "periods": 4,
+  "final_at": "2026-11-08T23:52:06.271Z",
+  "correction": false
+}
