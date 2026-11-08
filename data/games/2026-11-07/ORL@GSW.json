@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-07_ORL@GSW",
+  "game_id": "401909942",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "away": {
+    "abbr": "ORL",
+    "score": 119
+  },
+  "home": {
+    "abbr": "GSW",
+    "score": 126
+  },
+  "periods": 5,
+  "final_at": "2026-11-08T10:38:51.371Z",
+  "correction": false
+}

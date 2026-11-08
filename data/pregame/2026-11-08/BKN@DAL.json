@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-08_BKN@DAL",
+  "game_id": "401909948",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "tip": "2026-11-09T00:30Z",
+  "saved_at": "2026-11-08T10:38:51.371Z",
+  "away": {
+    "abbr": "BKN",
+    "w": 2,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DAL",
+    "w": 5,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

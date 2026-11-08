@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-07_HOU@PHX",
+  "game_id": "401909943",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "away": {
+    "abbr": "HOU",
+    "score": 99
+  },
+  "home": {
+    "abbr": "PHX",
+    "score": 102
+  },
+  "periods": 4,
+  "final_at": "2026-11-08T10:38:51.371Z",
+  "correction": false
+}

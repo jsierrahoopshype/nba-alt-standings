@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-08_MIA@SAC",
+  "game_id": "401909951",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "tip": "2026-11-09T02:00Z",
+  "saved_at": "2026-11-08T10:38:51.371Z",
+  "away": {
+    "abbr": "MIA",
+    "w": 3,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 1,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

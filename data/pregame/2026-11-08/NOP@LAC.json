@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-08_NOP@LAC",
+  "game_id": "401909950",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "tip": "2026-11-09T02:00Z",
+  "saved_at": "2026-11-08T10:38:51.371Z",
+  "away": {
+    "abbr": "NOP",
+    "w": 4,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "LAC",
+    "w": 1,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-08_LAL@DET",
+  "game_id": "401909946",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "tip": "2026-11-08T23:00Z",
+  "saved_at": "2026-11-08T10:38:51.371Z",
+  "away": {
+    "abbr": "LAL",
+    "w": 8,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DET",
+    "w": 6,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}
