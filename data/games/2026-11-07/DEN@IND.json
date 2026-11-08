@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-07_DEN@IND",
+  "game_id": "401909938",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "away": {
+    "abbr": "DEN",
+    "score": 114
+  },
+  "home": {
+    "abbr": "IND",
+    "score": 102
+  },
+  "periods": 4,
+  "final_at": "2026-11-08T02:38:18.666Z",
+  "correction": false
+}
