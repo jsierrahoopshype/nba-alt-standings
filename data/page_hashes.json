@@ -2,20 +2,20 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "cb3b960786b68939",
+      "hash": "48fe7011f394ce89",
       "lastmod": "2026-11-07"
     },
     "https://hoopsmatic.com/standings/hawks": {
-      "hash": "0b06ee85520e7376",
-      "lastmod": "2026-11-06"
+      "hash": "0e616a3c20f7b5b2",
+      "lastmod": "2026-11-07"
     },
     "https://hoopsmatic.com/standings/celtics": {
       "hash": "588b243875036e21",
       "lastmod": "2026-11-06"
     },
     "https://hoopsmatic.com/standings/nets": {
-      "hash": "9a2ad1196d4edf98",
-      "lastmod": "2026-11-04"
+      "hash": "6a7375bf7429557f",
+      "lastmod": "2026-11-07"
     },
     "https://hoopsmatic.com/standings/hornets": {
       "hash": "c47167ae95e7c3b0",
@@ -62,8 +62,8 @@
       "lastmod": "2026-11-06"
     },
     "https://hoopsmatic.com/standings/wizards": {
-      "hash": "0225791e0fe187c0",
-      "lastmod": "2026-11-06"
+      "hash": "0a9e459ba2ae01a3",
+      "lastmod": "2026-11-07"
     },
     "https://hoopsmatic.com/standings/mavericks": {
       "hash": "a646218e2e319999",
@@ -102,8 +102,8 @@
       "lastmod": "2026-11-07"
     },
     "https://hoopsmatic.com/standings/thunder": {
-      "hash": "89ade1ab3cddee2a",
-      "lastmod": "2026-11-06"
+      "hash": "bb6db43749c83b48",
+      "lastmod": "2026-11-07"
     },
     "https://hoopsmatic.com/standings/suns": {
       "hash": "5932f45d4f0db95c",

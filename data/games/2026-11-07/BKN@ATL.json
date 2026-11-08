@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-07_BKN@ATL",
+  "game_id": "401909939",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "away": {
+    "abbr": "BKN",
+    "score": 121
+  },
+  "home": {
+    "abbr": "ATL",
+    "score": 124
+  },
+  "periods": 4,
+  "final_at": "2026-11-08T03:24:07.306Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-07_NYK@CLE",
+  "game_id": "401909940",
+  "id_source": "espn",
+  "date": "2026-11-07",
+  "away": {
+    "abbr": "NYK",
+    "score": 109
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-11-08T03:24:07.306Z",
+  "correction": false
+}
