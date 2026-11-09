@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-09_MEM@TOR",
+  "game_id": "401909955",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "tip": "2026-11-10T00:30Z",
+  "saved_at": "2026-11-09T12:20:29.933Z",
+  "away": {
+    "abbr": "MEM",
+    "w": 6,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "TOR",
+    "w": 5,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

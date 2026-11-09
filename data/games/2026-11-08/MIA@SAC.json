@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-08_MIA@SAC",
+  "game_id": "401909951",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "away": {
+    "abbr": "MIA",
+    "score": 114
+  },
+  "home": {
+    "abbr": "SAC",
+    "score": 108
+  },
+  "periods": 4,
+  "final_at": "2026-11-09T12:20:29.933Z",
+  "correction": false
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-09_LAL@ATL",
+  "game_id": "401909952",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "tip": "2026-11-10T00:00Z",
+  "saved_at": "2026-11-09T12:20:29.933Z",
+  "away": {
+    "abbr": "LAL",
+    "w": 9,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ATL",
+    "w": 7,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

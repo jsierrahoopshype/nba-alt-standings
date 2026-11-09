@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-09_IND@DAL",
+  "game_id": "401909956",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "tip": "2026-11-10T01:00Z",
+  "saved_at": "2026-11-09T12:20:29.933Z",
+  "away": {
+    "abbr": "IND",
+    "w": 3,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DAL",
+    "w": 6,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

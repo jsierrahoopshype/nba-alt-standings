@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-09_SAS@PHX",
+  "game_id": "401909958",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "tip": "2026-11-10T02:00Z",
+  "saved_at": "2026-11-09T12:20:29.933Z",
+  "away": {
+    "abbr": "SAS",
+    "w": 8,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHX",
+    "w": 3,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}

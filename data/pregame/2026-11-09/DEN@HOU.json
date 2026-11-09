@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-09_DEN@HOU",
+  "game_id": "401909957",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "tip": "2026-11-10T01:30Z",
+  "saved_at": "2026-11-09T12:20:29.933Z",
+  "away": {
+    "abbr": "DEN",
+    "w": 5,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "HOU",
+    "w": 7,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}
