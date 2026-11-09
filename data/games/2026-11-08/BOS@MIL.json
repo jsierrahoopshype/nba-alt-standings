@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-08_BOS@MIL",
+  "game_id": "401909949",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "away": {
+    "abbr": "BOS",
+    "score": 117
+  },
+  "home": {
+    "abbr": "MIL",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-11-09T03:41:57.892Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-08_LAL@DET",
+  "game_id": "401909946",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "away": {
+    "abbr": "LAL",
+    "score": 121
+  },
+  "home": {
+    "abbr": "DET",
+    "score": 116
+  },
+  "periods": 4,
+  "final_at": "2026-11-09T03:41:57.892Z",
+  "correction": false
+}

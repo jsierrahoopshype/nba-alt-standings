@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-08_BKN@DAL",
+  "game_id": "401909948",
+  "id_source": "espn",
+  "date": "2026-11-08",
+  "away": {
+    "abbr": "BKN",
+    "score": 93
+  },
+  "home": {
+    "abbr": "DAL",
+    "score": 130
+  },
+  "periods": 4,
+  "final_at": "2026-11-09T03:41:57.892Z",
+  "correction": false
+}
