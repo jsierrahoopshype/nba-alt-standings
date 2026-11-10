@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-09_NOP@GSW",
+  "game_id": "401909959",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "away": {
+    "abbr": "NOP",
+    "score": 87
+  },
+  "home": {
+    "abbr": "GSW",
+    "score": 138
+  },
+  "periods": 4,
+  "final_at": "2026-11-10T13:40:42.210Z",
+  "correction": false
+}
