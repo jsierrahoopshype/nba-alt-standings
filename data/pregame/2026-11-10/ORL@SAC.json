@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-10_ORL@SAC",
+  "game_id": "401909964",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "tip": "2026-11-11T03:00Z",
+  "saved_at": "2026-11-10T05:15:07.395Z",
+  "away": {
+    "abbr": "ORL",
+    "w": 2,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 1,
+    "l": 9,
+    "record_source": "ESPN"
+  }
+}

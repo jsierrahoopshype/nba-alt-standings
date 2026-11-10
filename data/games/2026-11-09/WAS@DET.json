@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-09_WAS@DET",
+  "game_id": "401909954",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "away": {
+    "abbr": "WAS",
+    "score": 111
+  },
+  "home": {
+    "abbr": "DET",
+    "score": 122
+  },
+  "periods": 4,
+  "final_at": "2026-11-10T05:15:07.395Z",
+  "correction": false
+}

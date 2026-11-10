@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-10_OKC@POR",
+  "game_id": "401909965",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "tip": "2026-11-11T04:00Z",
+  "saved_at": "2026-11-10T05:15:07.395Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 8,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "POR",
+    "w": 6,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

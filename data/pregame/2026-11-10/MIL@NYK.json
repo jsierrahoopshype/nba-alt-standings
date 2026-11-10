@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-10_MIL@NYK",
+  "game_id": "401909960",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "tip": "2026-11-11T00:30Z",
+  "saved_at": "2026-11-10T05:15:07.395Z",
+  "away": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 9,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NYK",
+    "w": 5,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

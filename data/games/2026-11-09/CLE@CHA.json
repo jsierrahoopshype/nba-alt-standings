@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-09_CLE@CHA",
+  "game_id": "401909953",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "away": {
+    "abbr": "CLE",
+    "score": 112
+  },
+  "home": {
+    "abbr": "CHA",
+    "score": 124
+  },
+  "periods": 4,
+  "final_at": "2026-11-10T05:15:07.395Z",
+  "correction": false
+}

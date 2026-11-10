@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-09_LAL@ATL",
+  "game_id": "401909952",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "away": {
+    "abbr": "LAL",
+    "score": 124
+  },
+  "home": {
+    "abbr": "ATL",
+    "score": 114
+  },
+  "periods": 4,
+  "final_at": "2026-11-10T05:15:07.395Z",
+  "correction": false
+}

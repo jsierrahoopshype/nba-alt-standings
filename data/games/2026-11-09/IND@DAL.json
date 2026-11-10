@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-09_IND@DAL",
+  "game_id": "401909956",
+  "id_source": "espn",
+  "date": "2026-11-09",
+  "away": {
+    "abbr": "IND",
+    "score": 122
+  },
+  "home": {
+    "abbr": "DAL",
+    "score": 125
+  },
+  "periods": 4,
+  "final_at": "2026-11-10T05:15:07.395Z",
+  "correction": false
+}

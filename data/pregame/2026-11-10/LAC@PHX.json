@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-10_LAC@PHX",
+  "game_id": "401909962",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "tip": "2026-11-11T02:00Z",
+  "saved_at": "2026-11-10T05:15:07.395Z",
+  "away": {
+    "abbr": "LAC",
+    "w": 2,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHX",
+    "w": 3,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}
