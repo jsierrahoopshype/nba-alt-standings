@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-10_MIA@UTA",
+  "game_id": "401909963",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "away": {
+    "abbr": "MIA",
+    "score": 115
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 109
+  },
+  "periods": 4,
+  "final_at": "2026-11-11T11:35:19.194Z",
+  "correction": false
+}

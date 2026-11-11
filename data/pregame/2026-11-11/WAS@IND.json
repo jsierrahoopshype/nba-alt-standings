@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-11_WAS@IND",
+  "game_id": "401909966",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "tip": "2026-11-12T00:00Z",
+  "saved_at": "2026-11-11T11:35:19.194Z",
+  "away": {
+    "abbr": "WAS",
+    "w": 4,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "IND",
+    "w": 3,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

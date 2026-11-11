@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-11_SAS@CHI",
+  "game_id": "401909969",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "tip": "2026-11-12T01:00Z",
+  "saved_at": "2026-11-11T11:35:19.194Z",
+  "away": {
+    "abbr": "SAS",
+    "w": 9,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHI",
+    "w": 1,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

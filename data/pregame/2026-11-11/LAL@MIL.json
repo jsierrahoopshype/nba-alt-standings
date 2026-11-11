@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-11_LAL@MIL",
+  "game_id": "401909971",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "tip": "2026-11-12T01:00Z",
+  "saved_at": "2026-11-11T11:35:19.194Z",
+  "away": {
+    "abbr": "LAL",
+    "w": 10,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 10,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-10_ORL@SAC",
+  "game_id": "401909964",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "away": {
+    "abbr": "ORL",
+    "score": 107
+  },
+  "home": {
+    "abbr": "SAC",
+    "score": 100
+  },
+  "periods": 4,
+  "final_at": "2026-11-11T11:35:19.194Z",
+  "correction": false
+}
