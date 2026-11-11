@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-10_BOS@PHI",
+  "game_id": "401909961",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "away": {
+    "abbr": "BOS",
+    "score": 123
+  },
+  "home": {
+    "abbr": "PHI",
+    "score": 101
+  },
+  "periods": 4,
+  "final_at": "2026-11-11T03:47:31.975Z",
+  "correction": false
+}

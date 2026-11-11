@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-10_MIL@NYK",
+  "game_id": "401909960",
+  "id_source": "espn",
+  "date": "2026-11-10",
+  "away": {
+    "abbr": "MIL",
+    "score": 85
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 117
+  },
+  "periods": 4,
+  "final_at": "2026-11-11T03:47:31.975Z",
+  "correction": false
+}
