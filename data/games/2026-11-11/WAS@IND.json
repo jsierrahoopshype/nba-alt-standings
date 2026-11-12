@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-11_WAS@IND",
+  "game_id": "401909966",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "away": {
+    "abbr": "WAS",
+    "score": 101
+  },
+  "home": {
+    "abbr": "IND",
+    "score": 114
+  },
+  "periods": 4,
+  "final_at": "2026-11-12T03:13:11.227Z",
+  "correction": false
+}
