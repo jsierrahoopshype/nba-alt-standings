@@ -2,8 +2,8 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "d1de3264feb78710",
-      "lastmod": "2026-11-11"
+      "hash": "841f467a93205510",
+      "lastmod": "2026-11-12"
     },
     "https://hoopsmatic.com/standings/hawks": {
       "hash": "d2949f4e71f75ea1",
@@ -74,12 +74,12 @@
       "lastmod": "2026-11-11"
     },
     "https://hoopsmatic.com/standings/warriors": {
-      "hash": "7aaa252e8b569b05",
-      "lastmod": "2026-11-10"
+      "hash": "120c9ce1714a204d",
+      "lastmod": "2026-11-12"
     },
     "https://hoopsmatic.com/standings/rockets": {
-      "hash": "f19a12bf85668867",
-      "lastmod": "2026-11-10"
+      "hash": "d1af219e9515308d",
+      "lastmod": "2026-11-12"
     },
     "https://hoopsmatic.com/standings/clippers": {
       "hash": "12fba86abafbecd6",
@@ -102,16 +102,16 @@
       "lastmod": "2026-11-11"
     },
     "https://hoopsmatic.com/standings/thunder": {
-      "hash": "4085fd2952fb8c5d",
-      "lastmod": "2026-11-11"
+      "hash": "5e4f0bef31982908",
+      "lastmod": "2026-11-12"
     },
     "https://hoopsmatic.com/standings/suns": {
       "hash": "f973eed92a8c747a",
       "lastmod": "2026-11-11"
     },
     "https://hoopsmatic.com/standings/trail-blazers": {
-      "hash": "107915ab84f13625",
-      "lastmod": "2026-11-11"
+      "hash": "ec4ea5b8c055d346",
+      "lastmod": "2026-11-12"
     },
     "https://hoopsmatic.com/standings/kings": {
       "hash": "470a2941d995d29c",

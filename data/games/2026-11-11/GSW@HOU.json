@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-11_GSW@HOU",
+  "game_id": "401909974",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "away": {
+    "abbr": "GSW",
+    "score": 108
+  },
+  "home": {
+    "abbr": "HOU",
+    "score": 115
+  },
+  "periods": 4,
+  "final_at": "2026-11-12T13:28:27.093Z",
+  "correction": false
+}

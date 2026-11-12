@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-12_DET@WAS",
+  "game_id": "401909977",
+  "id_source": "espn",
+  "date": "2026-11-12",
+  "tip": "2026-11-13T00:00Z",
+  "saved_at": "2026-11-12T13:28:27.093Z",
+  "away": {
+    "abbr": "DET",
+    "w": 7,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "WAS",
+    "w": 4,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}
