@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-11_SAS@CHI",
+  "game_id": "401909969",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "away": {
+    "abbr": "SAS",
+    "score": 124
+  },
+  "home": {
+    "abbr": "CHI",
+    "score": 119
+  },
+  "periods": 4,
+  "final_at": "2026-11-12T04:55:20.269Z",
+  "correction": false
+}

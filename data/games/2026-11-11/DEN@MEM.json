@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-11_DEN@MEM",
+  "game_id": "401909970",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "away": {
+    "abbr": "DEN",
+    "score": 123
+  },
+  "home": {
+    "abbr": "MEM",
+    "score": 118
+  },
+  "periods": 4,
+  "final_at": "2026-11-12T04:55:20.269Z",
+  "correction": false
+}

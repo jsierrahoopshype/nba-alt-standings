@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-11_LAL@MIL",
+  "game_id": "401909971",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "away": {
+    "abbr": "LAL",
+    "score": 123
+  },
+  "home": {
+    "abbr": "MIL",
+    "score": 112
+  },
+  "periods": 4,
+  "final_at": "2026-11-12T04:55:20.269Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-11_ORL@UTA",
+  "game_id": "401909973",
+  "id_source": "espn",
+  "date": "2026-11-11",
+  "away": {
+    "abbr": "ORL",
+    "score": 123
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 108
+  },
+  "periods": 4,
+  "final_at": "2026-11-12T04:55:20.269Z",
+  "correction": false
+}
