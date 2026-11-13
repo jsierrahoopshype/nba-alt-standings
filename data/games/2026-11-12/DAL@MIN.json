@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-12_DAL@MIN",
+  "game_id": "401909978",
+  "id_source": "espn",
+  "date": "2026-11-12",
+  "away": {
+    "abbr": "DAL",
+    "score": 94
+  },
+  "home": {
+    "abbr": "MIN",
+    "score": 133
+  },
+  "periods": 4,
+  "final_at": "2026-11-13T04:07:19.652Z",
+  "correction": false
+}
