@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-12_TOR@PHI",
+  "game_id": "401909976",
+  "id_source": "espn",
+  "date": "2026-11-12",
+  "away": {
+    "abbr": "TOR",
+    "score": 112
+  },
+  "home": {
+    "abbr": "PHI",
+    "score": 123
+  },
+  "periods": 4,
+  "final_at": "2026-11-13T02:30:07.174Z",
+  "correction": false
+}
