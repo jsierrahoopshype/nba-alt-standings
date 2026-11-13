@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-13_NYK@IND",
+  "game_id": "401909296",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "tip": "2026-11-14T00:00Z",
+  "saved_at": "2026-11-13T12:27:48.314Z",
+  "away": {
+    "abbr": "NYK",
+    "w": 6,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "IND",
+    "w": 4,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

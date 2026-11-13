@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-13_OKC@LAC",
+  "game_id": "401909304",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "tip": "2026-11-14T03:30Z",
+  "saved_at": "2026-11-13T12:27:48.314Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 8,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "LAC",
+    "w": 2,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

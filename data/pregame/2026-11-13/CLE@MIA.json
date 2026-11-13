@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-13_CLE@MIA",
+  "game_id": "401909298",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "tip": "2026-11-14T01:00Z",
+  "saved_at": "2026-11-13T12:27:48.314Z",
+  "away": {
+    "abbr": "CLE",
+    "w": 6,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIA",
+    "w": 5,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

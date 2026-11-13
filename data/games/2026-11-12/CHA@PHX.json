@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-12_CHA@PHX",
+  "game_id": "401909979",
+  "id_source": "espn",
+  "date": "2026-11-12",
+  "away": {
+    "abbr": "CHA",
+    "score": 96
+  },
+  "home": {
+    "abbr": "PHX",
+    "score": 101
+  },
+  "periods": 4,
+  "final_at": "2026-11-13T12:27:48.314Z",
+  "correction": false
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-13_ATL@CHI",
+  "game_id": "401909299",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "tip": "2026-11-14T01:00Z",
+  "saved_at": "2026-11-13T12:27:48.314Z",
+  "away": {
+    "abbr": "ATL",
+    "w": 7,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHI",
+    "w": 1,
+    "l": 9,
+    "record_source": "ESPN"
+  }
+}

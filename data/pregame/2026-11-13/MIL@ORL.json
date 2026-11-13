@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-13_MIL@ORL",
+  "game_id": "401909297",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "tip": "2026-11-14T00:00Z",
+  "saved_at": "2026-11-13T12:27:48.314Z",
+  "away": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 11,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ORL",
+    "w": 4,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}
