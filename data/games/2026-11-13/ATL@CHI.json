@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-13_ATL@CHI",
+  "game_id": "401909299",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "away": {
+    "abbr": "ATL",
+    "score": 117
+  },
+  "home": {
+    "abbr": "CHI",
+    "score": 125
+  },
+  "periods": 5,
+  "final_at": "2026-11-14T04:04:37.823Z",
+  "correction": false
+}

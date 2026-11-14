@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-13_CLE@MIA",
+  "game_id": "401909298",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "away": {
+    "abbr": "CLE",
+    "score": 121
+  },
+  "home": {
+    "abbr": "MIA",
+    "score": 133
+  },
+  "periods": 4,
+  "final_at": "2026-11-14T04:04:37.823Z",
+  "correction": false
+}

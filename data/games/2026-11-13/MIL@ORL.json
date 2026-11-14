@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-13_MIL@ORL",
+  "game_id": "401909297",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "away": {
+    "abbr": "MIL",
+    "score": 99
+  },
+  "home": {
+    "abbr": "ORL",
+    "score": 107
+  },
+  "periods": 4,
+  "final_at": "2026-11-14T04:04:37.823Z",
+  "correction": false
+}

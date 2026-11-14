@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-13_MEM@NOP",
+  "game_id": "401909300",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "away": {
+    "abbr": "MEM",
+    "score": 142
+  },
+  "home": {
+    "abbr": "NOP",
+    "score": 111
+  },
+  "periods": 4,
+  "final_at": "2026-11-14T04:04:37.823Z",
+  "correction": false
+}
