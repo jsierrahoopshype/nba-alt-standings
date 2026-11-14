@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-13_GSW@SAS",
+  "game_id": "401909302",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "away": {
+    "abbr": "GSW",
+    "score": 85
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 123
+  },
+  "periods": 4,
+  "final_at": "2026-11-14T11:39:59.389Z",
+  "correction": false
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-14_CHI@MIN",
+  "game_id": "401909984",
+  "id_source": "espn",
+  "date": "2026-11-14",
+  "tip": "2026-11-15T01:00Z",
+  "saved_at": "2026-11-14T11:39:59.389Z",
+  "away": {
+    "abbr": "CHI",
+    "w": 2,
+    "l": 9,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIN",
+    "w": 9,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

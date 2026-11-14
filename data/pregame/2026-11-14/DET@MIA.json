@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-14_DET@MIA",
+  "game_id": "401909982",
+  "id_source": "espn",
+  "date": "2026-11-14",
+  "tip": "2026-11-15T01:00Z",
+  "saved_at": "2026-11-14T11:39:59.389Z",
+  "away": {
+    "abbr": "DET",
+    "w": 8,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIA",
+    "w": 6,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

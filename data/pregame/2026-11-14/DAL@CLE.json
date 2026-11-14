@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-14_DAL@CLE",
+  "game_id": "401909981",
+  "id_source": "espn",
+  "date": "2026-11-14",
+  "tip": "2026-11-15T00:30Z",
+  "saved_at": "2026-11-14T11:39:59.389Z",
+  "away": {
+    "abbr": "DAL",
+    "w": 7,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CLE",
+    "w": 6,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

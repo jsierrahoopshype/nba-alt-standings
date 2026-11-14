@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-13_UTA@HOU",
+  "game_id": "401909301",
+  "id_source": "espn",
+  "date": "2026-11-13",
+  "away": {
+    "abbr": "UTA",
+    "score": 118
+  },
+  "home": {
+    "abbr": "HOU",
+    "score": 125
+  },
+  "periods": 4,
+  "final_at": "2026-11-14T11:39:59.389Z",
+  "correction": false
+}
