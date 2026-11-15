@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-14_CHI@MIN",
+  "game_id": "401909984",
+  "id_source": "espn",
+  "date": "2026-11-14",
+  "away": {
+    "abbr": "CHI",
+    "score": 117
+  },
+  "home": {
+    "abbr": "MIN",
+    "score": 106
+  },
+  "periods": 4,
+  "final_at": "2026-11-15T03:50:00.927Z",
+  "correction": false
+}

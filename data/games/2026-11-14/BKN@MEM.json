@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-14_BKN@MEM",
+  "game_id": "401909983",
+  "id_source": "espn",
+  "date": "2026-11-14",
+  "away": {
+    "abbr": "BKN",
+    "score": 110
+  },
+  "home": {
+    "abbr": "MEM",
+    "score": 129
+  },
+  "periods": 4,
+  "final_at": "2026-11-15T03:50:00.927Z",
+  "correction": false
+}
