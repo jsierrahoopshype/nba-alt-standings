@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-15_DAL@BOS",
+  "game_id": "401909989",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "tip": "2026-11-15T23:00Z",
+  "saved_at": "2026-11-15T11:40:20.662Z",
+  "away": {
+    "abbr": "DAL",
+    "w": 7,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BOS",
+    "w": 10,
+    "l": 2,
+    "record_source": "ESPN"
+  }
+}

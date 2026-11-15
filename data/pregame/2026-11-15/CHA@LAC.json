@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-15_CHA@LAC",
+  "game_id": "401909987",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "tip": "2026-11-15T21:30Z",
+  "saved_at": "2026-11-15T11:40:20.662Z",
+  "away": {
+    "abbr": "CHA",
+    "w": 4,
+    "l": 8,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "LAC",
+    "w": 3,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

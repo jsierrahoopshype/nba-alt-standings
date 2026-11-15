@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-15_IND@PHI",
+  "game_id": "401909985",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "tip": "2026-11-15T18:00Z",
+  "saved_at": "2026-11-15T11:40:20.662Z",
+  "away": {
+    "abbr": "IND",
+    "w": 5,
+    "l": 8,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHI",
+    "w": 10,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

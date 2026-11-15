@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-15_ATL@MIL",
+  "game_id": "401909992",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "tip": "2026-11-16T01:00Z",
+  "saved_at": "2026-11-15T11:40:20.662Z",
+  "away": {
+    "abbr": "ATL",
+    "w": 7,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 12,
+    "record_source": "ESPN"
+  }
+}

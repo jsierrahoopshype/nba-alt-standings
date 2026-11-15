@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-15_SAS@UTA",
+  "game_id": "401909988",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "tip": "2026-11-15T22:00Z",
+  "saved_at": "2026-11-15T11:40:20.662Z",
+  "away": {
+    "abbr": "SAS",
+    "w": 11,
+    "l": 2,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "UTA",
+    "w": 1,
+    "l": 12,
+    "record_source": "ESPN"
+  }
+}

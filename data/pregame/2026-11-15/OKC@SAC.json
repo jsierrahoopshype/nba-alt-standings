@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-15_OKC@SAC",
+  "game_id": "401909993",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "tip": "2026-11-16T02:00Z",
+  "saved_at": "2026-11-15T11:40:20.662Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 8,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 1,
+    "l": 11,
+    "record_source": "ESPN"
+  }
+}
