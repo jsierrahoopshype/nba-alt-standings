@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-15_LAL@PHX",
+  "game_id": "401909986",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "away": {
+    "abbr": "LAL",
+    "score": 131
+  },
+  "home": {
+    "abbr": "PHX",
+    "score": 123
+  },
+  "periods": 4,
+  "final_at": "2026-11-16T00:37:02.548Z",
+  "correction": false
+}

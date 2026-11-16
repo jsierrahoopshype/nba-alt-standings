@@ -2,7 +2,7 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "79cd098195df153f",
+      "hash": "2e52e29095b25d32",
       "lastmod": "2026-11-15"
     },
     "https://hoopsmatic.com/standings/hawks": {
@@ -18,8 +18,8 @@
       "lastmod": "2026-11-14"
     },
     "https://hoopsmatic.com/standings/hornets": {
-      "hash": "d067bc25f0ce2eac",
-      "lastmod": "2026-11-13"
+      "hash": "5c7646a2ae6f2958",
+      "lastmod": "2026-11-15"
     },
     "https://hoopsmatic.com/standings/bulls": {
       "hash": "284b6179145cece1",
@@ -82,12 +82,12 @@
       "lastmod": "2026-11-14"
     },
     "https://hoopsmatic.com/standings/clippers": {
-      "hash": "d7d54377c4169ea7",
-      "lastmod": "2026-11-14"
+      "hash": "8eacbc633676641e",
+      "lastmod": "2026-11-15"
     },
     "https://hoopsmatic.com/standings/lakers": {
-      "hash": "ce71dbff1855faba",
-      "lastmod": "2026-11-11"
+      "hash": "aafc6659f65505eb",
+      "lastmod": "2026-11-15"
     },
     "https://hoopsmatic.com/standings/grizzlies": {
       "hash": "61ece246f8db5fec",
@@ -106,8 +106,8 @@
       "lastmod": "2026-11-14"
     },
     "https://hoopsmatic.com/standings/suns": {
-      "hash": "d8d26ad08501e3ca",
-      "lastmod": "2026-11-13"
+      "hash": "015d0fa0fcddc562",
+      "lastmod": "2026-11-15"
     },
     "https://hoopsmatic.com/standings/trail-blazers": {
       "hash": "239b593b344d2efd",
@@ -118,12 +118,12 @@
       "lastmod": "2026-11-14"
     },
     "https://hoopsmatic.com/standings/spurs": {
-      "hash": "89393438347f2e6f",
-      "lastmod": "2026-11-14"
+      "hash": "74564ea7f8c443a2",
+      "lastmod": "2026-11-15"
     },
     "https://hoopsmatic.com/standings/jazz": {
-      "hash": "98662ed88bf99f7f",
-      "lastmod": "2026-11-14"
+      "hash": "e721de43b57da272",
+      "lastmod": "2026-11-15"
     }
   }
 }

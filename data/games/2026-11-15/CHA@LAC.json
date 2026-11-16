@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-15_CHA@LAC",
+  "game_id": "401909987",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "away": {
+    "abbr": "CHA",
+    "score": 105
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 113
+  },
+  "periods": 4,
+  "final_at": "2026-11-16T00:37:02.548Z",
+  "correction": false
+}
