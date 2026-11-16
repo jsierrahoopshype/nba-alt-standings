@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-16_CHI@CLE",
+  "game_id": "401909995",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "tip": "2026-11-17T00:00Z",
+  "saved_at": "2026-11-16T12:16:14.246Z",
+  "away": {
+    "abbr": "CHI",
+    "w": 3,
+    "l": 9,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CLE",
+    "w": 7,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

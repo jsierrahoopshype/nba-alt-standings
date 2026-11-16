@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-15_OKC@SAC",
+  "game_id": "401909993",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "away": {
+    "abbr": "OKC",
+    "score": 125
+  },
+  "home": {
+    "abbr": "SAC",
+    "score": 103
+  },
+  "periods": 4,
+  "final_at": "2026-11-16T12:16:14.246Z",
+  "correction": false
+}

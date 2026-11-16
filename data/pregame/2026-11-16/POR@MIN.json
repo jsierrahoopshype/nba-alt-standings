@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-16_POR@MIN",
+  "game_id": "401909999",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "tip": "2026-11-17T01:00Z",
+  "saved_at": "2026-11-16T12:16:14.246Z",
+  "away": {
+    "abbr": "POR",
+    "w": 9,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIN",
+    "w": 9,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-16_HOU@MIA",
+  "game_id": "401909998",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "tip": "2026-11-17T00:30Z",
+  "saved_at": "2026-11-16T12:16:14.246Z",
+  "away": {
+    "abbr": "HOU",
+    "w": 11,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIA",
+    "w": 7,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}
