@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-15_HOU@WAS",
+  "game_id": "401909991",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "away": {
+    "abbr": "HOU",
+    "score": 147
+  },
+  "home": {
+    "abbr": "WAS",
+    "score": 119
+  },
+  "periods": 4,
+  "final_at": "2026-11-16T03:51:01.602Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-15_DAL@BOS",
+  "game_id": "401909989",
+  "id_source": "espn",
+  "date": "2026-11-15",
+  "away": {
+    "abbr": "DAL",
+    "score": 94
+  },
+  "home": {
+    "abbr": "BOS",
+    "score": 131
+  },
+  "periods": 4,
+  "final_at": "2026-11-16T03:51:01.602Z",
+  "correction": false
+}
