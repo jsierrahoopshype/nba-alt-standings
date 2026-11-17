@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-16_PHI@BKN",
+  "game_id": "401909997",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "away": {
+    "abbr": "PHI",
+    "score": 135
+  },
+  "home": {
+    "abbr": "BKN",
+    "score": 123
+  },
+  "periods": 4,
+  "final_at": "2026-11-17T05:44:12.400Z",
+  "correction": false
+}

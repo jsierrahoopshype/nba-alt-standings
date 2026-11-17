@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-16_MEM@WAS",
+  "game_id": "401909996",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "away": {
+    "abbr": "MEM",
+    "score": 136
+  },
+  "home": {
+    "abbr": "WAS",
+    "score": 120
+  },
+  "periods": 4,
+  "final_at": "2026-11-17T05:44:12.400Z",
+  "correction": false
+}

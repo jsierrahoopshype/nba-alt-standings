@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-16_PHX@DEN",
+  "game_id": "401910001",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "away": {
+    "abbr": "PHX",
+    "score": 117
+  },
+  "home": {
+    "abbr": "DEN",
+    "score": 105
+  },
+  "periods": 4,
+  "final_at": "2026-11-17T05:44:12.400Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-16_HOU@MIA",
+  "game_id": "401909998",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "away": {
+    "abbr": "HOU",
+    "score": 110
+  },
+  "home": {
+    "abbr": "MIA",
+    "score": 128
+  },
+  "periods": 4,
+  "final_at": "2026-11-17T05:44:12.400Z",
+  "correction": false
+}

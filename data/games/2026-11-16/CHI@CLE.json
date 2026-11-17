@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-16_CHI@CLE",
+  "game_id": "401909995",
+  "id_source": "espn",
+  "date": "2026-11-16",
+  "away": {
+    "abbr": "CHI",
+    "score": 115
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 126
+  },
+  "periods": 4,
+  "final_at": "2026-11-17T05:44:12.400Z",
+  "correction": false
+}
