@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-17_UTA@LAC",
+  "game_id": "401910006",
+  "id_source": "espn",
+  "date": "2026-11-17",
+  "away": {
+    "abbr": "UTA",
+    "score": 132
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 107
+  },
+  "periods": 4,
+  "final_at": "2026-11-18T14:24:08.184Z",
+  "correction": false
+}

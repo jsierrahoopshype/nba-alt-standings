@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-17_CHA@LAL",
+  "game_id": "401910005",
+  "id_source": "espn",
+  "date": "2026-11-17",
+  "away": {
+    "abbr": "CHA",
+    "score": 114
+  },
+  "home": {
+    "abbr": "LAL",
+    "score": 118
+  },
+  "periods": 5,
+  "final_at": "2026-11-18T14:24:08.184Z",
+  "correction": false
+}
