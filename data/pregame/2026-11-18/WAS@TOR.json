@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-18_WAS@TOR",
+  "game_id": "401910012",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "tip": "2026-11-19T00:30Z",
+  "saved_at": "2026-11-18T05:09:11.225Z",
+  "away": {
+    "abbr": "WAS",
+    "w": 4,
+    "l": 11,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "TOR",
+    "w": 5,
+    "l": 9,
+    "record_source": "ESPN"
+  }
+}

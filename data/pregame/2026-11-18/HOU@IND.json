@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-18_HOU@IND",
+  "game_id": "401910008",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "tip": "2026-11-19T00:00Z",
+  "saved_at": "2026-11-18T05:09:11.225Z",
+  "away": {
+    "abbr": "HOU",
+    "w": 11,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "IND",
+    "w": 5,
+    "l": 9,
+    "record_source": "ESPN"
+  }
+}

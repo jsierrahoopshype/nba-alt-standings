@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-18_BOS@DEN",
+  "game_id": "401910015",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "tip": "2026-11-19T02:30Z",
+  "saved_at": "2026-11-18T05:09:11.225Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 11,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DEN",
+    "w": 7,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}

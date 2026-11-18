@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-18_PHI@ORL",
+  "game_id": "401910010",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "tip": "2026-11-19T00:00Z",
+  "saved_at": "2026-11-18T05:09:11.225Z",
+  "away": {
+    "abbr": "PHI",
+    "w": 12,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ORL",
+    "w": 6,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

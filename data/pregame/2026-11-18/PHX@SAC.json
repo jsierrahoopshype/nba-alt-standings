@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-18_PHX@SAC",
+  "game_id": "401910018",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "tip": "2026-11-19T03:00Z",
+  "saved_at": "2026-11-18T05:09:11.225Z",
+  "away": {
+    "abbr": "PHX",
+    "w": 6,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 1,
+    "l": 12,
+    "record_source": "ESPN"
+  }
+}
