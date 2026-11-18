@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-17_DET@SAS",
+  "game_id": "401910004",
+  "id_source": "espn",
+  "date": "2026-11-17",
+  "away": {
+    "abbr": "DET",
+    "score": 105
+  },
+  "home": {
+    "abbr": "SAS",
+    "score": 93
+  },
+  "periods": 4,
+  "final_at": "2026-11-18T04:38:22.954Z",
+  "correction": false
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-17_POR@MIN",
+  "game_id": "401910003",
+  "id_source": "espn",
+  "date": "2026-11-17",
+  "away": {
+    "abbr": "POR",
+    "score": 105
+  },
+  "home": {
+    "abbr": "MIN",
+    "score": 106
+  },
+  "periods": 4,
+  "final_at": "2026-11-18T04:38:22.954Z",
+  "correction": false
+}
