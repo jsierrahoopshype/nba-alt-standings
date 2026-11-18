@@ -1,10 +1,10 @@
 {
   "season": "2026-27",
   "source": "https://jsierrahoopshype.github.io/salary-season-finder/data/data.json",
-  "ssf_built": "2026-11-17T15:18:10.138336",
+  "ssf_built": "2026-11-18T14:53:49.786802",
   "records": 565,
   "payroll": {
-    "ATL": 200213961,
+    "ATL": 200210059,
     "BOS": 202186160,
     "BKN": 162093004,
     "CHA": 172768756,
@@ -33,6 +33,6 @@
     "POR": 194130118,
     "SAC": 200684786,
     "SAS": 201153591,
-    "UTA": 186233181
+    "UTA": 186229280
   }
 }
