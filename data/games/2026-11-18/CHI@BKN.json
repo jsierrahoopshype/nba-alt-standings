@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-18_CHI@BKN",
+  "game_id": "401910011",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "away": {
+    "abbr": "CHI",
+    "score": 137
+  },
+  "home": {
+    "abbr": "BKN",
+    "score": 107
+  },
+  "periods": 4,
+  "final_at": "2026-11-19T03:57:02.067Z",
+  "correction": false
+}

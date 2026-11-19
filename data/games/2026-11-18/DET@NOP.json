@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-18_DET@NOP",
+  "game_id": "401910013",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "away": {
+    "abbr": "DET",
+    "score": 122
+  },
+  "home": {
+    "abbr": "NOP",
+    "score": 109
+  },
+  "periods": 4,
+  "final_at": "2026-11-19T03:57:02.067Z",
+  "correction": false
+}

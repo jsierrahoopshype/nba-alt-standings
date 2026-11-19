@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-18_ATL@OKC",
+  "game_id": "401910014",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "away": {
+    "abbr": "ATL",
+    "score": 117
+  },
+  "home": {
+    "abbr": "OKC",
+    "score": 112
+  },
+  "periods": 4,
+  "final_at": "2026-11-19T03:57:02.067Z",
+  "correction": false
+}

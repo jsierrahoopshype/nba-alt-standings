@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-18_HOU@IND",
+  "game_id": "401910008",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "away": {
+    "abbr": "HOU",
+    "score": 119
+  },
+  "home": {
+    "abbr": "IND",
+    "score": 104
+  },
+  "periods": 4,
+  "final_at": "2026-11-19T03:57:02.067Z",
+  "correction": false
+}

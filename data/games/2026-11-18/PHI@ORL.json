@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-18_PHI@ORL",
+  "game_id": "401910010",
+  "id_source": "espn",
+  "date": "2026-11-18",
+  "away": {
+    "abbr": "PHI",
+    "score": 121
+  },
+  "home": {
+    "abbr": "ORL",
+    "score": 116
+  },
+  "periods": 4,
+  "final_at": "2026-11-19T03:57:02.067Z",
+  "correction": false
+}
