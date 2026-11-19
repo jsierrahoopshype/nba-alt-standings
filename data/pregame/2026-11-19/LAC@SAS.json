@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-19_LAC@SAS",
+  "game_id": "401910022",
+  "id_source": "espn",
+  "date": "2026-11-19",
+  "tip": "2026-11-20T01:00Z",
+  "saved_at": "2026-11-19T05:02:50.459Z",
+  "away": {
+    "abbr": "LAC",
+    "w": 4,
+    "l": 9,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAS",
+    "w": 12,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}
