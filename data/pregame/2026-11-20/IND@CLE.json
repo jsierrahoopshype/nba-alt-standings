@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-20_IND@CLE",
+  "game_id": "401909307",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "tip": "2026-11-21T00:30Z",
+  "saved_at": "2026-11-20T13:44:53.264Z",
+  "away": {
+    "abbr": "IND",
+    "w": 5,
+    "l": 10,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CLE",
+    "w": 8,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

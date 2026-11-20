@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-20_TOR@DET",
+  "game_id": "401909308",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "tip": "2026-11-21T00:30Z",
+  "saved_at": "2026-11-20T13:44:53.264Z",
+  "away": {
+    "abbr": "TOR",
+    "w": 5,
+    "l": 10,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DET",
+    "w": 10,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-20_CHA@ATL",
+  "game_id": "401909305",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "tip": "2026-11-21T00:00Z",
+  "saved_at": "2026-11-20T13:44:53.264Z",
+  "away": {
+    "abbr": "CHA",
+    "w": 4,
+    "l": 10,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "ATL",
+    "w": 9,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

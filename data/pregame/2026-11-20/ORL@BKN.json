@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-20_ORL@BKN",
+  "game_id": "401909306",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "tip": "2026-11-21T00:30Z",
+  "saved_at": "2026-11-20T13:44:53.264Z",
+  "away": {
+    "abbr": "ORL",
+    "w": 6,
+    "l": 8,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "BKN",
+    "w": 3,
+    "l": 11,
+    "record_source": "ESPN"
+  }
+}

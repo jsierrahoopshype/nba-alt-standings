@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-20_PHX@UTA",
+  "game_id": "401909311",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "tip": "2026-11-21T02:30Z",
+  "saved_at": "2026-11-20T13:44:53.264Z",
+  "away": {
+    "abbr": "PHX",
+    "w": 7,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "UTA",
+    "w": 3,
+    "l": 13,
+    "record_source": "ESPN"
+  }
+}

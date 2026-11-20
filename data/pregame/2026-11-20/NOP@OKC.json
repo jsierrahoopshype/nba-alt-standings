@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-20_NOP@OKC",
+  "game_id": "401909310",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "tip": "2026-11-21T01:00Z",
+  "saved_at": "2026-11-20T13:44:53.264Z",
+  "away": {
+    "abbr": "NOP",
+    "w": 5,
+    "l": 11,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "OKC",
+    "w": 9,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}
