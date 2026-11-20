@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-19_GSW@MEM",
+  "game_id": "401910019",
+  "id_source": "espn",
+  "date": "2026-11-19",
+  "away": {
+    "abbr": "GSW",
+    "score": 98
+  },
+  "home": {
+    "abbr": "MEM",
+    "score": 126
+  },
+  "periods": 4,
+  "final_at": "2026-11-20T03:50:18.548Z",
+  "correction": false
+}

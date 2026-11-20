@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-19_NYK@MIN",
+  "game_id": "401910021",
+  "id_source": "espn",
+  "date": "2026-11-19",
+  "away": {
+    "abbr": "NYK",
+    "score": 102
+  },
+  "home": {
+    "abbr": "MIN",
+    "score": 99
+  },
+  "periods": 4,
+  "final_at": "2026-11-20T03:50:18.548Z",
+  "correction": false
+}

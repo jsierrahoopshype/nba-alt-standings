@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-19_POR@MIL",
+  "game_id": "401910020",
+  "id_source": "espn",
+  "date": "2026-11-19",
+  "away": {
+    "abbr": "POR",
+    "score": 124
+  },
+  "home": {
+    "abbr": "MIL",
+    "score": 114
+  },
+  "periods": 4,
+  "final_at": "2026-11-20T03:50:18.548Z",
+  "correction": false
+}
