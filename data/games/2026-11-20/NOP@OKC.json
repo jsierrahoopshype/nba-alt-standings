@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-20_NOP@OKC",
+  "game_id": "401909310",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "away": {
+    "abbr": "NOP",
+    "score": 120
+  },
+  "home": {
+    "abbr": "OKC",
+    "score": 126
+  },
+  "periods": 4,
+  "final_at": "2026-11-21T04:48:43.226Z",
+  "correction": false
+}
