@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-20_HOU@DEN",
+  "game_id": "401909312",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "away": {
+    "abbr": "HOU",
+    "score": 124
+  },
+  "home": {
+    "abbr": "DEN",
+    "score": 133
+  },
+  "periods": 4,
+  "final_at": "2026-11-21T13:10:11.080Z",
+  "correction": false
+}

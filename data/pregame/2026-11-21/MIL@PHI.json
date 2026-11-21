@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-21_MIL@PHI",
+  "game_id": "401910023",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "tip": "2026-11-21T18:00Z",
+  "saved_at": "2026-11-21T13:10:11.080Z",
+  "away": {
+    "abbr": "MIL",
+    "w": 1,
+    "l": 15,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHI",
+    "w": 13,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

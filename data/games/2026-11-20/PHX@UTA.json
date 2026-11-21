@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-20_PHX@UTA",
+  "game_id": "401909311",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "away": {
+    "abbr": "PHX",
+    "score": 111
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 101
+  },
+  "periods": 4,
+  "final_at": "2026-11-21T13:10:11.080Z",
+  "correction": false
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-21_POR@NYK",
+  "game_id": "401910024",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "tip": "2026-11-22T00:30Z",
+  "saved_at": "2026-11-21T13:10:11.080Z",
+  "away": {
+    "abbr": "POR",
+    "w": 10,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "NYK",
+    "w": 9,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-20_SAC@LAL",
+  "game_id": "401909313",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "away": {
+    "abbr": "SAC",
+    "score": 104
+  },
+  "home": {
+    "abbr": "LAL",
+    "score": 106
+  },
+  "periods": 4,
+  "final_at": "2026-11-21T13:10:11.080Z",
+  "correction": false
+}

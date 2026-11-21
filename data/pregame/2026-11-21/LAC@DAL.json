@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-21_LAC@DAL",
+  "game_id": "401910025",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "tip": "2026-11-22T01:00Z",
+  "saved_at": "2026-11-21T13:10:11.080Z",
+  "away": {
+    "abbr": "LAC",
+    "w": 4,
+    "l": 10,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DAL",
+    "w": 8,
+    "l": 7,
+    "record_source": "ESPN"
+  }
+}

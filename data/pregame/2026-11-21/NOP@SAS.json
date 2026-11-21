@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-21_NOP@SAS",
+  "game_id": "401910027",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "tip": "2026-11-22T01:00Z",
+  "saved_at": "2026-11-21T13:10:11.080Z",
+  "away": {
+    "abbr": "NOP",
+    "w": 5,
+    "l": 12,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAS",
+    "w": 13,
+    "l": 3,
+    "record_source": "ESPN"
+  }
+}

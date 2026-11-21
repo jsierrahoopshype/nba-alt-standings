@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-21_BOS@SAC",
+  "game_id": "401910028",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "tip": "2026-11-22T03:00Z",
+  "saved_at": "2026-11-21T13:10:11.080Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 11,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "SAC",
+    "w": 1,
+    "l": 14,
+    "record_source": "ESPN"
+  }
+}

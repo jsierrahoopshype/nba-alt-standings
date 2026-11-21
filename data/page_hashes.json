@@ -2,8 +2,8 @@
   "_readme": "Hash of the standings numbers and lastmod per sitemap URL: /standings follows every team, a team page only its own team. A lastmod moves only when those numbers change, never for the \"Updated\" time alone. Written by scripts/build.mjs.",
   "pages": {
     "https://hoopsmatic.com/standings": {
-      "hash": "2bca5df7db4ead03",
-      "lastmod": "2026-11-20"
+      "hash": "c1ba5a5904300557",
+      "lastmod": "2026-11-21"
     },
     "https://hoopsmatic.com/standings/hawks": {
       "hash": "912568d51aae5dca",
@@ -70,24 +70,24 @@
       "lastmod": "2026-11-18"
     },
     "https://hoopsmatic.com/standings/nuggets": {
-      "hash": "e3bed4523e42faf5",
-      "lastmod": "2026-11-19"
+      "hash": "b307e0a843eb91ba",
+      "lastmod": "2026-11-21"
     },
     "https://hoopsmatic.com/standings/warriors": {
       "hash": "921183653125b8c4",
       "lastmod": "2026-11-19"
     },
     "https://hoopsmatic.com/standings/rockets": {
-      "hash": "77c29a995f93f64f",
-      "lastmod": "2026-11-18"
+      "hash": "0fd15557054acb77",
+      "lastmod": "2026-11-21"
     },
     "https://hoopsmatic.com/standings/clippers": {
       "hash": "446db54dca8750df",
       "lastmod": "2026-11-19"
     },
     "https://hoopsmatic.com/standings/lakers": {
-      "hash": "6af957f9509d64bf",
-      "lastmod": "2026-11-19"
+      "hash": "387d7c6c9c83484c",
+      "lastmod": "2026-11-21"
     },
     "https://hoopsmatic.com/standings/grizzlies": {
       "hash": "a815711e16609ca0",
@@ -106,24 +106,24 @@
       "lastmod": "2026-11-20"
     },
     "https://hoopsmatic.com/standings/suns": {
-      "hash": "d8b68ebc650f947b",
-      "lastmod": "2026-11-19"
+      "hash": "2c0e3dfb090a1cda",
+      "lastmod": "2026-11-21"
     },
     "https://hoopsmatic.com/standings/trail-blazers": {
       "hash": "d221bc551f80e1f6",
       "lastmod": "2026-11-19"
     },
     "https://hoopsmatic.com/standings/kings": {
-      "hash": "6863358d2350f7cd",
-      "lastmod": "2026-11-19"
+      "hash": "3a93aa02599cdd79",
+      "lastmod": "2026-11-21"
     },
     "https://hoopsmatic.com/standings/spurs": {
       "hash": "e044fd47fb283134",
       "lastmod": "2026-11-19"
     },
     "https://hoopsmatic.com/standings/jazz": {
-      "hash": "5ca3567bef72cfd7",
-      "lastmod": "2026-11-19"
+      "hash": "f659c063c02dd791",
+      "lastmod": "2026-11-21"
     }
   }
 }
