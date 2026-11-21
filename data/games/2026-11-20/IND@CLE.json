@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-20_IND@CLE",
+  "game_id": "401909307",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "away": {
+    "abbr": "IND",
+    "score": 119
+  },
+  "home": {
+    "abbr": "CLE",
+    "score": 128
+  },
+  "periods": 4,
+  "final_at": "2026-11-21T03:23:22.044Z",
+  "correction": false
+}

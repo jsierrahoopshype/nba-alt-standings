@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-20_CHA@ATL",
+  "game_id": "401909305",
+  "id_source": "espn",
+  "date": "2026-11-20",
+  "away": {
+    "abbr": "CHA",
+    "score": 97
+  },
+  "home": {
+    "abbr": "ATL",
+    "score": 111
+  },
+  "periods": 4,
+  "final_at": "2026-11-21T03:23:22.044Z",
+  "correction": false
+}
