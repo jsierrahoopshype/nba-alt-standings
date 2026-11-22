@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-22_BOS@GSW",
+  "game_id": "401910035",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "tip": "2026-11-23T01:30Z",
+  "saved_at": "2026-11-22T12:45:17.317Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 11,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "GSW",
+    "w": 8,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

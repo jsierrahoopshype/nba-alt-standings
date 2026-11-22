@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-21_BOS@SAC",
+  "game_id": "401910028",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "away": {
+    "abbr": "BOS",
+    "score": 96
+  },
+  "home": {
+    "abbr": "SAC",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-11-22T12:45:17.317Z",
+  "correction": false
+}

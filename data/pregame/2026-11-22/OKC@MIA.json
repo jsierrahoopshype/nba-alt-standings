@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-22_OKC@MIA",
+  "game_id": "401910030",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "tip": "2026-11-22T23:00Z",
+  "saved_at": "2026-11-22T12:45:17.317Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 10,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIA",
+    "w": 9,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}
