@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-21_POR@NYK",
+  "game_id": "401910024",
+  "id_source": "espn",
+  "date": "2026-11-21",
+  "away": {
+    "abbr": "POR",
+    "score": 96
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 97
+  },
+  "periods": 4,
+  "final_at": "2026-11-22T04:04:19.334Z",
+  "correction": false
+}
