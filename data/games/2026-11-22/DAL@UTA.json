@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-22_DAL@UTA",
+  "game_id": "401910033",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "away": {
+    "abbr": "DAL",
+    "score": 116
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 114
+  },
+  "periods": 4,
+  "final_at": "2026-11-23T04:46:19.471Z",
+  "correction": false
+}

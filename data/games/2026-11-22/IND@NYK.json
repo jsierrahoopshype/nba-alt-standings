@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-22_IND@NYK",
+  "game_id": "401910034",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "away": {
+    "abbr": "IND",
+    "score": 106
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 113
+  },
+  "periods": 4,
+  "final_at": "2026-11-23T04:46:19.471Z",
+  "correction": false
+}

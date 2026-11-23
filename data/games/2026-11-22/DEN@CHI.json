@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-22_DEN@CHI",
+  "game_id": "401910032",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "away": {
+    "abbr": "DEN",
+    "score": 151
+  },
+  "home": {
+    "abbr": "CHI",
+    "score": 145
+  },
+  "periods": 5,
+  "final_at": "2026-11-23T04:46:19.471Z",
+  "correction": false
+}

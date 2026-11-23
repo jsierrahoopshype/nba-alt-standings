@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-22_ORL@WAS",
+  "game_id": "401910031",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "away": {
+    "abbr": "ORL",
+    "score": 96
+  },
+  "home": {
+    "abbr": "WAS",
+    "score": 116
+  },
+  "periods": 4,
+  "final_at": "2026-11-23T04:46:19.471Z",
+  "correction": false
+}
