@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-23_MEM@CHA",
+  "game_id": "401910036",
+  "id_source": "espn",
+  "date": "2026-11-23",
+  "tip": "2026-11-24T00:00Z",
+  "saved_at": "2026-11-23T15:32:53.831Z",
+  "away": {
+    "abbr": "MEM",
+    "w": 12,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHA",
+    "w": 4,
+    "l": 11,
+    "record_source": "ESPN"
+  }
+}
