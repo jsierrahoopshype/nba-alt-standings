@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-22_DET@ATL",
+  "game_id": "401910029",
+  "id_source": "espn",
+  "date": "2026-11-22",
+  "away": {
+    "abbr": "DET",
+    "score": 97
+  },
+  "home": {
+    "abbr": "ATL",
+    "score": 107
+  },
+  "periods": 4,
+  "final_at": "2026-11-23T01:54:22.698Z",
+  "correction": false
+}
