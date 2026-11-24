@@ -18,7 +18,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseEspn, parseNbaSchedule, payrollByTeam, parseWL } from '../lib/sources.mjs';
 import { buildRows, byConference, leaders, movers, moverText, joinAnd } from '../lib/model.mjs';
-import { PAGE_URL, LOGO_BASE, SSF_TEAM_BASE, TITLE, DESCRIPTION } from '../lib/render.mjs';
+import { PAGE_URL, LOGO_BASE, SSF_TEAM_BASE, TITLE, DESCRIPTION, moversHtml } from '../lib/render.mjs';
 import { pageHtml } from '../lib/page.mjs';
 import { checkLines, updateSitemap, fontsCss, renderPage, POSSIBLE_WINS, standingsKey } from '../scripts/build.mjs';
 
@@ -154,6 +154,9 @@ const mia = mv.find((m) => m.abbr === 'MIA');
 // 13-6 to 14-6: 14/20 - 13/19 = +1.58 percentage points (the line cancels out).
 ok('movers: Miami won, +1.6% vs. Vegas', Math.abs(mia.delta - (14 / 20 - 13 / 19)) < 1e-9 && moverText(mia).games === 'won' && moverText(mia).delta === '+1.6% vs. Vegas', moverText(mia));
 ok('movers: no previous snapshot -> null', movers(rows, null) === null);
+// Each mover card's team name links to that team's Standings page.
+const mvHtml = moversHtml(mv, '2026-11-30', '2026-12-01');
+ok('movers: each team name links to its /standings/<slug> page', mv.every((m) => mvHtml.includes(`<a class="mv-link" href="https://hoopsmatic.com/standings/${m.ssf_slug}">${m.short}</a>`)) && (mvHtml.match(/class="mv-link"/g) || []).length === mv.length, mvHtml);
 
 // ── 7. The built page ──
 const page = await renderPage();

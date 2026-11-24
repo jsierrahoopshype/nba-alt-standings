@@ -60,6 +60,11 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .mover{min-width:0;display:flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);
   border-radius:12px;padding:.45rem .7rem;font-size:.78rem}
 .mover img{width:28px;height:28px;flex-shrink:0}
+/* team name links to its Standings page; the ::after stretches the tap area
+   over the whole card without changing how the card looks */
+.mover{position:relative}
+.mover .mv-link{color:inherit}
+.mover .mv-link::after{content:'';position:absolute;inset:0;border-radius:12px}
 .mover .nm{font-weight:600;display:block;line-height:1.2}
 .mover .det{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text-secondary);display:block}
 .mover .d{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.74rem}
@@ -126,6 +131,11 @@ table.glog thead th[data-tip]{cursor:help}
 .foot{text-align:center;font-size:.72rem;color:var(--text-secondary);margin-top:1.6rem;
   font-family:'JetBrains Mono',monospace;line-height:1.7}
 
+/* timeframe chips and date pickers: 44px tap targets on phones */
+@media(max-width:699px){
+  .tf .chip{display:inline-flex;align-items:center;min-height:44px}
+  .tf-dates select{min-height:44px}
+}
 @media(min-width:700px){
   .leaders{grid-template-columns:1fr 1fr}
   .movers{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
@@ -229,7 +239,7 @@ table.glog tbody tr{cursor:default}
 <section class="block" id="tf-leaders"><div class="leaders"><div class="lead"><dl><div><dt>Most overachieving</dt><dd>Memphis (+36.2% vs. Vegas), LA Lakers (+27.8%) and Dallas (+18.0%)</dd></div><div><dt>Most underachieving</dt><dd>Utah (−29.9% vs. Vegas), Charlotte (−22.0%) and Toronto (−21.4%)</dd></div></dl></div><div class="lead"><dl><div><dt>Most improved</dt><dd>Memphis (+41.7% vs. last year), Dallas (+27.1%) and Philadelphia (+22.9%)</dd></div><div><dt>Most declined</dt><dd>Charlotte (−28.7% vs. last year), Milwaukee (−27.9%) and LA Clippers (−26.2%)</dd></div></dl></div><div class="lead"><dl><div><dt>Best bang for the buck</dt><dd>San Antonio ($13.4M per win), Memphis ($13.6M) and LA Lakers ($13.8M)</dd></div><div><dt>Worst bang for the buck</dt><dd>Sacramento ($101.7M per win), Milwaukee ($95.5M) and Utah ($62.1M)</dd></div></dl></div><div class="lead"><dl><div><dt>Luckiest</dt><dd>Philadelphia (+4.0 wins vs. expected), LA Lakers (+2.6) and Denver (+1.7)</dd></div><div><dt>Unluckiest</dt><dd>Toronto (−2.4 wins vs. expected), Utah (−2.3) and Boston (−2.1)</dd></div></dl></div></div></section>
 
 <section class="block"><div class="block-head"><h2>Biggest movers since yesterday</h2></div>
-<div class="movers"><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612749.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm">Milwaukee <span class="d pos">+5.2% vs. Vegas</span></span><span class="det">won, now 2-16</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612755.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm">Philadelphia <span class="d neg">−4.6% vs. Vegas</span></span><span class="det">lost, now 14-4</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612741.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm">Chicago <span class="d pos">+4.4% vs. Vegas</span></span><span class="det">won, now 5-12</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612754.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm">Indiana <span class="d pos">+3.9% vs. Vegas</span></span><span class="det">won, now 6-12</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612760.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm">Oklahoma City <span class="d neg">−3.3% vs. Vegas</span></span><span class="det">lost, now 10-8</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612739.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm">Cleveland <span class="d neg">−2.9% vs. Vegas</span></span><span class="det">lost, now 9-9</span></span></div></div>
+<div class="movers"><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612749.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm"><a class="mv-link" href="https://hoopsmatic.com/standings/bucks">Milwaukee</a> <span class="d pos">+5.2% vs. Vegas</span></span><span class="det">won, now 2-16</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612755.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm"><a class="mv-link" href="https://hoopsmatic.com/standings/76ers">Philadelphia</a> <span class="d neg">−4.6% vs. Vegas</span></span><span class="det">lost, now 14-4</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612741.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm"><a class="mv-link" href="https://hoopsmatic.com/standings/bulls">Chicago</a> <span class="d pos">+4.4% vs. Vegas</span></span><span class="det">won, now 5-12</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612754.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm"><a class="mv-link" href="https://hoopsmatic.com/standings/pacers">Indiana</a> <span class="d pos">+3.9% vs. Vegas</span></span><span class="det">won, now 6-12</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612760.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm"><a class="mv-link" href="https://hoopsmatic.com/standings/thunder">Oklahoma City</a> <span class="d neg">−3.3% vs. Vegas</span></span><span class="det">lost, now 10-8</span></span></div><div class="mover"><img src="https://jsierrahoopshype.github.io/nba-headshots/teams/logos/current/svg/1610612739.svg" alt="" width="28" height="28" loading="lazy"><span><span class="nm"><a class="mv-link" href="https://hoopsmatic.com/standings/cavaliers">Cleveland</a> <span class="d neg">−2.9% vs. Vegas</span></span><span class="det">lost, now 9-9</span></span></div></div>
 </section>
 
 <div id="tf-tables">
@@ -884,7 +894,7 @@ function movers(rows, prev, { n = 6 } = {}) {
     const before = vsVegas({ ...p, line: r.line });
     const after = r.m.value.vsVegas;
     const delta = (after ?? 0) - (before ?? 0);
-    out.push({ abbr: r.abbr, short: r.short, name: r.name, nba_id: r.nba_id, delta,
+    out.push({ abbr: r.abbr, short: r.short, name: r.name, nba_id: r.nba_id, ssf_slug: r.ssf_slug, delta,
       dw: r.w - p.w, dl: r.l - p.l, w: r.w, l: r.l });
   }
   out.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || a.short.localeCompare(b.short));
@@ -1059,7 +1069,7 @@ function moversHtml(list, prevDate, today) {
     const t = moverText(m);
     const cls = round(m.delta * 100, 1) > 0 ? 'pos' : round(m.delta * 100, 1) < 0 ? 'neg' : '';
     return `<div class="mover"><img src="${logoUrl(m)}" alt="" width="28" height="28" loading="lazy">`
-      + `<span><span class="nm">${esc(m.short)} <span class="d ${cls}">${esc(t.delta)}</span></span>`
+      + `<span><span class="nm"><a class="mv-link" href="${standingsTeamUrl(m)}">${esc(m.short)}</a> <span class="d ${cls}">${esc(t.delta)}</span></span>`
       + `<span class="det">${esc(t.games)}, now ${esc(t.record)}</span></span></div>`;
   }).join('') + '</div>';
 }

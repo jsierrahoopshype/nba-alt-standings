@@ -60,6 +60,11 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .mover{min-width:0;display:flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);
   border-radius:12px;padding:.45rem .7rem;font-size:.78rem}
 .mover img{width:28px;height:28px;flex-shrink:0}
+/* team name links to its Standings page; the ::after stretches the tap area
+   over the whole card without changing how the card looks */
+.mover{position:relative}
+.mover .mv-link{color:inherit}
+.mover .mv-link::after{content:'';position:absolute;inset:0;border-radius:12px}
 .mover .nm{font-weight:600;display:block;line-height:1.2}
 .mover .det{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text-secondary);display:block}
 .mover .d{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.74rem}
@@ -126,6 +131,11 @@ table.glog thead th[data-tip]{cursor:help}
 .foot{text-align:center;font-size:.72rem;color:var(--text-secondary);margin-top:1.6rem;
   font-family:'JetBrains Mono',monospace;line-height:1.7}
 
+/* timeframe chips and date pickers: 44px tap targets on phones */
+@media(max-width:699px){
+  .tf .chip{display:inline-flex;align-items:center;min-height:44px}
+  .tf-dates select{min-height:44px}
+}
 @media(min-width:700px){
   .leaders{grid-template-columns:1fr 1fr}
   .movers{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
