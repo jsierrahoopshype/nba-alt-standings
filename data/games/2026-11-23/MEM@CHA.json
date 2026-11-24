@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-23_MEM@CHA",
+  "game_id": "401910036",
+  "id_source": "espn",
+  "date": "2026-11-23",
+  "away": {
+    "abbr": "MEM",
+    "score": 117
+  },
+  "home": {
+    "abbr": "CHA",
+    "score": 111
+  },
+  "periods": 4,
+  "final_at": "2026-11-24T02:43:14.873Z",
+  "correction": false
+}
