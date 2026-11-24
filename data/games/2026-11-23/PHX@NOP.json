@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-23_PHX@NOP",
+  "game_id": "401910042",
+  "id_source": "espn",
+  "date": "2026-11-23",
+  "away": {
+    "abbr": "PHX",
+    "score": 123
+  },
+  "home": {
+    "abbr": "NOP",
+    "score": 119
+  },
+  "periods": 5,
+  "final_at": "2026-11-24T07:37:43.130Z",
+  "correction": false
+}

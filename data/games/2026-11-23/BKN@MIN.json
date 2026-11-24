@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-23_BKN@MIN",
+  "game_id": "401910040",
+  "id_source": "espn",
+  "date": "2026-11-23",
+  "away": {
+    "abbr": "BKN",
+    "score": 116
+  },
+  "home": {
+    "abbr": "MIN",
+    "score": 142
+  },
+  "periods": 4,
+  "final_at": "2026-11-24T07:37:43.130Z",
+  "correction": false
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-24_DAL@DEN",
+  "game_id": "401909316",
+  "id_source": "espn",
+  "date": "2026-11-24",
+  "tip": "2026-11-25T03:00Z",
+  "saved_at": "2026-11-24T07:37:43.130Z",
+  "away": {
+    "abbr": "DAL",
+    "w": 10,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DEN",
+    "w": 10,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}

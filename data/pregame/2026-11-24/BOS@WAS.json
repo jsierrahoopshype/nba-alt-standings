@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-24_BOS@WAS",
+  "game_id": "401909315",
+  "id_source": "espn",
+  "date": "2026-11-24",
+  "tip": "2026-11-25T01:00Z",
+  "saved_at": "2026-11-24T07:37:43.130Z",
+  "away": {
+    "abbr": "BOS",
+    "w": 11,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "WAS",
+    "w": 7,
+    "l": 11,
+    "record_source": "ESPN"
+  }
+}
