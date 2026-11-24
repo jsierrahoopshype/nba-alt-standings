@@ -54,9 +54,10 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .lead dd{font-size:.84rem;line-height:1.4}
 .lead dd.none{color:var(--text-secondary)}
 
-/* movers strip */
-.movers{display:flex;gap:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.2rem}
-.mover{flex:0 0 auto;display:flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);
+/* movers: one card per row on phones, a wrapping grid from 700px up. No
+   sideways scrolling: every card is shown in full. */
+.movers{display:grid;grid-template-columns:1fr;gap:.5rem}
+.mover{min-width:0;display:flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);
   border-radius:12px;padding:.45rem .7rem;font-size:.78rem}
 .mover img{width:28px;height:28px;flex-shrink:0}
 .mover .nm{font-weight:600;display:block;line-height:1.2}
@@ -127,6 +128,7 @@ table.glog thead th[data-tip]{cursor:help}
 
 @media(min-width:700px){
   .leaders{grid-template-columns:1fr 1fr}
+  .movers{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
 }
 @media(min-width:860px){
   .container{padding:1.5rem 1.5rem 4rem}
