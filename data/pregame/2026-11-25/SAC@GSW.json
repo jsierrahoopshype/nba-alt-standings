@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-25_SAC@GSW",
+  "game_id": "401909324",
+  "id_source": "espn",
+  "date": "2026-11-25",
+  "tip": "2026-11-26T03:00Z",
+  "saved_at": "2026-11-25T06:05:50.717Z",
+  "away": {
+    "abbr": "SAC",
+    "w": 2,
+    "l": 15,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "GSW",
+    "w": 9,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

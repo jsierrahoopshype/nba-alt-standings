@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-24_BOS@WAS",
+  "game_id": "401909315",
+  "id_source": "espn",
+  "date": "2026-11-24",
+  "away": {
+    "abbr": "BOS",
+    "score": 131
+  },
+  "home": {
+    "abbr": "WAS",
+    "score": 116
+  },
+  "periods": 4,
+  "final_at": "2026-11-25T06:05:50.717Z",
+  "correction": false
+}

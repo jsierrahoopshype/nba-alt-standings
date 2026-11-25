@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-25_PHX@HOU",
+  "game_id": "401909323",
+  "id_source": "espn",
+  "date": "2026-11-25",
+  "tip": "2026-11-26T01:30Z",
+  "saved_at": "2026-11-25T06:05:50.717Z",
+  "away": {
+    "abbr": "PHX",
+    "w": 9,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "HOU",
+    "w": 13,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}

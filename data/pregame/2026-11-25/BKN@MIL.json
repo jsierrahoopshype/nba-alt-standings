@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-25_BKN@MIL",
+  "game_id": "401909322",
+  "id_source": "espn",
+  "date": "2026-11-25",
+  "tip": "2026-11-26T01:00Z",
+  "saved_at": "2026-11-25T06:05:50.717Z",
+  "away": {
+    "abbr": "BKN",
+    "w": 3,
+    "l": 13,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 2,
+    "l": 16,
+    "record_source": "ESPN"
+  }
+}

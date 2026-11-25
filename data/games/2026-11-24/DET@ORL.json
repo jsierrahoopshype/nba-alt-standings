@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-24_DET@ORL",
+  "game_id": "401909314",
+  "id_source": "espn",
+  "date": "2026-11-24",
+  "away": {
+    "abbr": "DET",
+    "score": 104
+  },
+  "home": {
+    "abbr": "ORL",
+    "score": 86
+  },
+  "periods": 4,
+  "final_at": "2026-11-25T06:05:50.717Z",
+  "correction": false
+}

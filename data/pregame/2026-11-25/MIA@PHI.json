@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-25_MIA@PHI",
+  "game_id": "401909317",
+  "id_source": "espn",
+  "date": "2026-11-25",
+  "tip": "2026-11-25T22:00Z",
+  "saved_at": "2026-11-25T06:05:50.717Z",
+  "away": {
+    "abbr": "MIA",
+    "w": 10,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHI",
+    "w": 14,
+    "l": 4,
+    "record_source": "ESPN"
+  }
+}

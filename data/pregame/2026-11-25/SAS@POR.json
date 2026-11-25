@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-25_SAS@POR",
+  "game_id": "401909325",
+  "id_source": "espn",
+  "date": "2026-11-25",
+  "tip": "2026-11-26T03:00Z",
+  "saved_at": "2026-11-25T06:05:50.717Z",
+  "away": {
+    "abbr": "SAS",
+    "w": 15,
+    "l": 3,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "POR",
+    "w": 11,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

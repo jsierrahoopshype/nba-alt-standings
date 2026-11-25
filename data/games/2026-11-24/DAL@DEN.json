@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-24_DAL@DEN",
+  "game_id": "401909316",
+  "id_source": "espn",
+  "date": "2026-11-24",
+  "away": {
+    "abbr": "DAL",
+    "score": 120
+  },
+  "home": {
+    "abbr": "DEN",
+    "score": 101
+  },
+  "periods": 4,
+  "final_at": "2026-11-25T06:05:50.717Z",
+  "correction": false
+}
