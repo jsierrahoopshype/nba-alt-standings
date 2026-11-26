@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-25_SAS@POR",
+  "game_id": "401909325",
+  "id_source": "espn",
+  "date": "2026-11-25",
+  "away": {
+    "abbr": "SAS",
+    "score": 111
+  },
+  "home": {
+    "abbr": "POR",
+    "score": 116
+  },
+  "periods": 4,
+  "final_at": "2026-11-26T05:58:30.149Z",
+  "correction": false
+}
