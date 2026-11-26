@@ -1,7 +1,7 @@
 {
   "season": "2026-27",
   "source": "https://jsierrahoopshype.github.io/salary-season-finder/data/data.json",
-  "ssf_built": "2026-11-25T16:35:26.418096",
+  "ssf_built": "2026-11-26T16:07:51.187842",
   "records": 567,
   "payroll": {
     "ATL": 200210059,
@@ -15,7 +15,7 @@
     "MIA": 209018830,
     "MIL": 191002986,
     "NYK": 226463532,
-    "ORL": 223461006,
+    "ORL": 225892775,
     "PHI": 210400824,
     "TOR": 204776118,
     "WAS": 197115893,
