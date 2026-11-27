@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-27_MIL@DET",
+  "game_id": "401909327",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "tip": "2026-11-28T00:30Z",
+  "saved_at": "2026-11-27T05:52:30.411Z",
+  "away": {
+    "abbr": "MIL",
+    "w": 2,
+    "l": 17,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "DET",
+    "w": 11,
+    "l": 6,
+    "record_source": "ESPN"
+  }
+}

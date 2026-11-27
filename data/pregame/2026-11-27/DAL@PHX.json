@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-27_DAL@PHX",
+  "game_id": "401909332",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "tip": "2026-11-28T02:00Z",
+  "saved_at": "2026-11-27T05:52:30.411Z",
+  "away": {
+    "abbr": "DAL",
+    "w": 11,
+    "l": 7,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "PHX",
+    "w": 9,
+    "l": 8,
+    "record_source": "ESPN"
+  }
+}

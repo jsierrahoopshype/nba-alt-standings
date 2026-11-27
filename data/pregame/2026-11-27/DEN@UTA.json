@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-27_DEN@UTA",
+  "game_id": "401909334",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "tip": "2026-11-28T02:30Z",
+  "saved_at": "2026-11-27T05:52:30.411Z",
+  "away": {
+    "abbr": "DEN",
+    "w": 10,
+    "l": 6,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "UTA",
+    "w": 3,
+    "l": 16,
+    "record_source": "ESPN"
+  }
+}

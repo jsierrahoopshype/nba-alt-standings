@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-27_MEM@MIN",
+  "game_id": "401909331",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "tip": "2026-11-28T01:30Z",
+  "saved_at": "2026-11-27T05:52:30.411Z",
+  "away": {
+    "abbr": "MEM",
+    "w": 14,
+    "l": 5,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIN",
+    "w": 14,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}
