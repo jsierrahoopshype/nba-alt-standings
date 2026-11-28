@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-28_IND@CHI",
+  "game_id": "401910048",
+  "id_source": "espn",
+  "date": "2026-11-28",
+  "tip": "2026-11-29T01:00Z",
+  "saved_at": "2026-11-28T05:31:58.939Z",
+  "away": {
+    "abbr": "IND",
+    "w": 6,
+    "l": 13,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "CHI",
+    "w": 6,
+    "l": 12,
+    "record_source": "ESPN"
+  }
+}

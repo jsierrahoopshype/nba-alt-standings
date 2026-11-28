@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-28_PHI@HOU",
+  "game_id": "401910050",
+  "id_source": "espn",
+  "date": "2026-11-28",
+  "tip": "2026-11-29T01:30Z",
+  "saved_at": "2026-11-28T05:31:58.939Z",
+  "away": {
+    "abbr": "PHI",
+    "w": 16,
+    "l": 4,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "HOU",
+    "w": 14,
+    "l": 5,
+    "record_source": "ESPN"
+  }
+}

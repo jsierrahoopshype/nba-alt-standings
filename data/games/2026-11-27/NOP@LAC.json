@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-27_NOP@LAC",
+  "game_id": "401909335",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "away": {
+    "abbr": "NOP",
+    "score": 105
+  },
+  "home": {
+    "abbr": "LAC",
+    "score": 104
+  },
+  "periods": 4,
+  "final_at": "2026-11-28T05:31:58.939Z",
+  "correction": false
+}

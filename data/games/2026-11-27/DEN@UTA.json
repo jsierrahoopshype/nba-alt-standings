@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-27_DEN@UTA",
+  "game_id": "401909334",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "away": {
+    "abbr": "DEN",
+    "score": 120
+  },
+  "home": {
+    "abbr": "UTA",
+    "score": 107
+  },
+  "periods": 4,
+  "final_at": "2026-11-28T05:31:58.939Z",
+  "correction": false
+}

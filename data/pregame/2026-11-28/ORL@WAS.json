@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-28_ORL@WAS",
+  "game_id": "401910046",
+  "id_source": "espn",
+  "date": "2026-11-28",
+  "tip": "2026-11-28T22:00Z",
+  "saved_at": "2026-11-28T05:31:58.939Z",
+  "away": {
+    "abbr": "ORL",
+    "w": 7,
+    "l": 10,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "WAS",
+    "w": 7,
+    "l": 12,
+    "record_source": "ESPN"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "key": "2026-11-28_OKC@MIL",
+  "game_id": "401910049",
+  "id_source": "espn",
+  "date": "2026-11-28",
+  "tip": "2026-11-29T01:00Z",
+  "saved_at": "2026-11-28T05:31:58.939Z",
+  "away": {
+    "abbr": "OKC",
+    "w": 10,
+    "l": 9,
+    "record_source": "ESPN"
+  },
+  "home": {
+    "abbr": "MIL",
+    "w": 2,
+    "l": 18,
+    "record_source": "ESPN"
+  }
+}

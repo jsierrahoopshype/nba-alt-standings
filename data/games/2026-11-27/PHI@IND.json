@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-27_PHI@IND",
+  "game_id": "401909328",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "away": {
+    "abbr": "PHI",
+    "score": 111
+  },
+  "home": {
+    "abbr": "IND",
+    "score": 87
+  },
+  "periods": 4,
+  "final_at": "2026-11-28T05:31:58.939Z",
+  "correction": false
+}

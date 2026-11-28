@@ -1,0 +1,17 @@
+{
+  "key": "2026-11-27_MIA@NYK",
+  "game_id": "401909326",
+  "id_source": "espn",
+  "date": "2026-11-27",
+  "away": {
+    "abbr": "MIA",
+    "score": 108
+  },
+  "home": {
+    "abbr": "NYK",
+    "score": 105
+  },
+  "periods": 4,
+  "final_at": "2026-11-28T05:31:58.939Z",
+  "correction": false
+}
